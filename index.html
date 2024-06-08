@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PattyDOS</title>
     <link rel="stylesheet" href="/PattyDOS/styles.css">
+    <link rel="stylesheet" href="/PattyDOS/apps/settings/settings.css">
 </head>
 <body>
     <div id="screen">
+        <div id="settingsApp">
+            <div class="frame" id="settingsFrame"><p>Settings</p></div>
+        </div>
         <div id="homePage">
-            <div id="settingsIcon" class="desktopIcon" tabindex="0" draggable="true">
-                <img class="desktopIconImage" draggable="false" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png">
+            <div class="desktopIcon" id="settingsIcon" tabindex="0" draggable="true">
+                <img class="desktopIconImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png">
                 <p class="desktopIconTitle">Settings</p>
             </div>
+
             <div class="desktopIcon" tabindex="0">
-                <img class="desktopIconImage" draggable="false" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png">
-                <p class="desktopIconTitle">Template</p>
+                <img class="desktopIconImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png">
+                <p class="desktopIconTitle">App Store</p>
             </div>
 
             <div class="desktopIcon"></div>
@@ -350,6 +355,7 @@
 
 
     <script src="/PattyDOS/script.js"></script>
+    <script src="/PattyDOS/apps/settings/settings.js"></script>
     <!--
     Notes
     -->

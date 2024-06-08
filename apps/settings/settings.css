@@ -1,0 +1,24 @@
+#settingsApp {
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    left: 0; 
+    right: 0; 
+    top: 7%;
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 40%;
+    height: 75%;
+    margin: 0 auto 0 auto;
+    resize: both;
+    overflow: auto;
+    border: solid;
+    border-width: 1px;
+    border-color: rgb(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background-color: rgb(26, 26, 26);
+    color: white;
+}
+#settingsApp:focus {
+    border-color: rgb(255, 255, 255, 1);
+}

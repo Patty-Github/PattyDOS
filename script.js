@@ -6,45 +6,79 @@ let desktopIconHTML;
 
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-desktopIcons.forEach((desktopIcon) => {
-    desktopIcon.addEventListener('contextmenu', () => {
-        console.log('click');
-    })
-
-    desktopIcon.addEventListener('dragstart', (event) => {
-        //console.log('dragging');
-        desktopIconHTML = desktopIcon.innerHTML;
-        document.body.style.cursor = 'pointer';
-    })
-    desktopIcon.addEventListener('dragend', (event) => {
-        //console.log('end drag');
-        event.preventDefault();
-        document.body.style.cursor = 'default';
-    })
-})
-
-homePage.addEventListener('dragend', (e) => {
-    e.innerHTML = desktopIconHTML;
-    console.log('donezo')
-})
-
-homePage.addEventListener('dragover', (event) => {
-    event.preventDefault();
-})
-
-
 
 function setFontSize() {
-    for(let i = 0; i < desktopIcons.length; i++) {
-        let desktopIconWidth = parseFloat(getComputedStyle(desktopIcons[i]).width);
-        desktopIconTitles[i].style.fontSize = (desktopIconWidth / 4) + 'px';
-    }
+    let i = 0;
     desktopIcons.forEach((desktopIcon) => {
-        //
+        let desktopIconWidth = parseFloat(getComputedStyle(desktopIcon).width)
+        if(desktopIconTitles[i]) {
+            desktopIconTitles[i].style.fontSize = (desktopIconWidth / 4) + 'px';
+        } 
+        i++;
     })
 }
 setFontSize();
+window.addEventListener('resize', setFontSize)
 
 // have every grid slot have a desktopIcon, on drop, that innerHTML is dragged HTML.
 
 // add wallpaper customization 
+
+
+/* don't work
+
+/*desktopIcons.forEach((desktopIcon) => {
+    desktopIcon.addEventListener('contextmenu', () => {
+        //show app menu
+    })
+
+    if(desktopIcon.innerHTML != '') {
+        desktopIcon.addEventListener('dragstart', (event) => {
+            desktopIconHTML = desktopIcon.innerHTML;
+            desktopIcon.innerHTML = ''
+            document.body.style.cursor = 'pointer';
+        })
+
+        desktopIcon.addEventListener('dragend', (event) => {
+            event.preventDefault();
+            document.body.style.cursor = 'default';
+            //e.innerHTML = desktopIconHTML;
+        })
+    }
+
+    desktopIcon.addEventListener('dragover', (event) => {
+        event.preventDefault();
+    })
+
+    desktopIcon.addEventListener('drop', (event) => {
+        event.preventDefault();
+        if(desktopIcon.innerHTML == '') {
+            desktopIcon.innerHTML = desktopIconHTML;
+        }
+    })
+})*/
+
+/*let i = 0;
+
+desktopIcons.forEach((desktopIcon) => {
+    if(desktopIcon.innerHTML != '') {
+        desktopIcon.addEventListener('dragstart', (event) => {
+            desktopIconHTML = desktopIcon.innerHTML;
+        })
+    }
+
+    desktopIcon.addEventListener('dragover', (event) => {
+        event.preventDefault();
+    })
+
+    desktopIcon.addEventListener('drop', (event) => {
+        event.preventDefault();
+        if(desktopIcon.innerHTML == '') {
+            desktopIcon.innerHTML = desktopIconHTML;
+        }
+    })
+})*/
+
+// when desktopIcon is dragged, store that icon's HTML in a variable.
+// when that desktop icon gets dropped on another desktop icon, set the desktopIcon's innerHTML to var. 
+// delete the first icon's innerHTML
