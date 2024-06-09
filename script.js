@@ -24,6 +24,7 @@ const settingsIcon = document.getElementById('settingsIcon');
 const settingsApp = document.getElementById('settingsApp');
 settingsIcon.addEventListener('dblclick', () => {settingsApp.style.display = 'flex'})
 
+
 // have every grid slot have a desktopIcon, on drop, that innerHTML is dragged HTML.
 
 // add wallpaper customization 
