@@ -33,7 +33,13 @@ let savedWindowX;
 let savedWindowY;
 let grabbingWindow = false;
 
-settingsFrame.addEventListener('mousedown', () => {grabbingWindow = true; savedMouseY = mouseY; savedMouseX = mouseX;})
+settingsFrame.addEventListener('mousedown', () => {grabbingWindow = true; 
+    savedMouseY = mouseY; 
+    savedMouseX = mouseX;
+    savedWindowX = parseFloat(getComputedStyle(settingsWindow).left);
+    savedWindowY = parseFloat(getComputedStyle(settingsWindow).top);
+    console.log(savedWindowX + ' ' + savedWindowY)
+})
 window.addEventListener('mouseup', () => {grabbingWindow = false;})
 
 window.addEventListener('mousemove', (event) => {
@@ -47,13 +53,6 @@ window.addEventListener('mousemove', (event) => {
 function dragWindow() {
     const xOffset = savedMouseX - mouseX;
     const yOffset = savedMouseY - mouseY;
-    console.log(xOffset + ' ' + yOffset)
-    let positionX = parseFloat(getComputedStyle(settingsWindow).left);
-    let positionY = parseFloat(getComputedStyle(settingsWindow).top);
-    //console.log(xOffset + ' ' + yOffset);
-    newPosX = positionX + xOffset;
-    newPosY = positionY + yOffset;
-    settingsWindow.style.top = (newPosX) + 'px';
-    settingsWindow.style.left = (newPosY) + 'px';
-    // stunned.
+    settingsWindow.style.left = (savedWindowX -  xOffset) + 'px';
+    settingsWindow.style.top = (savedWindowY - yOffset) + 'px';
 }
