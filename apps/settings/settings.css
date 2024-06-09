@@ -1,5 +1,4 @@
 #settingsApp {
-    z-index: 1;
     position: absolute;
     display: flex;
     left: 0; 
@@ -7,7 +6,7 @@
     top: 7%;
     margin-left: auto; 
     margin-right: auto; 
-    width: 40%;
+    width: 50%;
     height: 75%;
     margin: 0 auto 0 auto;
     resize: both;
@@ -22,3 +21,9 @@
 #settingsApp:focus {
     border-color: rgb(255, 255, 255, 1);
 }
+
+#settingsAppUI {
+    display: flex;
+    flex-direction: row;
+}
+

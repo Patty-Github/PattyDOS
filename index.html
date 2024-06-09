@@ -9,16 +9,32 @@
 </head>
 <body>
     <div id="screen">
-        <div id="settingsApp">
-            <div class="frame" id="settingsFrame"><p>Settings</p></div>
+
+        <div class="appWindow" id="settingsApp" style="display: flex;">
+            <div class="frame" id="settingsFrame">
+                <p>Settings</p>
+                <div class="frameBtns">
+                    <button class="frameBtn minimizeBtn"><img class="frameBtnImage" src="/PattyDOS/apps/images/minimize.png" draggable="false"></button>
+                    <button class="frameBtn fullscreenBtn"><img class="frameBtnImage" src="/PattyDOS/apps/images/fullscreen.png" draggable="false"></button>
+                    <button class="frameBtn closeBtn"><img class="frameBtnImage" src="/PattyDOS/apps/images/close.png" draggable="false"></button>
+                </div>
+            </div>
+            <div class="appUI" id="settingsAppUI">
+                <div class="sideMenu">
+                    <button class="sideMenuItem active"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/home-image.png" draggable="false">Home</button>
+                    <button class="sideMenuItem"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/personalization-image.png" draggable="false">Personalization</button>
+                </div>
+                <div id="settingsHome"></div>
+            </div>
         </div>
+
         <div id="homePage">
-            <div class="desktopIcon" id="settingsIcon" tabindex="0" draggable="true">
+            <div class="desktopIcon full" id="settingsIcon" tabindex="0" draggable="true">
                 <img class="desktopIconImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png">
                 <p class="desktopIconTitle">Settings</p>
             </div>
 
-            <div class="desktopIcon" tabindex="0">
+            <div class="desktopIcon full" tabindex="0">
                 <img class="desktopIconImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png">
                 <p class="desktopIconTitle">App Store</p>
             </div>
@@ -358,6 +374,10 @@
     <script src="/PattyDOS/apps/settings/settings.js"></script>
     <!--
     Notes
+
+    instead of grid, have 325 absoloute dots on the page. when dragend, get icon position, get closest dot position, put icon on dot position
+    add frame buttons
+    fix screen sizing
     -->
 </body>
 </html>
