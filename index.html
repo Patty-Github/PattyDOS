@@ -9,25 +9,31 @@
 </head>
 <body>
     <div id="screen">
-        <div id="startMenu">
-        
+        <div id="startMenu" class="isStartMenu">
+            <div class="startMenuContent ">
+                <input type="text" placeholder="Search for apps, folders and settings" class="startMenuSearch" id="startMenuSearch">
+            </div>
+            <div class="startMenuBar ">
+                <div class="startMenuBtn"><img class="startMenuImg" src="/PattyDOS/pictures/taskbar/profile.png"></div>
+                <div class="startMenuBtn"><img class="startMenuImg" src="/PattyDOS/pictures/taskbar/power.png"></div>
+            </div>
         </div>
 
-        <div class="appWindow isSettingsApp" id="settingsApp" style="display: flex;">
-            <div class="frame isSettingsApp" id="settingsFrame">
+        <div class="appWindow" id="settingsApp" style="display: flex;">
+            <div class="frame" id="settingsFrame">
                 <p>Settings</p>
-                <div class="frameBtns isSettingsApp">
+                <div class="frameBtns">
                     <button class="frameBtn minimizeBtn"><img class="frameBtnImage" src="/PattyDOS/apps/images/minimize.png" draggable="false"></button>
                     <button class="frameBtn fullscreenBtn"><img class="frameBtnImage" src="/PattyDOS/apps/images/fullscreen.png" draggable="false"></button>
                     <button class="frameBtn closeBtn"><img class="frameBtnImage" src="/PattyDOS/apps/images/close.png" draggable="false"></button>
                 </div>
             </div>
-            <div class="appUI isSettingsApp" id="settingsAppUI">
-                <div class="sideMenu isSettingsApp">
-                    <button class="sideMenuItem isSettingsApp active"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/home-image.png" draggable="false">Home</button>
-                    <button class="sideMenuItem isSettingsApp"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/personalization-image.png" draggable="false">Personalization</button>
+            <div class="appUI" id="settingsAppUI">
+                <div class="sideMenu">
+                    <button class="sideMenuItem active"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/home-image.png" draggable="false">Home</button>
+                    <button class="sideMenuItem"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/personalization-image.png" draggable="false">Personalization</button>
                 </div>
-                <div class="isSettingsApp" id="settingsHome"></div>
+                <div class=" id="settingsHome"></div>
             </div>
         </div>
 

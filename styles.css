@@ -161,6 +161,8 @@ body {
 #startMenu {
     z-index: 2;
     position: absolute;
+    display: flex;
+    flex-direction: column;
     justify-self: end;
     /*margin: auto auto 60px auto;*/
     left: calc(50% - calc(25% / 2));
@@ -179,6 +181,61 @@ body {
 #startMenu button {
     width: 100%;
     height: 100%;
+}
+.startMenuContent {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.startMenuSearch {
+    width: 85%;
+    height: 30px;
+    margin: calc(5.5%) 0;
+    padding: 0 5px;
+    font-size: 1rem;
+    border-radius: 9999px;
+    border: solid;
+    border-width: 1px;
+    color: white;
+    border-color: rgb(80, 80, 80);
+    background-color: rgb(34, 34, 34);
+    transition: border-color 0.1s ease;
+}
+.startMenuSearch:focus {
+    outline: none;
+    border-color: rgba(0, 174, 255, 1);
+    transition: border-color 0.1s ease;
+}
+.startMenuSearch::placeholder {
+    font-size: 0.9rem;
+    color: rgb(130, 130, 130);
+}
+.startMenuBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 65px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.startMenuBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 65px;
+}
+.startMenuImg:hover {
+    background-color: rgb(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+.startMenuImg {
+    height: 40%;
+    padding: 5px;
+}
+.startMenuBtn p {
+    color: white;
 }
 
 .appWindow {

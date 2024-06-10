@@ -18,21 +18,27 @@ function showStartMenu() {
     }
 }
 
-window.addEventListener('click', (event) => {
-    const target = event.target
-    if(target != pattyDOSBtn) {
-        startMenu.classList.remove('visible');
-        isStartMenuVisible = false;
+screen.addEventListener('click', (event) => {
+    if(event.target instanceof Element) {
+        const target = event.target;
+        const isStartMenu = target.closest('#startMenu');
+        if(target != pattyDOSBtn && isStartMenu == null) {
+            startMenu.classList.remove('visible');
+            isStartMenuVisible = false;
+        }   
     }
 })
 
-document.addEventListener('click', (event) => {
-    const target = event.target;
-    if(target.classList.contains('isSettingsApp')) {
-        settingsTaskbarApp.classList.add('windowFocused')
-    } else {
-        if(settingsTaskbarApp.classList.contains('windowFocused')) {
-            settingsTaskbarApp.classList.remove('windowFocused')
+screen.addEventListener('click', (event) => {
+    if(event.target instanceof Element) {
+        const target = event.target;
+        const isSettingsApp = target.closest('#settingsApp')
+        if(isSettingsApp != null) {
+            settingsTaskbarApp.classList.add('windowFocused')
+        } else {
+            if(settingsTaskbarApp.classList.contains('windowFocused')) {
+                settingsTaskbarApp.classList.remove('windowFocused')
+            }
         }
     }
 })
