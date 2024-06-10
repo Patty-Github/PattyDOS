@@ -1,10 +1,28 @@
 console.log('script.js working')
+const screen = document.getElementById('screen')
 const homePage = document.getElementById('homePage');
 const desktopIcons = document.querySelectorAll('.desktopIcon');
 const desktopIconTitles = document.querySelectorAll('.desktopIconTitle');
 let desktopIconHTML;
 
 document.addEventListener('contextmenu', event => event.preventDefault());
+
+function setScreenSize() {
+    let browserWindowWidth = window.innerWidth;
+    let browserWindowHeight = window.innerHeight;
+    let screenWidth = parseFloat(getComputedStyle(screen).width);
+    let screenHeight = parseFloat(getComputedStyle(screen).height);
+    //console.log(browserWindowWidth + 'px' + ' | ' + browserWindowHeight  + 'px' + ' | ' + screenWidth + ' | ' + screenHeight)
+
+    if(browserWindowWidth < screenWidth) {
+        screen.style.height = 'auto';
+        screen.style.width = '100%'
+    } else if(browserWindowHeight < screenHeight) {
+        screen.style.height = '100%';
+        screen.style.width = 'auto'
+    }
+}
+setScreenSize();
 
 
 function setFontSize() {
@@ -18,12 +36,11 @@ function setFontSize() {
     })
 }
 setFontSize();
-window.addEventListener('resize', setFontSize)
+window.addEventListener('resize', () => {setFontSize(); setScreenSize()})
 
 const settingsIcon = document.getElementById('settingsIcon');
 const settingsApp = document.getElementById('settingsApp');
 settingsIcon.addEventListener('dblclick', () => {settingsApp.style.display = 'flex'})
-
 
 // have every grid slot have a desktopIcon, on drop, that innerHTML is dragged HTML.
 
