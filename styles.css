@@ -246,6 +246,10 @@ body {
     border-radius: 8px;
     height: 0;
     overflow: hidden;
+    transition: all 0.1s ease;
+}
+.popUpMenu.active {
+    height: 69px;
 }
 .popUpMenu p {
     color: white;
