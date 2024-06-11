@@ -4,6 +4,7 @@ const taskbar = document.getElementById('taskbar');
 let isStartMenuVisible = false;
 const pattyDOSBtn = document.getElementById('pattyDOSTaskbarApp');
 const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
+const appStoreTaskbarApp = document.getElementById('appStoreTaskbarApp');
 const startMenu = document.getElementById('startMenu');
 
 pattyDOSBtn.addEventListener('click', showStartMenu);
@@ -29,16 +30,22 @@ screen.addEventListener('click', (event) => {
     }
 })
 
-screen.addEventListener('click', (event) => {
+function setFocus(event, appId, taskbarId, taskbarApp) {
     if(event.target instanceof Element) {
         const target = event.target;
-        const isSettingsApp = target.closest('#settingsApp')
-        if(isSettingsApp != null) {
-            settingsTaskbarApp.classList.add('windowFocused')
+        const isApp = target.closest(appId)
+        const isTaskbarApp = target.closest(taskbarId)
+        if(isApp != null || isTaskbarApp != null) {
+            taskbarApp.classList.add('windowFocused')
         } else {
-            if(settingsTaskbarApp.classList.contains('windowFocused')) {
-                settingsTaskbarApp.classList.remove('windowFocused')
+            if(taskbarApp.classList.contains('windowFocused')) {
+                taskbarApp.classList.remove('windowFocused')
             }
         }
     }
+}
+
+screen.addEventListener('click', (event) => { 
+    setFocus(event, '#settingsApp', '#settingsTaskbarApp', settingsTaskbarApp);
+    setFocus(event, 'temp', '#appStoreTaskbarApp', appStoreTaskbarApp);
 })

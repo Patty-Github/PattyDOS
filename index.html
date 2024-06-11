@@ -15,7 +15,13 @@
             </div>
             <div class="startMenuBar ">
                 <div class="startMenuBtn"><img class="startMenuImg" src="/PattyDOS/pictures/taskbar/profile.png"></div>
-                <div class="startMenuBtn"><img class="startMenuImg" src="/PattyDOS/pictures/taskbar/power.png"></div>
+                <div class="startMenuBtn" id="powerBtn"><img class="startMenuImg" src="/PattyDOS/pictures/taskbar/power.png"></div>
+                <div class="popUpMenu" id="powerPopUpMenu">
+                    <div class="dropSideMenuO">
+                        <p>Shut Down</p>
+                        <p>Restart</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -375,7 +381,7 @@
 
         <div id="taskbar">
             <div class="taskbarApp" id="pattyDOSTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/pictures/taskbar/pos.png"></img></div>
-            <div class="taskbarApp isSettingsApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div class="appState"></div></img></div>
+            <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div class="appState"></div></img></div>
             <div class="taskbarApp" id="appStoreTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png"><div class="appState"></div></img></div>
         </div>
     </div>
@@ -385,11 +391,13 @@
 
     <script src="/PattyDOS/script.js"></script>
     <script src="/PattyDOS/scripts/taskbar.js"></script>
+    <script src="/PattyDOS/scripts/startMenu.js"></script>
     <script type="module" src="/PattyDOS/apps/settings/settings.js"></script>
     <!--
     Notes
 
     instead of grid, have 325 absoloute dots on the page. when dragend, get icon position, get closest dot position, put icon on dot position
+    add google, task manager, notepad, 
     -->
 </body>
 </html>

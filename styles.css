@@ -191,8 +191,8 @@ body {
 .startMenuSearch {
     width: 85%;
     height: 30px;
-    margin: calc(5.5%) 0;
-    padding: 0 5px;
+    margin: 5.5% 0;
+    padding: 0 10px;
     font-size: 1rem;
     border-radius: 9999px;
     border: solid;
@@ -213,6 +213,7 @@ body {
 }
 .startMenuBar {
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     height: 65px;
@@ -236,6 +237,33 @@ body {
 }
 .startMenuBtn p {
     color: white;
+}
+
+.popUpMenu {
+    position: absolute;
+    width: max-content;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    height: 0;
+    overflow: hidden;
+}
+.popUpMenu p {
+    color: white;
+    padding: 3px;
+    margin: 5px;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
+}
+.popUpMenu p:hover {
+    background-color: rgb(255, 255, 255, 0.1);
+}
+#powerPopUpMenu {
+    margin: 0 calc(65px - 10px) 32.5px auto;
+    right: 0;
 }
 
 .appWindow {
