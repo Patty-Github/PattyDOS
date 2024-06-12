@@ -39,7 +39,33 @@
                     <button class="sideMenuItem active"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/home-image.png" draggable="false">Home</button>
                     <button class="sideMenuItem"><img class="sideMenuImage" src="/PattyDOS/apps/settings/settings-icon-image/personalization-image.png" draggable="false">Personalization</button>
                 </div>
-                <div class=" id="settingsHome"></div>
+                <div class="settingsPage" id="settingsHome"><h1 class="windowPageTitle">Home</h1></div>
+                <div class="settingsPage" id="settingsPersonalization">
+                    <!--
+                    change wallpaper: stretch, bars, fit.
+                    change system color.
+                    change system font font.
+                    -->
+                    <h1 class="windowPageTitle">Personalization</h1>
+                    <h2 style="margin: 10px;">Wallpaper</h2>
+                    <div id="changeWallpaper">
+                        <div id="currentWallpaper"></div>
+                        <div id="wallpaperOptions">
+                            <div class="wallpaperOption" id="wallpaperOptionOne"></div>
+                            <div class="wallpaperOption" id="wallpaperOptionTwo"></div>
+                            <div class="wallpaperOption" id="wallpaperOptionThree"></div>
+                            <div class="wallpaperOption" id="wallpaperOptionFour"></div>
+                            <div class="wallpaperOption" id="wallpaperOptionFive"></div>
+                            <div class="wallpaperOption" id="wallpaperOptionSix"></div>
+                        </div>
+                    </div>
+                    <h2 style="margin: 10px;">System Colors</h2>
+                    <div id="systemColor">
+                        <div id="changeSystemColor">
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -381,7 +407,7 @@
 
         <div id="taskbar">
             <div class="taskbarApp" id="pattyDOSTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/pictures/taskbar/pos.png"></img></div>
-            <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div class="appState"></div></img></div>
+            <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div class="appState"><!--The bar below icon--></div></img></div>
             <div class="taskbarApp" id="appStoreTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png"><div class="appState"></div></img></div>
         </div>
     </div>
@@ -398,6 +424,7 @@
 
     instead of grid, have 325 absoloute dots on the page. when dragend, get icon position, get closest dot position, put icon on dot position
     add google, task manager, notepad, 
+    add box shadow to windows
     -->
 </body>
 </html>

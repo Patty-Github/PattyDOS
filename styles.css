@@ -266,8 +266,11 @@ body {
     background-color: rgb(255, 255, 255, 0.1);
 }
 #powerPopUpMenu {
-    margin: 0 calc(65px - 10px) 32.5px auto;
+    margin: 0 calc(65px - 10px) 0 auto;
     right: 0;
+}
+#powerPopUpMenu.active {
+    margin: 0 calc(65px - 10px) 32.5px auto;
 }
 
 .appWindow {
@@ -349,4 +352,8 @@ body {
     height: 27px;
     margin: 0 9px 0 0;
     /*filter: invert(61%) sepia(63%) saturate(2882%) hue-rotate(181deg) brightness(101%) contrast(102%);*/
+}
+
+.windowPageTitle {
+    margin: 3px 10px;
 }

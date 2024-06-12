@@ -31,19 +31,35 @@ settingsWindow.style.margin = 'auto'
 
 function setSettingsPage() {
     const menuItems = document.querySelectorAll('.sideMenuItem');
+    const pages = document.querySelectorAll('.settingsPage'); 
+    console.log(menuItems)
+    console.log(pages)
 
-    menuItems.forEach((menuItem) => {
+    menuItems.forEach((menuItem, menuIndex) => {
         menuItem.addEventListener('click', () => {
             menuItems.forEach((menuItemTwo) => {
-                if(menuItemTwo.classList.contains('active')) {
-                    menuItemTwo.classList.remove('active');
-                }
+                menuItemTwo.classList.remove('active');
             })
             menuItem.classList.add('active');
+
+            pages.forEach((page, pageIndex) => {
+                if (menuIndex == pageIndex) {
+                    console.log(menuIndex + pageIndex)
+                    page.style.display = 'block';
+                } else {
+                    page.style.display = 'none';
+                }
+            })    
         })
     })
 }
 setSettingsPage();
+
+            /*if(menuItem.classList.contains('active')) {
+                pages[i].style.display = 'block';
+            } else if (!menuItem.classList.contains('active')) {
+                pages[i].style.display = 'none';
+            }*/
 
 // have home be active by default.
 // sideMenuBtn.onclick { sideMenuBtns.foreach classlist.remove('active'); if sideMenuBtn doesn't have active class { .classlist.add('active') } }
