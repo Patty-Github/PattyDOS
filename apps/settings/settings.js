@@ -55,6 +55,27 @@ function setSettingsPage() {
 }
 setSettingsPage();
 
+function changeSystemColor() {
+    const inputSystemColor = document.getElementById('inputSystemColor');
+    const taskbar = document.getElementById('taskbar')
+    const startMenu = document.getElementById('startMenu')
+    const elementsToChange = [taskbar, startMenu];
+    console.log(elementsToChange);
+    inputSystemColor.addEventListener('input', (event) => {
+        elementsToChange.forEach((elementToChange) => {
+            let newColor = event.target.value;
+            elementToChange.style.backgroundColor = event.target.value;
+            newColor = elementToChange.style.backgroundColor;
+            newColor = String(newColor).slice(-0, -2);
+            newColor += ', 0.5)';
+            elementToChange.style.backgroundColor = newColor;
+
+            console.log(newColor);
+        })
+    })
+}
+changeSystemColor();
+
             /*if(menuItem.classList.contains('active')) {
                 pages[i].style.display = 'block';
             } else if (!menuItem.classList.contains('active')) {
