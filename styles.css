@@ -27,6 +27,26 @@ body {
     overflow: hidden;
 }
 
+#newContextMenu {
+    top: 0;
+    left: 0;
+    position: absolute;
+    min-width: 200px;
+    height: max-content;
+    width: max-content;
+    background-color: rgb(235, 235, 235);
+}
+.newContextMenuOption {
+    padding: 3px;
+    margin: 3px;
+    color: black;
+    background-color: transparent;
+    cursor: default;
+}
+.newContextMenuOption:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 #homePage {
     width: 100%;
     height: calc(100% - 48px);

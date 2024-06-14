@@ -32,8 +32,6 @@ settingsWindow.style.margin = 'auto'
 function setSettingsPage() {
     const menuItems = document.querySelectorAll('.sideMenuItem');
     const pages = document.querySelectorAll('.settingsPage'); 
-    console.log(menuItems)
-    console.log(pages)
 
     menuItems.forEach((menuItem, menuIndex) => {
         menuItem.addEventListener('click', () => {
@@ -60,27 +58,18 @@ function changeSystemColor() {
     const taskbar = document.getElementById('taskbar')
     const startMenu = document.getElementById('startMenu')
     const elementsToChange = [taskbar, startMenu];
-    console.log(elementsToChange);
     inputSystemColor.addEventListener('input', (event) => {
         elementsToChange.forEach((elementToChange) => {
             let newColor = event.target.value;
             elementToChange.style.backgroundColor = event.target.value;
             newColor = elementToChange.style.backgroundColor;
-            newColor = String(newColor).slice(-0, -2);
+            newColor = String(newColor).slice(-0, -1);
             newColor += ', 0.5)';
             elementToChange.style.backgroundColor = newColor;
-
-            console.log(newColor);
         })
     })
 }
 changeSystemColor();
-
-            /*if(menuItem.classList.contains('active')) {
-                pages[i].style.display = 'block';
-            } else if (!menuItem.classList.contains('active')) {
-                pages[i].style.display = 'none';
-            }*/
 
 // have home be active by default.
 // sideMenuBtn.onclick { sideMenuBtns.foreach classlist.remove('active'); if sideMenuBtn doesn't have active class { .classlist.add('active') } }

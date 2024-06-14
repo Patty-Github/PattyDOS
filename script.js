@@ -1,11 +1,52 @@
 console.log('script.js working')
-const screen = document.getElementById('screen')
+const screen = document.getElementById('screen');
 const homePage = document.getElementById('homePage');
 const desktopIcons = document.querySelectorAll('.desktopIcon');
 const desktopIconTitles = document.querySelectorAll('.desktopIconTitle');
 let desktopIconHTML;
 
-document.addEventListener('contextmenu', event => event.preventDefault());
+// Context Menu
+function createNewContextMenu() {
+    let mouseX;
+    let mouseY;
+    screen.addEventListener('mousemove', (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        //console.log(mouseX + ' ' + mouseY);
+    });
+    const newContextMenu = document.createElement('div');
+    newContextMenu.setAttribute('id', 'newContextMenu');
+    homePage.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        newContextMenu.innerHTML = '';
+
+        const newContextMenuOption1 = document.createElement('p')
+        newContextMenuOption1.setAttribute('class', 'newContextMenuOption');
+        newContextMenuOption1.textContent = 'Show Desktop Icons';
+
+        const newContextMenuOption2 = document.createElement('p')
+        newContextMenuOption2.setAttribute('class', 'newContextMenuOption');
+        newContextMenuOption2.textContent = 'Personalize';
+
+        newContextMenu.append(newContextMenuOption1, newContextMenuOption2);
+        screen.appendChild(newContextMenu);
+        const screenWidth = parseFloat(getComputedStyle(screen).width);
+        const newContextMenuWidth = parseFloat(getComputedStyle(newContextMenu).width);
+        const newContextMenuHeight = parseFloat(getComputedStyle(newContextMenu).height);
+        if(mouseY <= newContextMenuHeight) {
+            newContextMenu.style.top = mouseY + 'px';
+        } else {
+            newContextMenu.style.top = mouseY - newContextMenuHeight + 'px';
+        }
+        if((mouseX + newContextMenuWidth) <= screenWidth) {
+            newContextMenu.style.left = mouseX + 'px';
+        } else {
+            newContextMenu.style.left = mouseX - newContextMenuWidth + 'px';
+        }
+    });
+    document.addEventListener('click', () => {newContextMenu.innerHTML = ''});
+}
+createNewContextMenu();
 
 function setScreenSize() {
     let browserWindowWidth = window.innerWidth;
