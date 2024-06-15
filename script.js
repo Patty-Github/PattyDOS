@@ -31,6 +31,7 @@ function createNewContextMenu() {
         newContextMenu.append(newContextMenuOption1, newContextMenuOption2);
         screen.appendChild(newContextMenu);
         const screenWidth = parseFloat(getComputedStyle(screen).width);
+        const screenX = parseFloat(getComputedStyle(screen).left);
         const newContextMenuWidth = parseFloat(getComputedStyle(newContextMenu).width);
         const newContextMenuHeight = parseFloat(getComputedStyle(newContextMenu).height);
         if(mouseY <= newContextMenuHeight) {
@@ -39,13 +40,15 @@ function createNewContextMenu() {
             newContextMenu.style.top = mouseY - newContextMenuHeight + 'px';
         }
         if((mouseX + newContextMenuWidth) <= screenWidth) {
-            newContextMenu.style.left = mouseX + 'px';
+            newContextMenu.style.left = mouseX - screenX + 'px';
         } else {
-            newContextMenu.style.left = mouseX - newContextMenuWidth + 'px';
-        }
+            newContextMenu.style.left = mouseX - screenX - newContextMenuWidth + 'px';
+            console.log(screenWidth);
+        }    
     });
     document.addEventListener('click', () => {newContextMenu.innerHTML = ''});
 }
+    
 createNewContextMenu();
 
 function setScreenSize() {
