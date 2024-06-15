@@ -42,7 +42,6 @@ function setSettingsPage() {
 
             pages.forEach((page, pageIndex) => {
                 if (menuIndex == pageIndex) {
-                    console.log(menuIndex + pageIndex)
                     page.style.display = 'block';
                 } else {
                     page.style.display = 'none';
@@ -53,23 +52,47 @@ function setSettingsPage() {
 }
 setSettingsPage();
 
-function changeSystemColor() {
+function systemColor() {
     const inputSystemColor = document.getElementById('inputSystemColor');
+    const systemColorOptions = document.querySelectorAll('.systemColorOption');
     const taskbar = document.getElementById('taskbar')
     const startMenu = document.getElementById('startMenu')
     const elementsToChange = [taskbar, startMenu];
-    inputSystemColor.addEventListener('input', (event) => {
+
+    function changeSystemColor(event) {
         elementsToChange.forEach((elementToChange) => {
             let newColor = event.target.value;
-            elementToChange.style.backgroundColor = event.target.value;
+            if(newColor == undefined) {
+                newColor = getComputedStyle(event.target).backgroundColor;
+            }
+            elementToChange.style.backgroundColor = newColor;
             newColor = elementToChange.style.backgroundColor;
             newColor = String(newColor).slice(-0, -1);
             newColor += ', 0.5)';
             elementToChange.style.backgroundColor = newColor;
         })
+    }
+
+    inputSystemColor.addEventListener('input', (event) => {changeSystemColor(event)})
+
+    systemColorOptions.forEach((systemColorOption) => {
+        systemColorOption.addEventListener('click', (event) => {
+            const colorRGB = getComputedStyle(systemColorOption).backgroundColor;
+            const colorR = colorRGB.slice(colorRGB.indexOf('(') + 1, colorRGB.indexOf(','));
+            const colorG = colorRGB.slice(colorRGB.indexOf(',') + 2, colorRGB.indexOf(',', colorRGB.indexOf(',') + 1))
+            const colorB = colorRGB.slice(colorRGB.indexOf(',', colorRGB.indexOf(',') + 1) + 2, colorRGB.indexOf(')'))
+            // pasted from stackoverflow
+            function rgbToHex(r, g, b) {
+                return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+            }
+            const colorHEX = rgbToHex(colorR, colorG, colorB);
+
+            inputSystemColor.value = colorHEX;
+
+            changeSystemColor(event);
+        })
     })
 }
-changeSystemColor();
+systemColor();
 
-// have home be active by default.
 // sideMenuBtn.onclick { sideMenuBtns.foreach classlist.remove('active'); if sideMenuBtn doesn't have active class { .classlist.add('active') } }

@@ -9,11 +9,6 @@
 </head>
 <body>
     <div id="screen">
-        <!--<div id="newContextMenu">
-            <p class="newContextMenuOption">Option 1</p>
-            <p class="newContextMenuOption">Option 2</p>
-        </div>-->
-
         <div id="startMenu" class="isStartMenu">
             <div class="startMenuContent ">
                 <input type="text" placeholder="Search for apps, folders and settings" class="startMenuSearch" id="startMenuSearch">
@@ -67,7 +62,13 @@
                     <h2 style="margin: 10px;">System Colors</h2>
                     <div id="systemColor">
                         <div id="changeSystemColor">
-                            <input id="inputSystemColor" type="color">
+                            <input id="inputSystemColor" type="color" value="#2A3D53">
+                            <div id="systemColorOptions">
+                                <div class="systemColorOption" style="background-color: #2A3D53;"></div>
+                                <div class="systemColorOption" style="background-color: #ff0000;"></div>
+                                <div class="systemColorOption" style="background-color: #00ff00;"></div>
+                                <div class="systemColorOption" style="background-color: #0000ff;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -411,7 +412,7 @@
         </div>
 
         <div id="taskbar">
-            <div class="taskbarApp" id="pattyDOSTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/pictures/taskbar/pos.png"></img></div>
+            <div class="taskbarApp" id="pattyDOSTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/pictures/taskbar/posNew.png"></img></div>
             <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div class="appState"><!--The bar below icon--></div></img></div>
             <div class="taskbarApp" id="appStoreTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png"><div class="appState"></div></img></div>
         </div>
