@@ -1,12 +1,15 @@
 console.log('settings.js working');
 
-import {moveableWindow} from "../../scripts/dragWindow.js";
+import { moveableWindow } from "../../scripts/dragWindow.js";
+import { minimizeWindow } from "../../scripts/minimizeWindow.js";
 
 const screen = document.getElementById('screen');
 const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
+const minimizeSettingsBtn = document.getElementById('minimizeSettings');
 
 moveableWindow(settingsWindow, settingsFrame);
+minimizeSettingsBtn.addEventListener('click', () => minimizeWindow(settingsWindow, minimizeSettingsBtn));
 
 let settingsResized = false;
 let settingsWindowWidth;

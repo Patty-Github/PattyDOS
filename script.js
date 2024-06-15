@@ -23,6 +23,7 @@ function createNewContextMenu() {
         const newContextMenuOption1 = document.createElement('p')
         newContextMenuOption1.setAttribute('class', 'newContextMenuOption');
         newContextMenuOption1.textContent = 'Show Desktop Icons';
+        newContextMenuOption1.addEventListener('click', showHideDesktopIcons);
 
         const newContextMenuOption2 = document.createElement('p')
         newContextMenuOption2.setAttribute('class', 'newContextMenuOption');
@@ -46,7 +47,14 @@ function createNewContextMenu() {
             console.log(screenWidth);
         }    
     });
-    document.addEventListener('click', () => {newContextMenu.innerHTML = ''});
+    document.addEventListener('click', () => newContextMenu.innerHTML = '');
+
+    function showHideDesktopIcons() {
+        const desktopIcons = document.querySelectorAll('.desktopIcon')
+        desktopIcons.forEach((desktopIcon) => {
+            getComputedStyle(desktopIcon).display == 'flex' ? desktopIcon.style.display = 'none' : desktopIcon.style.display = 'flex';
+        })
+    }
 }
     
 createNewContextMenu();

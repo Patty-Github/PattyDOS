@@ -37,7 +37,7 @@ export function moveableWindow(window, frame) {
     }
 
 
-    function windowButtonFunctionality() {
+    /*function windowButtonFunctionality() {
         const frameBtns = document.querySelectorAll('.frameBtns')
         const minimizeBtn = document.querySelector('.minimizeBtn')
         const fullscreenBtn = document.querySelector('.fullscreenBtn')
@@ -62,5 +62,5 @@ export function moveableWindow(window, frame) {
             window.style.display = 'none';
         })
     }
-    windowButtonFunctionality();
+    windowButtonFunctionality();*/
 }
