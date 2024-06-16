@@ -7,7 +7,6 @@ export function minimizeWindow(window, minimizeBtn) {
     let windowY;
     let windowX;
     if(window.classList.contains('minimized')) {
-        return windowWidth;
         window.style.transition = 'all 0.2s ease';
         window.style.height = windowHeight;
         window.style.top = windowY;

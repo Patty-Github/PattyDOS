@@ -5,9 +5,11 @@ export function setFocus(event, appId, taskbarId, taskbarApp, focused) {
         const isTaskbarApp = target.closest(taskbarId)
         if(isApp != null || isTaskbarApp != null) {
             taskbarApp.classList.add(focused)
+            console.log('focusing')
         } else {
             if(taskbarApp.classList.contains(focused)) {
                 taskbarApp.classList.remove(focused)
+                console.log('unfocusing')
             }
         }
     }

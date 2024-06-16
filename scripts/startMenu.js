@@ -5,6 +5,7 @@ import { setFocus } from "./setFocus.js";
 const startMenu = document.getElementById('startMenu');
 
 function powerBtnFn() {
+    const screen = document.getElementById('screen');
     const powerBtn = document.getElementById('powerBtn');
     const powerPopUpMenu = document.getElementById('powerPopUpMenu');
     const shutDownBtn = document.getElementById('shutDownBtn');

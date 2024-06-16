@@ -130,12 +130,22 @@ systemColor();
             // window.style.top = windowY;
             // window.style.left = windowX;
             // window.style.transition = 'all 0s ease';
+        } else if(taskbarApp.classList.contains('windowFocused')) {
+            minimizeWindow(window);
+            taskbarApp.classList.remove('windowFocused');
         }
         taskbarAppState.style.display = 'block'
         taskbarApp.classList.add('windowFocused')
         window.classList.remove('closed');
         window.style.display = 'flex';
         positionWindow(window);
+    }
+
+    setInterval(() => taskbarAppState(settingsWindow, settingsTaskbarApp), 10)
+    function taskbarAppState(window, taskbarApp) {
+        if(window.classList.contains('closed') || window.classList.contains('minimized')) {
+            taskbarApp.classList.remove('windowFocused');
+        }
     }
 })();
 
