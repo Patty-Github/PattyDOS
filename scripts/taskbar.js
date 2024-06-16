@@ -20,18 +20,11 @@ function showStartMenu() {
     }
 }
 
-screen.addEventListener('click', (event) => {
-    if(event.target instanceof Element) {
-        const target = event.target;
-        const isStartMenu = target.closest('#startMenu');
-        if(target != pattyDOSBtn && isStartMenu == null) {
-            startMenu.classList.remove('visible');
-            isStartMenuVisible = false;
-        }   
-    }
-})
+(() => {
+    const screen = document.getElementById('screen');
 
-screen.addEventListener('click', (event) => { 
-    setFocus(event, '#settingsApp', '#settingsTaskbarApp', settingsTaskbarApp, 'windowFocused');
-    setFocus(event, 'temp', '#appStoreTaskbarApp', appStoreTaskbarApp, 'windowFocused');
-})
+    screen.addEventListener('click', (event) => { 
+        setFocus(event, '#settingsApp', '#settingsTaskbarApp', settingsTaskbarApp, 'windowFocused');
+        setFocus(event, 'temp', '#appStoreTaskbarApp', appStoreTaskbarApp, 'windowFocused');
+    })
+})();

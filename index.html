@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="appWindow" id="settingsApp" style="display: none;">
+        <div class="appWindow closed" id="settingsApp" style="display: none;">
             <div class="frame" id="settingsFrame">
                 <p>Settings</p>
                 <div class="frameBtns">
@@ -413,7 +413,7 @@
 
         <div id="taskbar">
             <div class="taskbarApp" id="pattyDOSTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/pictures/taskbar/posNew.png"></img></div>
-            <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div class="appState"><!--The bar below icon--></div></img></div>
+            <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div id="settingsAppState" class="appState"><!--The bar below icon--></div></img></div>
             <div class="taskbarApp" id="appStoreTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png"><div class="appState"></div></img></div>
         </div>
     </div>
@@ -421,7 +421,7 @@
 
 
 
-    <script src="/PattyDOS/script.js"></script>
+    <script type="module" src="/PattyDOS/script.js"></script>
     <script type="module" src="/PattyDOS/scripts/taskbar.js"></script>
     <script type="module" src="/PattyDOS/scripts/startMenu.js"></script>
     <script type="module" src="/PattyDOS/apps/settings/settings.js"></script>

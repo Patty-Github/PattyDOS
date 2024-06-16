@@ -20,7 +20,7 @@ body {
     position: absolute;
     height: 100vh;
     margin: 0 auto 0 auto;
-    background: url(/PattyDOS/pictures/wallpaper/IMG_6010.JPEG);
+    background: url(/PattyDOS/pictures/wallpaper/wallpaper.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position-x: center;
@@ -162,6 +162,7 @@ body {
 }
 .appState {
     background-color: rgb(80, 80, 80);
+    display: none;
     position: absolute;
     width: 12px;
     height: 3px;

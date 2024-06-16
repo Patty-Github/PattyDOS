@@ -1,3 +1,5 @@
+import { positionWindow } from "./scripts/positionWindow.js";
+
 console.log('script.js working')
 const screen = document.getElementById('screen');
 const homePage = document.getElementById('homePage');
@@ -88,11 +90,7 @@ function setFontSize() {
     })
 }
 setFontSize();
-window.addEventListener('resize', () => {setFontSize(); setScreenSize()})
-
-const settingsIcon = document.getElementById('settingsIcon');
-const settingsApp = document.getElementById('settingsApp');
-settingsIcon.addEventListener('dblclick', () => {settingsApp.style.display = 'flex'})
+window.addEventListener('resize', () => {setFontSize(); setScreenSize()});
 
 // have every grid slot have a desktopIcon, on drop, that innerHTML is dragged HTML.
 

@@ -2,12 +2,14 @@ console.log('settings.js working');
 
 import { moveableWindow } from "../../scripts/dragWindow.js";
 import { minimizeWindow } from "../../scripts/minimizeWindow.js";
+import { positionWindow } from "../../scripts/positionWindow.js";
 
 const screen = document.getElementById('screen');
 const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
 const minimizeSettingsBtn = document.getElementById('minimizeSettings');
 
+//positionWindow(settingsWindow);
 moveableWindow(settingsWindow, settingsFrame);
 minimizeSettingsBtn.addEventListener('click', () => minimizeWindow(settingsWindow, minimizeSettingsBtn));
 
@@ -97,5 +99,44 @@ function systemColor() {
     })
 }
 systemColor();
+
+(() => {
+    const settingsIcon = document.getElementById('settingsIcon');
+    const settingsApp = document.getElementById('settingsApp');
+    const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
+    const settingsAppState = document.getElementById('settingsAppState');
+    settingsIcon.addEventListener('dblclick', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState))
+    settingsTaskbarApp.addEventListener('click', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState))
+
+    let windowWidth;
+    let windowHeight;
+    let windowY;
+    let windowX;
+    minimizeSettingsBtn.addEventListener('click', (settingsWindow) => getElementPositionAndScale(settingsWindow));
+    function getElementPositionAndScale(element) {
+        windowWidth = getComputedStyle(element).width;
+        windowHeight = getComputedStyle(element).height;
+        windowY = parseFloat(getComputedStyle(element).top);
+        windowX = parseFloat(getComputedStyle(element).left);
+    }
+
+    function openWindow(window, taskbarApp, taskbarAppState) {
+        if(window.classList.contains('minimized')) {
+            const erm = minimizeWindow(window);
+            console.log(erm);
+            // window.style.transition = 'all 0.2s ease';
+            // window.style.width = windowWidth;
+            // window.style.height = windowHeight;
+            // window.style.top = windowY;
+            // window.style.left = windowX;
+            // window.style.transition = 'all 0s ease';
+        }
+        taskbarAppState.style.display = 'block'
+        taskbarApp.classList.add('windowFocused')
+        window.classList.remove('closed');
+        window.style.display = 'flex';
+        positionWindow(window);
+    }
+})();
 
 // sideMenuBtn.onclick { sideMenuBtns.foreach classlist.remove('active'); if sideMenuBtn doesn't have active class { .classlist.add('active') } }
