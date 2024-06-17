@@ -20,11 +20,9 @@ function powerBtnFn() {
 
     screen.addEventListener('click', (event) => {
         const pattyDOSTaskbarApp = document.getElementById('pattyDOSTaskbarApp');
-        if(event.target == pattyDOSTaskbarApp || event.target == document.getElementById('powerBtnImg')) {
+        if(event.target == pattyDOSTaskbarApp || event.target == document.getElementById('powerBtnImg') || event.target.closest('#startMenu') != null) {
             return;
         } else {
-            console.log(event.target);
-            console.log('settingFocus');
             setFocus(event, 'startMenu', 'temp', startMenu, 'visible')
         }
     });

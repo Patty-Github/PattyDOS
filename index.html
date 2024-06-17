@@ -9,6 +9,7 @@
 </head>
 <body>
     <div id="screen">
+        <!-- Start Menu -->
         <div id="startMenu" class="isStartMenu">
             <div class="startMenuContent ">
                 <input type="text" placeholder="Search for apps, folders and settings" class="startMenuSearch" id="startMenuSearch">
@@ -25,6 +26,7 @@
             </div>
         </div>
 
+        <!-- Settings App -->
         <div class="appWindow closed" id="settingsApp" style="display: none;">
             <div class="frame" id="settingsFrame">
                 <p>Settings</p>
@@ -68,6 +70,7 @@
                                 <div class="systemColorOption" style="background-color: #ff0000;"></div>
                                 <div class="systemColorOption" style="background-color: #00ff00;"></div>
                                 <div class="systemColorOption" style="background-color: #0000ff;"></div>
+                                <div class="systemColorOption" style="background-color: #ffffff00; border: solid; border-width: 1px; border-color: black;"></div>
                             </div>
                         </div>
                     </div>
@@ -75,6 +78,7 @@
             </div>
         </div>
 
+        <!-- Home Page -->
         <div id="homePage">
             <div class="desktopIcon full" id="settingsIcon" tabindex="0" draggable="true">
                 <img class="desktopIconImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png">
@@ -411,6 +415,7 @@
             <div class="desktopIcon"></div>
         </div>
 
+        <!-- Taskbar -->
         <div id="taskbar">
             <div class="taskbarApp" id="pattyDOSTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/pictures/taskbar/posNew.png"></img></div>
             <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div id="settingsAppState" class="appState"><!--The bar below icon--></div></img></div>

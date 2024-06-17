@@ -9,7 +9,6 @@ const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
 const minimizeSettingsBtn = document.getElementById('minimizeSettings');
 
-//positionWindow(settingsWindow);
 moveableWindow(settingsWindow, settingsFrame);
 
 let settingsResized = false;
@@ -72,7 +71,7 @@ function systemColor() {
             elementToChange.style.backgroundColor = newColor;
             newColor = elementToChange.style.backgroundColor;
             newColor = String(newColor).slice(-0, -1);
-            newColor += ', 0.5)';
+            newColor += ', 0.8)';
             elementToChange.style.backgroundColor = newColor;
         })
     }
@@ -81,13 +80,18 @@ function systemColor() {
 
     systemColorOptions.forEach((systemColorOption) => {
         systemColorOption.addEventListener('click', (event) => {
+            // onclick, convert this backgroundColor to HEX, then apply color to color picker.
             const colorRGB = getComputedStyle(systemColorOption).backgroundColor;
             const colorR = colorRGB.slice(colorRGB.indexOf('(') + 1, colorRGB.indexOf(','));
             const colorG = colorRGB.slice(colorRGB.indexOf(',') + 2, colorRGB.indexOf(',', colorRGB.indexOf(',') + 1))
             const colorB = colorRGB.slice(colorRGB.indexOf(',', colorRGB.indexOf(',') + 1) + 2, colorRGB.indexOf(')'))
             // pasted from stackoverflow
             function rgbToHex(r, g, b) {
-                return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+                if(String(r + g + b).length <= 6) {
+                        return "#" + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1);
+                    } else {
+                        return '#313131'
+                    }
             }
             const colorHEX = rgbToHex(colorR, colorG, colorB);
 
@@ -127,9 +131,11 @@ systemColor();
     // if minimized, position and scale are the ones set in above func. 
     // if focused, minimize
     // else, open.
+    const timeToWait = 200;
+    let timeWaited = 1000;
     function openWindow(window, taskbarApp, taskbarAppState) {
-        if(window.classList.contains('minimized')) {
-            console.log('unminimize')
+        if(window.classList.contains('minimized') && (new Date().getTime() - timeWaited) > timeToWait) {
+            timeWaited = new Date().getTime();
             window.style.transition = 'all 0.2s ease';
             window.style.display = 'flex';
             window.classList.remove('minimized');
@@ -139,7 +145,8 @@ systemColor();
             window.style.top = windowY + 'px';
             window.style.left = windowX + 'px';
             window.style.transition = 'all 0s ease';
-        } else if(taskbarApp.classList.contains('windowFocused')) {
+        } else if(taskbarApp.classList.contains('windowFocused') && (new Date().getTime() - timeWaited) > timeToWait) {
+            timeWaited = new Date().getTime();
             minimizeWindow(window);
             getElementPositionAndScale(window);
             taskbarApp.classList.remove('windowFocused');
@@ -159,5 +166,3 @@ systemColor();
         }
     }
 })();
-
-// sideMenuBtn.onclick { sideMenuBtns.foreach classlist.remove('active'); if sideMenuBtn doesn't have active class { .classlist.add('active') } }
