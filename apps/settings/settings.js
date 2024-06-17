@@ -11,7 +11,6 @@ const minimizeSettingsBtn = document.getElementById('minimizeSettings');
 
 //positionWindow(settingsWindow);
 moveableWindow(settingsWindow, settingsFrame);
-minimizeSettingsBtn.addEventListener('click', () => minimizeWindow(settingsWindow, minimizeSettingsBtn));
 
 let settingsResized = false;
 let settingsWindowWidth;
@@ -105,40 +104,52 @@ systemColor();
     const settingsApp = document.getElementById('settingsApp');
     const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
     const settingsAppState = document.getElementById('settingsAppState');
-    settingsIcon.addEventListener('dblclick', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState))
-    settingsTaskbarApp.addEventListener('click', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState))
+    settingsIcon.addEventListener('dblclick', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState));
+    settingsTaskbarApp.addEventListener('click', () => {
+        openWindow(settingsApp, settingsTaskbarApp, settingsAppState);
+    });
+    minimizeSettingsBtn.addEventListener('click', () => {
+        getElementPositionAndScale(settingsApp);
+        minimizeWindow(settingsApp);
+    })
 
     let windowWidth;
     let windowHeight;
     let windowY;
     let windowX;
-    minimizeSettingsBtn.addEventListener('click', (settingsWindow) => getElementPositionAndScale(settingsWindow));
     function getElementPositionAndScale(element) {
-        windowWidth = getComputedStyle(element).width;
-        windowHeight = getComputedStyle(element).height;
+        windowWidth = parseFloat(getComputedStyle(element).width);
+        windowHeight = parseFloat(getComputedStyle(element).height);
         windowY = parseFloat(getComputedStyle(element).top);
         windowX = parseFloat(getComputedStyle(element).left);
     }
 
+    // if minimized, position and scale are the ones set in above func. 
+    // if focused, minimize
+    // else, open.
     function openWindow(window, taskbarApp, taskbarAppState) {
         if(window.classList.contains('minimized')) {
-            const erm = minimizeWindow(window);
-            console.log(erm);
-            // window.style.transition = 'all 0.2s ease';
-            // window.style.width = windowWidth;
-            // window.style.height = windowHeight;
-            // window.style.top = windowY;
-            // window.style.left = windowX;
-            // window.style.transition = 'all 0s ease';
+            console.log('unminimize')
+            window.style.transition = 'all 0.2s ease';
+            window.style.display = 'flex';
+            window.classList.remove('minimized');
+            //console.log(`window width: ${windowWidth}, windowHeight: ${windowHeight}, windowY: ${windowY}, windowX: ${windowX}`)
+            window.style.width = windowWidth + 'px';
+            window.style.height = windowHeight + 'px';
+            window.style.top = windowY + 'px';
+            window.style.left = windowX + 'px';
+            window.style.transition = 'all 0s ease';
         } else if(taskbarApp.classList.contains('windowFocused')) {
             minimizeWindow(window);
+            getElementPositionAndScale(window);
             taskbarApp.classList.remove('windowFocused');
+        } else {
+            taskbarAppState.style.display = 'block'
+            taskbarApp.classList.add('windowFocused')
+            window.classList.remove('closed');
+            window.style.display = 'flex';
+            positionWindow(window);
         }
-        taskbarAppState.style.display = 'block'
-        taskbarApp.classList.add('windowFocused')
-        window.classList.remove('closed');
-        window.style.display = 'flex';
-        positionWindow(window);
     }
 
     setInterval(() => taskbarAppState(settingsWindow, settingsTaskbarApp), 10)

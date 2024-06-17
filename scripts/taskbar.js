@@ -2,8 +2,6 @@ console.log('taskbar.js working');
 
 import {setFocus} from './setFocus.js';
 
-const taskbar = document.getElementById('taskbar');
-let isStartMenuVisible = false;
 const pattyDOSBtn = document.getElementById('pattyDOSTaskbarApp');
 const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
 const appStoreTaskbarApp = document.getElementById('appStoreTaskbarApp');
@@ -11,12 +9,11 @@ const appStoreTaskbarApp = document.getElementById('appStoreTaskbarApp');
 pattyDOSBtn.addEventListener('click', showStartMenu);
 
 function showStartMenu() {
-    if(isStartMenuVisible == false) {
+    const startMenu = document.getElementById('startMenu');
+    if(!startMenu.classList.contains('visible')) {
         startMenu.classList.add('visible');
-        isStartMenuVisible = true;
-    } else if(isStartMenuVisible) {
+    } else if(startMenu.classList.contains('visible')) {
         startMenu.classList.remove('visible');
-        isStartMenuVisible = false;
     }
 }
 
