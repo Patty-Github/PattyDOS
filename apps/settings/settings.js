@@ -3,11 +3,11 @@ console.log('settings.js working');
 import { moveableWindow } from "../../scripts/dragWindow.js";
 import { minimizeWindow } from "../../scripts/minimizeWindow.js";
 import { positionWindow } from "../../scripts/positionWindow.js";
+import { closeWindow } from "../../scripts/closeWindow.js";
 
 const screen = document.getElementById('screen');
 const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
-const minimizeSettingsBtn = document.getElementById('minimizeSettings');
 
 moveableWindow(settingsWindow, settingsFrame);
 
@@ -49,11 +49,24 @@ function setSettingsPage() {
                 } else {
                     page.style.display = 'none';
                 }
-            })    
+            })
         })
     })
 }
 setSettingsPage();
+
+function resetSettingsPage() {
+    const menuItems = document.querySelectorAll('.sideMenuItem');
+    const pages = document.querySelectorAll('.settingsPage'); 
+    menuItems.forEach((menuItemTwo) => {
+        menuItemTwo.classList.remove('active');
+    })
+    pages.forEach((page) => {
+        page.style.display = 'none';
+    })
+    menuItems[0].classList.add('active');
+    pages[0].style.display = 'block';
+}
 
 function systemColor() {
     const inputSystemColor = document.getElementById('inputSystemColor');
@@ -108,13 +121,20 @@ systemColor();
     const settingsApp = document.getElementById('settingsApp');
     const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
     const settingsAppState = document.getElementById('settingsAppState');
+    const minimizeSettingsBtn = document.getElementById('minimizeSettings');
+    const closeSettingsBtn = document.getElementById('closeSettingsBtn');
     settingsIcon.addEventListener('dblclick', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState));
+
     settingsTaskbarApp.addEventListener('click', () => {
         openWindow(settingsApp, settingsTaskbarApp, settingsAppState);
     });
     minimizeSettingsBtn.addEventListener('click', () => {
         getElementPositionAndScale(settingsApp);
         minimizeWindow(settingsApp);
+    })
+    closeSettingsBtn.addEventListener('click', () => {
+        closeWindow(settingsWindow, settingsAppState);
+        resetSettingsPage();
     })
 
     let windowWidth;
@@ -145,6 +165,7 @@ systemColor();
             window.style.top = windowY + 'px';
             window.style.left = windowX + 'px';
             window.style.transition = 'all 0s ease';
+            taskbarApp.classList.add('windowFocused');
         } else if(taskbarApp.classList.contains('windowFocused') && (new Date().getTime() - timeWaited) > timeToWait) {
             timeWaited = new Date().getTime();
             minimizeWindow(window);
