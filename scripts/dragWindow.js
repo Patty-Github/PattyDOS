@@ -10,16 +10,20 @@ export function moveableWindow(window, frame) {
     let grabbingWindow = false;
     let onFrameBtn = false;
 
-    frame.addEventListener('mousedown', () => {
+    frame.addEventListener('mousedown', (event) => {
+        if(event.target.closest('.frameBtn')) {
+            onFrameBtn = true;
+        }
         if(onFrameBtn == false) {
             grabbingWindow = true; 
         }
+        setTimeout(() => {onFrameBtn = false;}, 1)
         savedMouseY = mouseY; 
         savedMouseX = mouseX;
         savedWindowX = parseFloat(getComputedStyle(window).left);
         savedWindowY = parseFloat(getComputedStyle(window).top);
     })
-    window.addEventListener('mouseup', () => {grabbingWindow = false;})
+    window.addEventListener('mouseup', () => {grabbingWindow = false; onFrameBtn = false;})
 
     screen.addEventListener('mousemove', (event) => {
         mouseX = event.clientX;
@@ -35,32 +39,4 @@ export function moveableWindow(window, frame) {
         window.style.left = (savedWindowX -  xOffset) + 'px';
         window.style.top = (savedWindowY - yOffset) + 'px';
     }
-
-
-    /*function windowButtonFunctionality() {
-        const frameBtns = document.querySelectorAll('.frameBtns')
-        const minimizeBtn = document.querySelector('.minimizeBtn')
-        const fullscreenBtn = document.querySelector('.fullscreenBtn')
-        const closeBtn = document.querySelector('.closeBtn')
-    
-        frameBtns.forEach((frameBtn) => {
-            frameBtn.addEventListener('mouseover', () => {onFrameBtn = true;})  
-            frameBtn.addEventListener('mouseleave', () => {onFrameBtn = false;})  
-        })
-    
-        minimizeBtn.addEventListener('click', () => {
-            window.style.display = 'none';
-        })
-        fullscreenBtn.addEventListener('click', () => {
-            window.style.top = '0px';
-            window.style.left = '-286px'
-            window.style.height = '100%';
-            window.style.width = '100%';
-            window.style.borderRadius = '0';
-        })
-        closeBtn.addEventListener('click', () => {
-            window.style.display = 'none';
-        })
-    }
-    windowButtonFunctionality();*/
 }

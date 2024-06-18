@@ -1,5 +1,3 @@
-import { positionWindow } from "./scripts/positionWindow.js";
-
 console.log('script.js working')
 const screen = document.getElementById('screen');
 const homePage = document.getElementById('homePage');

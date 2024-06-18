@@ -4,12 +4,22 @@ import { moveableWindow } from "../../scripts/dragWindow.js";
 import { minimizeWindow } from "../../scripts/minimizeWindow.js";
 import { positionWindow } from "../../scripts/positionWindow.js";
 import { closeWindow } from "../../scripts/closeWindow.js";
+import { resizeWindow } from "../../scripts/resizeWindow.js";
 
 const screen = document.getElementById('screen');
 const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
 
 moveableWindow(settingsWindow, settingsFrame);
+const topResizerSettings = document.getElementById('topResizerSettings');
+const leftResizerSettings = document.getElementById('leftResizerSettings');
+const rightResizerSettings = document.getElementById('rightResizerSettings');
+const bottomResizerSettings = document.getElementById('bottomResizerSettings');
+const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings];
+// settingsResizers.forEach((settingsResizer) => {
+//     settingsResizer.addEventListener('click', (event) => {resizeWindow(event, settingsResizer)})
+// })
+resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings');
 
 let settingsResized = false;
 let settingsWindowWidth;
