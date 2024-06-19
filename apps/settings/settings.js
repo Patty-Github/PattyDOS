@@ -3,14 +3,18 @@ console.log('settings.js working');
 import { moveableWindow } from "../../scripts/dragWindow.js";
 import { minimizeWindow } from "../../scripts/minimizeWindow.js";
 import { positionWindow } from "../../scripts/positionWindow.js";
+import { fullscreenWindow } from "../../scripts/fullscreenWindow.js";
 import { closeWindow } from "../../scripts/closeWindow.js";
 import { resizeWindow } from "../../scripts/resizeWindow.js";
 
 const screen = document.getElementById('screen');
 const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
+const settingsFullscreenBtn = document.getElementById('settingsFullscreenBtn');
+const settingsFullscreenBtnImg = document.getElementById('settingsFullscreenBtnImg');
 
 moveableWindow(settingsWindow, settingsFrame);
+fullscreenWindow(settingsWindow, settingsFrame, settingsFullscreenBtn, settingsFullscreenBtnImg);
 const topResizerSettings = document.getElementById('topResizerSettings');
 const leftResizerSettings = document.getElementById('leftResizerSettings');
 const rightResizerSettings = document.getElementById('rightResizerSettings');
