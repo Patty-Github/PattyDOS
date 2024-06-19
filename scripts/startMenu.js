@@ -18,7 +18,7 @@ function powerBtnFn() {
         location.reload();
     });
 
-    screen.addEventListener('click', (event) => {
+    screen.addEventListener('mousedown', (event) => {
         const pattyDOSTaskbarApp = document.getElementById('pattyDOSTaskbarApp');
         if(event.target == pattyDOSTaskbarApp || event.target == document.getElementById('powerBtnImg') || event.target.closest('#startMenu') != null) {
             return;

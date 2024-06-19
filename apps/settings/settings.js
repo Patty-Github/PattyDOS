@@ -19,7 +19,7 @@ const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResize
 // settingsResizers.forEach((settingsResizer) => {
 //     settingsResizer.addEventListener('click', (event) => {resizeWindow(event, settingsResizer)})
 // })
-resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings');
+resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings', 'settingsTopLeftResizeHandle', 'settingsTopRightResizeHandle', 'settingsBottomRightResizeHandle', 'settingsBottomLeftResizeHandle');
 
 let settingsResized = false;
 let settingsWindowWidth;
@@ -75,7 +75,7 @@ function resetSettingsPage() {
         page.style.display = 'none';
     })
     menuItems[0].classList.add('active');
-    pages[0].style.display = 'block';
+    pages[0].style.display = 'flex';
 }
 
 function systemColor() {

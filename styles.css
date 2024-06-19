@@ -332,6 +332,36 @@ body {
 .leftResizeHandle {
     left: 0;
 }
+.topLeftResizeHandle, .topRightResizeHandle, .bottomRightResizeHandle, .bottomLeftResizeHandle {
+    z-index: 1;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+    user-select: none;
+}
+.topLeftResizeHandle:hover, .bottomRightResizeHandle:hover {
+    cursor: nwse-resize;
+}
+.topRightResizeHandle:hover, .bottomLeftResizeHandle:hover {
+    cursor: nesw-resize;
+}
+.topLeftResizeHandle {
+    top: 0;
+    left: 0;
+}
+.topRightResizeHandle {
+    top: 0;
+    right: 0;
+}
+.bottomRightResizeHandle {
+    bottom: 0;
+    right: 0;
+}
+.bottomLeftResizeHandle {
+    bottom: 0;
+    left: 0;
+}
 
 .frame {
     display: flex;

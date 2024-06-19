@@ -1,10 +1,14 @@
-export function resizeWindow(window, topResizer, rightResizer, bottomResizer, leftResizer) {
+export function resizeWindow(window, topResizer, rightResizer, bottomResizer, leftResizer, topLeftResizer, topRightResizer, bottomRightResizer, bottomLeftResizer) {
     const screen = document.getElementById('screen');
 
     let resizingTop;
     let resizingRight;
     let resizingBottom;
     let resizingLeft;
+    let resizingTopLeft;
+    let resizingTopRight;
+    let resizingBottomRight;
+    let resizingBottomLeft;
 
     let mouseX;
     let mouseY;
@@ -25,9 +29,16 @@ export function resizeWindow(window, topResizer, rightResizer, bottomResizer, le
             resizingRight = true;
         } else if(event.target.closest(`#${bottomResizer}`)) {
             resizingBottom = true;
-        }
-        else if(event.target.closest(`#${leftResizer}`)) {
+        } else if(event.target.closest(`#${leftResizer}`)) {
             resizingLeft = true;
+        } else if(event.target.closest(`#${topLeftResizer}`)) {
+            resizingTopLeft = true;
+        } else if(event.target.closest(`#${topRightResizer}`)) {
+            resizingTopRight = true;
+        } else if(event.target.closest(`#${bottomRightResizer}`)) {
+            resizingBottomRight = true;
+        } else if(event.target.closest(`#${bottomLeftResizer}`)) {
+            resizingBottomLeft = true;
         }
 
         savedMouseY = mouseY; 
@@ -37,7 +48,7 @@ export function resizeWindow(window, topResizer, rightResizer, bottomResizer, le
         windowWidth = parseFloat(getComputedStyle(window).width);
         windowHeight = parseFloat(getComputedStyle(window).height);
     })
-    document.addEventListener('mouseup', () => {resizingWindow = false; resizingTop = false; resizingRight = false; resizingBottom = false; resizingLeft = false; screen.style.cursor = 'default';})
+    document.addEventListener('mouseup', () => {resizingWindow = false; resizingTop = false; resizingRight = false; resizingBottom = false; resizingLeft = false; resizingTopLeft = false; resizingTopRight = false; resizingBottomRight = false; resizingBottomLeft = false; screen.style.cursor = 'default';})
 
     document.addEventListener('mousemove', (event) => {
         mouseX = event.clientX;
@@ -63,6 +74,38 @@ export function resizeWindow(window, topResizer, rightResizer, bottomResizer, le
             const xOffset = savedMouseX - mouseX;
             window.style.width = windowWidth + xOffset + 'px';
             window.style.left = savedWindowX - xOffset + 'px';
-        }
+        } else if(resizingTopLeft) {
+            screen.style.cursor = 'nwse-resize';
+            const yOffset = savedMouseY - mouseY;
+            const xOffset = savedMouseX - mouseX;
+            window.style.height = windowHeight + yOffset + 'px';
+            window.style.top = savedWindowY - yOffset + 'px';
+            window.style.width = windowWidth + xOffset + 'px';
+            window.style.left = savedWindowX - xOffset + 'px';
+        } else if(resizingTopRight) {
+            screen.style.cursor = 'nesw-resize';
+            const yOffset = savedMouseY - mouseY;
+            const xOffset = savedMouseX - mouseX;
+            window.style.height = windowHeight + yOffset + 'px';
+            window.style.top = savedWindowY - yOffset + 'px';
+            window.style.width = windowWidth - xOffset + 'px';
+            window.style.left = savedWindowX + 'px';
+        } else if(resizingBottomRight) {
+            screen.style.cursor = 'nwse-resize';
+            const yOffset = savedMouseY - mouseY;
+            const xOffset = savedMouseX - mouseX;
+            window.style.height = windowHeight - yOffset + 'px';
+            window.style.top = savedWindowY + 'px';
+            window.style.width = windowWidth - xOffset + 'px';
+            window.style.left = savedWindowX + 'px';
+        } else if(resizingBottomLeft) {
+            screen.style.cursor = 'nesw-resize';
+            const yOffset = savedMouseY - mouseY;
+            const xOffset = savedMouseX - mouseX;
+            window.style.height = windowHeight - yOffset + 'px';
+            window.style.top = savedWindowY + 'px';
+            window.style.width = windowWidth + xOffset + 'px';
+            window.style.left = savedWindowX - xOffset + 'px';
+        } 
     })
 }
