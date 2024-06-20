@@ -13,7 +13,7 @@ const settingsFrame = document.getElementById('settingsFrame');
 const settingsFullscreenBtn = document.getElementById('settingsFullscreenBtn');
 const settingsFullscreenBtnImg = document.getElementById('settingsFullscreenBtnImg');
 
-moveableWindow(settingsWindow, settingsFrame);
+moveableWindow(settingsWindow, settingsFrame, settingsFullscreenBtn);
 fullscreenWindow(settingsWindow, settingsFrame, settingsFullscreenBtn, settingsFullscreenBtnImg);
 const topResizerSettings = document.getElementById('topResizerSettings');
 const leftResizerSettings = document.getElementById('leftResizerSettings');

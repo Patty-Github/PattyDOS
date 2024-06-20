@@ -54,58 +54,60 @@ export function resizeWindow(window, topResizer, rightResizer, bottomResizer, le
         mouseX = event.clientX;
         mouseY = event.clientY;
 
-        if(resizingTop) {
-            screen.style.cursor = 'ns-resize';
-            const yOffset = savedMouseY - mouseY;
-            window.style.height = windowHeight + yOffset + 'px';
-            window.style.top = savedWindowY - yOffset + 'px';
-        } else if(resizingRight) {
-            screen.style.cursor = 'ew-resize';
-            const xOffset = savedMouseX - mouseX;
-            window.style.width = windowWidth - xOffset + 'px';
-            window.style.left = savedWindowX + 'px';
-        } else if(resizingBottom) {
-            screen.style.cursor = 'ns-resize';
-            const yOffset = savedMouseY - mouseY;
-            window.style.height = windowHeight - yOffset + 'px';
-            window.style.top = savedWindowY + 'px';
-        } else if(resizingLeft) {
-            screen.style.cursor = 'ew-resize';
-            const xOffset = savedMouseX - mouseX;
-            window.style.width = windowWidth + xOffset + 'px';
-            window.style.left = savedWindowX - xOffset + 'px';
-        } else if(resizingTopLeft) {
-            screen.style.cursor = 'nwse-resize';
-            const yOffset = savedMouseY - mouseY;
-            const xOffset = savedMouseX - mouseX;
-            window.style.height = windowHeight + yOffset + 'px';
-            window.style.top = savedWindowY - yOffset + 'px';
-            window.style.width = windowWidth + xOffset + 'px';
-            window.style.left = savedWindowX - xOffset + 'px';
-        } else if(resizingTopRight) {
-            screen.style.cursor = 'nesw-resize';
-            const yOffset = savedMouseY - mouseY;
-            const xOffset = savedMouseX - mouseX;
-            window.style.height = windowHeight + yOffset + 'px';
-            window.style.top = savedWindowY - yOffset + 'px';
-            window.style.width = windowWidth - xOffset + 'px';
-            window.style.left = savedWindowX + 'px';
-        } else if(resizingBottomRight) {
-            screen.style.cursor = 'nwse-resize';
-            const yOffset = savedMouseY - mouseY;
-            const xOffset = savedMouseX - mouseX;
-            window.style.height = windowHeight - yOffset + 'px';
-            window.style.top = savedWindowY + 'px';
-            window.style.width = windowWidth - xOffset + 'px';
-            window.style.left = savedWindowX + 'px';
-        } else if(resizingBottomLeft) {
-            screen.style.cursor = 'nesw-resize';
-            const yOffset = savedMouseY - mouseY;
-            const xOffset = savedMouseX - mouseX;
-            window.style.height = windowHeight - yOffset + 'px';
-            window.style.top = savedWindowY + 'px';
-            window.style.width = windowWidth + xOffset + 'px';
-            window.style.left = savedWindowX - xOffset + 'px';
-        } 
+        if(!window.classList.contains('fullscreen')) {
+            if(resizingTop) {
+                screen.style.cursor = 'ns-resize';
+                const yOffset = savedMouseY - mouseY;
+                window.style.height = windowHeight + yOffset + 'px';
+                window.style.top = savedWindowY - yOffset + 'px';
+            } else if(resizingRight) {
+                screen.style.cursor = 'ew-resize';
+                const xOffset = savedMouseX - mouseX;
+                window.style.width = windowWidth - xOffset + 'px';
+                window.style.left = savedWindowX + 'px';
+            } else if(resizingBottom) {
+                screen.style.cursor = 'ns-resize';
+                const yOffset = savedMouseY - mouseY;
+                window.style.height = windowHeight - yOffset + 'px';
+                window.style.top = savedWindowY + 'px';
+            } else if(resizingLeft) {
+                screen.style.cursor = 'ew-resize';
+                const xOffset = savedMouseX - mouseX;
+                window.style.width = windowWidth + xOffset + 'px';
+                window.style.left = savedWindowX - xOffset + 'px';
+            } else if(resizingTopLeft) {
+                screen.style.cursor = 'nwse-resize';
+                const yOffset = savedMouseY - mouseY;
+                const xOffset = savedMouseX - mouseX;
+                window.style.height = windowHeight + yOffset + 'px';
+                window.style.top = savedWindowY - yOffset + 'px';
+                window.style.width = windowWidth + xOffset + 'px';
+                window.style.left = savedWindowX - xOffset + 'px';
+            } else if(resizingTopRight) {
+                screen.style.cursor = 'nesw-resize';
+                const yOffset = savedMouseY - mouseY;
+                const xOffset = savedMouseX - mouseX;
+                window.style.height = windowHeight + yOffset + 'px';
+                window.style.top = savedWindowY - yOffset + 'px';
+                window.style.width = windowWidth - xOffset + 'px';
+                window.style.left = savedWindowX + 'px';
+            } else if(resizingBottomRight) {
+                screen.style.cursor = 'nwse-resize';
+                const yOffset = savedMouseY - mouseY;
+                const xOffset = savedMouseX - mouseX;
+                window.style.height = windowHeight - yOffset + 'px';
+                window.style.top = savedWindowY + 'px';
+                window.style.width = windowWidth - xOffset + 'px';
+                window.style.left = savedWindowX + 'px';
+            } else if(resizingBottomLeft) {
+                screen.style.cursor = 'nesw-resize';
+                const yOffset = savedMouseY - mouseY;
+                const xOffset = savedMouseX - mouseX;
+                window.style.height = windowHeight - yOffset + 'px';
+                window.style.top = savedWindowY + 'px';
+                window.style.width = windowWidth + xOffset + 'px';
+                window.style.left = savedWindowX - xOffset + 'px';
+            } 
+        }
     })
 }

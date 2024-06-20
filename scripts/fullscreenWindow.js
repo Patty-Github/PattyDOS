@@ -1,4 +1,4 @@
-export function fullscreenWindow(window, frame, fullscreenBtn, fullscreenBtnImg) {
+export function fullscreenWindow(appWindow, frame, fullscreenBtn, fullscreenBtnImg) {
     // on fullscreen click, top & left = 0, 
     // on frame drag, unminimize
     const screen = document.getElementById('screen');
@@ -13,91 +13,73 @@ export function fullscreenWindow(window, frame, fullscreenBtn, fullscreenBtnImg)
     let mouseX;
     let mouseY;
 
+    let grabbingWindow;
     let clickedFrame = false;
 
     fullscreenBtn.addEventListener('click', () => {
-        if(window.classList.contains('fullscreen')) {
+        if(appWindow.classList.contains('fullscreen')) {
             unFullscreenOnClick();
         } else {
-            savedWindowWidth = getComputedStyle(window).width;
-            savedWindowHeight = getComputedStyle(window).height;
-            savedWindowX = parseFloat(getComputedStyle(window).left);
-            savedWindowY = parseFloat(getComputedStyle(window).top);
+            savedWindowWidth = getComputedStyle(appWindow).width;
+            savedWindowHeight = getComputedStyle(appWindow).height;
+            savedWindowX = parseFloat(getComputedStyle(appWindow).left);
+            savedWindowY = parseFloat(getComputedStyle(appWindow).top);
             // change fullscreenBtn img to un-fullscreen img.
-            window.style.transition = 'all 0.1s ease';
-            window.style.top = '-1px';
-            window.style.left = '-1px';
-            window.style.borderRadius = '0';
-            window.style.width = getComputedStyle(screen).width;
-            window.style.height = getComputedStyle(screen).height;
-            window.classList.add('fullscreen');
-            window.style.transition = 'all 0s';
+            appWindow.style.transition = 'all 0.1s ease';
+            appWindow.style.top = '-1px';
+            appWindow.style.left = '-1px';
+            appWindow.style.borderRadius = '0';
+            appWindow.style.width = getComputedStyle(screen).width;
+            appWindow.style.height = getComputedStyle(screen).height;
+            appWindow.classList.add('fullscreen');
+            appWindow.style.transition = 'all 0s';
             fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen-exit.png";
         }
     })
 
     function unFullscreenOnClick() {
         console.log('un on click')
-        window.style.transition = 'all 0.1s ease';
+        appWindow.style.transition = 'all 0.1s ease';
 
-        window.style.width = savedWindowWidth;
-        window.style.height = savedWindowHeight;
-        window.style.left = savedWindowX + 'px';
-        window.style.top = savedWindowY + 'px';
+        appWindow.style.width = savedWindowWidth;
+        appWindow.style.height = savedWindowHeight;
+        appWindow.style.left = savedWindowX + 'px';
+        appWindow.style.top = savedWindowY + 'px';
         console.log(savedWindowX);
 
-        window.style.borderRadius = '8px'
+        appWindow.style.borderRadius = '8px'
 
-        window.style.transition = 'all 0s'
-        window.classList.remove('fullscreen');
+        appWindow.style.transition = 'all 0s'
+        appWindow.classList.remove('fullscreen');
         fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen.png";
     }
 
-    function unFullscreenOnDrag(event) {
-        window.style.width = savedWindowWidth;
-        window.style.height = savedWindowHeight;
+    function unFullscreenOnDrag() {
+        appWindow.style.width = savedWindowWidth;
+        appWindow.style.height = savedWindowHeight;
 
-        const xOffset = savedMouseX - mouseX;
-        const yOffset = savedMouseY - mouseY;
 
-        //window.style.left = event.clientX - ((parseFloat(getComputedStyle(window).width)) / 2) + 'px';
-        //window.style.top = event.clientY + 16 - 'px';
-        //window.style.left = mouseX;
-        //window.style.top = mouseY;
-
-        console.log(getComputedStyle(window).left);
-
-        window.style.borderRadius = '8px'
-        window.classList.remove('fullscreen');
+        appWindow.style.borderRadius = '8px'
+        appWindow.classList.remove('fullscreen');
         fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen.png";
-
-        // mouse has to be moving for it to work. what is being run on mousemove?
     }
 
-    frame.addEventListener('mousemove', (event) => {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-        //console.log(mouseX + ' ' + String(mouseY));
-    });
+    frame.addEventListener('mousedown', () => grabbingWindow = true)
+    document.addEventListener('mouseup', () => grabbingWindow = false)
 
-    frame.addEventListener('mousedown', (event) => {
-        // if currentMouseX != savedMouseX;
-        //console.log(getComputedStyle(window).top + getComputedStyle(window).left);
-        if(window.classList.contains('fullscreen')) {
-            clickedFrame = true;
-            //savedMouseX = event.clientX;
-            //savedMouseY = event.clientY;
-    
-            frame.addEventListener('mousemove', (event) => {
-                if(window.classList.contains('fullscreen')) {
-                    if((savedMouseX != mouseX || savedMouseY != mouseY) && !event.target.classList.contains('frameBtnImage') && clickedFrame == true) {
-                        unFullscreenOnDrag(event);
-                    }
-                }
-            })
-            frame.addEventListener('mouseup', () => {clickedFrame = false;});   
+    document.addEventListener('mousemove', (event) => {
+        if(grabbingWindow && appWindow.classList.contains('fullscreen')) {
+            unFullscreenOnDrag();
         }
     })
 
-    // addeventlistner for resize, undate fullscreen scaling.
+    window.addEventListener('resize', () => {
+        if(appWindow.classList.contains('fullscreen')) {
+            appWindow.style.width = getComputedStyle(screen).width;
+            appWindow.style.height = getComputedStyle(screen).height;
+        }
+    })
+
+    // when un-fullscreening when browser is unfocused it defaults to top left.
+    // you shouldn't be able to resize if fullscreen.
 }
