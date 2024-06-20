@@ -60,8 +60,10 @@ export function fullscreenWindow(window, frame, fullscreenBtn, fullscreenBtnImg)
         const xOffset = savedMouseX - mouseX;
         const yOffset = savedMouseY - mouseY;
 
-        window.style.left = event.clientX - ((parseFloat(getComputedStyle(window).width)) / 2) + 'px';
-        window.style.top = event.clientY + 16 - 'px';
+        //window.style.left = event.clientX - ((parseFloat(getComputedStyle(window).width)) / 2) + 'px';
+        //window.style.top = event.clientY + 16 - 'px';
+        //window.style.left = mouseX;
+        //window.style.top = mouseY;
 
         console.log(getComputedStyle(window).left);
 
@@ -72,27 +74,28 @@ export function fullscreenWindow(window, frame, fullscreenBtn, fullscreenBtnImg)
         // mouse has to be moving for it to work. what is being run on mousemove?
     }
 
+    frame.addEventListener('mousemove', (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+        //console.log(mouseX + ' ' + String(mouseY));
+    });
+
     frame.addEventListener('mousedown', (event) => {
         // if currentMouseX != savedMouseX;
         //console.log(getComputedStyle(window).top + getComputedStyle(window).left);
-        mouseX = event.clientX;
-        mouseY = event.clientY;
         if(window.classList.contains('fullscreen')) {
             clickedFrame = true;
-            savedMouseX = event.clientX;
-            savedMouseY = event.clientY;
-    
-            frame.addEventListener('mouseup', () => {clickedFrame = false;});
+            //savedMouseX = event.clientX;
+            //savedMouseY = event.clientY;
     
             frame.addEventListener('mousemove', (event) => {
-                mouseX = event.clientX;
-                mouseY = event.clientY;
-                if((savedMouseX != mouseX || savedMouseY != mouseY) && !event.target.classList.contains('frameBtnImage') && clickedFrame == true) {
-                    if(window.classList.contains('fullscreen')) {
+                if(window.classList.contains('fullscreen')) {
+                    if((savedMouseX != mouseX || savedMouseY != mouseY) && !event.target.classList.contains('frameBtnImage') && clickedFrame == true) {
                         unFullscreenOnDrag(event);
                     }
                 }
-            })   
+            })
+            frame.addEventListener('mouseup', () => {clickedFrame = false;});   
         }
     })
 

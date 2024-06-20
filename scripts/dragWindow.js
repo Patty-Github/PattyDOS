@@ -10,34 +10,44 @@ export function moveableWindow(window, frame) {
     let grabbingWindow = false;
     let onFrameBtn = false;
 
+    // save window state is the issue. if it runs, it fucks it up.
+
+    function saveWindowState(event) {
+        savedMouseY = mouseY; 
+        savedMouseX = mouseX;
+        savedWindowX = parseFloat(getComputedStyle(window).left);
+        savedWindowY = parseFloat(getComputedStyle(window).top);
+    }
+
     frame.addEventListener('mousedown', (event) => {
         if(window.classList.contains('fullscreen')) {
-            setTimeout(() => {saveWindowState()}, 10)
+            const hasMouseMoved = (event) => {
+                saveWindowState(event); 
+                document.removeEventListener('mousemove');
+            }
+            document.addEventListener('mousemove', () => hasMouseMoved);
         } else {
-            saveWindowState();
+            saveWindowState(event);
         }
-        function saveWindowState() {
-            console.log('save win stsate')
-            if(event.target.closest('.frameBtn')) {
-                onFrameBtn = true;
-            }
-            if(onFrameBtn == false) {
-                grabbingWindow = true; 
-            }
-            setTimeout(() => {onFrameBtn = false;}, 1)
-            savedMouseY = mouseY; 
-            savedMouseX = mouseX;
-            savedWindowX = parseFloat(getComputedStyle(window).left);
-            savedWindowY = parseFloat(getComputedStyle(window).top);
+        if(event.target.classList.contains('frame')) {
+            grabbingWindow = true;
         }
     })
-    window.addEventListener('mouseup', () => {grabbingWindow = false; onFrameBtn = false;})
+    window.addEventListener('mouseup', () => {grabbingWindow = false; /*onFrameBtn = false;*/})
 
     screen.addEventListener('mousemove', (event) => {
         mouseX = event.clientX;
         mouseY = event.clientY;
-        if(grabbingWindow === true && onFrameBtn === false && !window.classList.contains('fullscreen')) {
-            dragWindow()
+        //console.log(event.target);
+        //console.log(`${grabbingWindow} + ${onFrameBtn} + ${!window.classList.contains('fullscreen')}`);
+        if(event.target.classList.contains('frameBtnImage')) {
+            onFrameBtn = true;
+        } else {
+            onFrameBtn = false;
+        }
+        if(grabbingWindow === true && onFrameBtn === false) {
+            //saveWindowState(event);
+            dragWindow();
         }
     })
 
