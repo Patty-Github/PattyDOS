@@ -38,14 +38,12 @@ export function fullscreenWindow(appWindow, frame, fullscreenBtn, fullscreenBtnI
     })
 
     function unFullscreenOnClick() {
-        console.log('un on click')
         appWindow.style.transition = 'all 0.1s ease';
 
         appWindow.style.width = savedWindowWidth;
         appWindow.style.height = savedWindowHeight;
         appWindow.style.left = savedWindowX + 'px';
         appWindow.style.top = savedWindowY + 'px';
-        console.log(savedWindowX);
 
         appWindow.style.borderRadius = '8px'
 
@@ -57,7 +55,6 @@ export function fullscreenWindow(appWindow, frame, fullscreenBtn, fullscreenBtnI
     function unFullscreenOnDrag() {
         appWindow.style.width = savedWindowWidth;
         appWindow.style.height = savedWindowHeight;
-
 
         appWindow.style.borderRadius = '8px'
         appWindow.classList.remove('fullscreen');

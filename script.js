@@ -90,6 +90,78 @@ function setFontSize() {
 setFontSize();
 window.addEventListener('resize', () => {setFontSize(); setScreenSize()});
 
+// HomePage
+// when desktopIcon is being moved, when it is dropped, calculate it's position to the dots and make it's position the nearest one.
+function moveDesktopIcons() {
+    let mouseX;
+    let mouseY;
+    document.addEventListener('mousemove', (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+    })
+    desktopIcons.forEach((desktopIcon) => {
+        let holdingIcon;
+
+        desktopIcon.addEventListener('mousedown', () => {
+            holdingIcon = true;
+        })
+
+        document.addEventListener('mouseup', () => {
+            let dotX;
+            let dotY;
+            let closestDotX;
+            let closestDotY;
+            let closestDot;
+            const iconRect = desktopIcon.getBoundingClientRect();
+            let iconX = iconRect.left;
+            let iconY = iconRect.top;
+            // go through each dot, add x and y pos up, compare to desktopIcon pos.
+            if(holdingIcon) {
+                const dots = document.querySelectorAll('.iconDot');
+                dots.forEach((dot) => {
+                    const dotRect = dot.getBoundingClientRect();
+                    dotX = dotRect.top;
+                    dotY = dotRect.left;
+                    //console.log(`Dot X: ${dotX} Dot Y: ${dotY}`);
+                    // 
+                    let dotDistanceX = Math.abs(iconX) - Math.abs(dotX);
+                    let dotDistanceY = Math.abs(iconY) - Math.abs(dotY);
+                    let dotDistance = Math.abs(dotDistanceX) + Math.abs(dotDistanceY);
+                    //console.log(dotDistance);
+                    if(closestDot != null) {
+                        if(dotDistance < closestDot) {
+                            closestDotX = dotX;
+                            closestDotY = dotY;
+                            closestDot = dotDistance;
+                        }
+                    } else {
+                        closestDotX = dotX;
+                        closestDotY = dotY;
+                        closestDot = dotDistance;
+                    }
+                    //console.log(dotDistanceX + ' ' + dotDistanceY);
+                })
+                console.log(`closest dot pos: ${closestDot} cloest dot X: ${closestDotX} closest dot Y: ${closestDotY}`);
+                desktopIcon.style.left = closestDotX + 'px';
+                desktopIcon.style.top = closestDotY + 'px';
+
+                // put icon position to the closest dot.
+            }
+            holdingIcon = false; 
+        })
+
+        window.addEventListener('mousemove', () => {
+            if(holdingIcon) {
+                desktopIcon.style.left = mouseX + 'px';
+                desktopIcon.style.top = mouseY + 'px';
+                //console.log('mouse x pos: ' + mouseX + ' icon left: ' + (parseFloat(getComputedStyle(desktopIcon).left)));
+                //console.log('mouse y pos: ' + mouseY + ' icon top: ' + (parseFloat(getComputedStyle(desktopIcon).top)));
+            }
+        })
+    })
+}
+moveDesktopIcons();
+
 // have every grid slot have a desktopIcon, on drop, that innerHTML is dragged HTML.
 
 // add wallpaper customization 

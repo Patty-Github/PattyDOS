@@ -1,4 +1,4 @@
-export function moveableWindow(window, frame, fullscreenBtn) {
+export function moveableWindow(appWindow, frame, fullscreenBtn) {
 
     const screen = document.getElementById('screen')
     let mouseX;
@@ -13,36 +13,35 @@ export function moveableWindow(window, frame, fullscreenBtn) {
     let onFrameBtn = false;
 
     const windowStyleChange = new MutationObserver((mutations) => {
-        console.log('changed')
         mutations.forEach((mutation) => {
-        savedWindowX = parseFloat(getComputedStyle(window).left);
-        savedWindowY = parseFloat(getComputedStyle(window).top);
-            console.log('settingsApp ' + mutation.attributeName + ' has been changed');
+            savedWindowX = parseFloat(getComputedStyle(appWindow).left);
+            savedWindowY = parseFloat(getComputedStyle(appWindow).top);
             windowStyleChange.disconnect();
         })
     })
     document.addEventListener('DOMContentLoaded', () => {
-        windowStyleChange.observe(window, { attributes : true, attributeFilter : ['style'] })
+        windowStyleChange.observe(appWindow, { attributes : true, attributeFilter : ['style'] })
     })
 
-    frame.addEventListener('mousedown', (event) => {
-        if(event.target.closest('.frameBtn')) {
-            onFrameBtn = true;
-        }
+    frame.addEventListener('mousedown', () => {
         if(onFrameBtn == false) {
             grabbingWindow = true; 
         }
-        setTimeout(() => {onFrameBtn = false;}, 1)
         savedMouseY = mouseY; 
         savedMouseX = mouseX;
-        if(!window.classList.contains('fullscreen')) {
-            savedWindowX = parseFloat(getComputedStyle(window).left);
-            savedWindowY = parseFloat(getComputedStyle(window).top);
+        if(!appWindow.classList.contains('fullscreen')) {
+            savedWindowX = parseFloat(getComputedStyle(appWindow).left);
+            savedWindowY = parseFloat(getComputedStyle(appWindow).top);
         }
     })
-    window.addEventListener('mouseup', () => {grabbingWindow = false; onFrameBtn = false;})
+    window.addEventListener('mouseup', () => {grabbingWindow = false;})
 
     screen.addEventListener('mousemove', (event) => {
+        if(event.target.closest('.frameBtn')) {
+            onFrameBtn = true;
+        } else {
+            onFrameBtn = false;
+        }
         mouseX = event.clientX;
         mouseY = event.clientY;
         if(grabbingWindow === true && onFrameBtn === false) {
@@ -53,21 +52,20 @@ export function moveableWindow(window, frame, fullscreenBtn) {
     function dragWindow() {
         const xOffset = savedMouseX - mouseX;
         const yOffset = savedMouseY - mouseY;
-        window.style.left = (savedWindowX -  xOffset) + 'px';
-        window.style.top = (savedWindowY - yOffset) + 'px';
+        appWindow.style.left = (savedWindowX -  xOffset) + 'px';
+        appWindow.style.top = (savedWindowY - yOffset) + 'px';
     }
 
     // fullscreen code 
     fullscreenBtn.addEventListener('click', () => {
-        savedWindowWidth = parseFloat(getComputedStyle(window).width);
-        savedWindowHeight = parseFloat(getComputedStyle(window).height);
+        savedWindowWidth = parseFloat(getComputedStyle(appWindow).width);
+        savedWindowHeight = parseFloat(getComputedStyle(appWindow).height);
     })
 
     frame.addEventListener('mousemove', () => {
-        if(grabbingWindow && window.classList.contains('fullscreen')) {
+        if(grabbingWindow && appWindow.classList.contains('fullscreen')) {
             savedWindowX = mouseX - (savedWindowWidth / 2);
             savedWindowY = mouseY - 16;
-            //window.style.left = savedWindowX;
         }
     })
 }
