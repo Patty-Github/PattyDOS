@@ -20,9 +20,6 @@ const leftResizerSettings = document.getElementById('leftResizerSettings');
 const rightResizerSettings = document.getElementById('rightResizerSettings');
 const bottomResizerSettings = document.getElementById('bottomResizerSettings');
 const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings];
-// settingsResizers.forEach((settingsResizer) => {
-//     settingsResizer.addEventListener('click', (event) => {resizeWindow(event, settingsResizer)})
-// })
 resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings', 'settingsTopLeftResizeHandle', 'settingsTopRightResizeHandle', 'settingsBottomRightResizeHandle', 'settingsBottomLeftResizeHandle');
 
 let settingsResized = false;

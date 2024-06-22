@@ -48,17 +48,17 @@ body {
 }
 
 #homePage {
+    position: relative;
     width: 100%;
     height: calc(100% - 48px);
-    display: grid;
-    grid-template-columns: repeat(25, calc(4% - 1px));
-    grid-template-rows: repeat(13, calc(7.692% - 1px));
-    gap: 1px;
+    display: flex;
 }
 
 .desktopIcon {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    width: calc(4% - 1px);
+    height: calc(7.692% - 1px);
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -75,7 +75,7 @@ body {
     border-width: 1px;
     border-color: rgb(212, 212, 212);
     background-color: rgba(219, 219, 219, 0.3);
-    transition: all 0.2s ease;
+    /*transition: all 0.2s ease;*/
 }
 .desktopIcon.full:hover {
     border-radius: 8px;
@@ -124,11 +124,37 @@ body {
     text-overflow: initial;
 }
 
+.iconDotsContainer {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /* display: grid;
+    grid-template-columns: repeat(25, calc(4% - 1px));
+    grid-template-rows: repeat(13, calc(7.692% - 1px));
+    gap: 1px; */
+    /*background-color: rgba(255, 0, 0, 0.1);*/
+    pointer-events: none;
+}
+.iconDot {
+    margin: 0.5px;
+    height: calc(7.692% - 1px);
+    width: calc(4% - 1px);
+    justify-self: center;
+    align-self: center;
+    background-color: transparent;
+    pointer-events: none;
+}
+
 #taskbar {
     display: flex;
     justify-content: center;
     z-index: 2;
-    position: relative;
+    position: absolute;
+    bottom: 0;
     width: 100%;
     height: 48px;
     background-color: rgba(42, 61, 83, 0.8);
@@ -306,10 +332,10 @@ body {
     background-color: transparent;
     user-select: none;
 }
-.topResizeHandle:hover, .bottomResizeHandle:hover {
+.appWindow:not(.fullscreen) > .topResizeHandle:hover, .bottomResizeHandle:hover {
     cursor: ns-resize;    
 }
-.rightResizeHandle:hover, .leftResizeHandle:hover {
+.appWindow:not(.fullscreen) > .rightResizeHandle:hover, .leftResizeHandle:hover {
     cursor: ew-resize;
 }
 .topResizeHandle, .bottomResizeHandle {
@@ -340,10 +366,10 @@ body {
     background-color: transparent;
     user-select: none;
 }
-.topLeftResizeHandle:hover, .bottomRightResizeHandle:hover {
+.appWindow:not(.fullscreen) > .topLeftResizeHandle:hover, .bottomRightResizeHandle:hover {
     cursor: nwse-resize;
 }
-.topRightResizeHandle:hover, .bottomLeftResizeHandle:hover {
+.appWindow:not(.fullscreen) > .topRightResizeHandle:hover, .bottomLeftResizeHandle:hover {
     cursor: nesw-resize;
 }
 .topLeftResizeHandle {
