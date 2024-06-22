@@ -82,16 +82,29 @@ function setFontSize() {
     desktopIcons.forEach((desktopIcon) => {
         let desktopIconWidth = parseFloat(getComputedStyle(desktopIcon).width)
         if(desktopIconTitles[i]) {
-            desktopIconTitles[i].style.fontSize = (desktopIconWidth / 4) + 'px';
+            desktopIconTitles[i].style.fontSize = (desktopIconWidth / 4.5) + 'px';
         } 
         i++;
     })
 }
 setFontSize();
-window.addEventListener('resize', () => {setFontSize(); setScreenSize()});
+window.addEventListener('resize', () => {setFontSize(); setScreenSize();});
 
 // HomePage
 // when desktopIcon is being moved, when it is dropped, calculate it's position to the dots and make it's position the nearest one.
+(function setIconPosition() {
+    for(let i = 1; i < desktopIcons.length; i++){
+        // if desktop icon position is another desktopIcon's position, move it by desktopIcon's width + 0.5px.
+        if(parseFloat(getComputedStyle(desktopIcons[i]).left) == getIconPosition((i - 1))) {
+            desktopIcons[i].style.left = parseFloat(getComputedStyle(desktopIcons[i]).left) + parseFloat(getComputedStyle(desktopIcons[i]).width) + 'px';
+            setIconPosition();
+        }
+    }
+
+    function getIconPosition(i) {
+        return(parseFloat(getComputedStyle(desktopIcons[i]).left));
+    }
+})();
 function moveDesktopIcons() {
     let mouseX;
     let mouseY;
@@ -99,11 +112,15 @@ function moveDesktopIcons() {
         mouseX = event.clientX;
         mouseY = event.clientY;
     })
-    desktopIcons.forEach((desktopIcon) => {
+    desktopIcons.forEach((desktopIcon, index) => {
         let holdingIcon;
+        let savedIconX;
+        let savedIconY;
 
         desktopIcon.addEventListener('mousedown', () => {
             holdingIcon = true;
+            savedIconX = getComputedStyle(desktopIcon).left;
+            savedIconY = getComputedStyle(desktopIcon).top;
         })
 
         document.addEventListener('mouseup', () => {
@@ -119,17 +136,17 @@ function moveDesktopIcons() {
             if(holdingIcon) {
                 const dots = document.querySelectorAll('.iconDot');
                 dots.forEach((dot) => {
+                    // get dot position
                     const dotRect = dot.getBoundingClientRect();
-                    dotX = dotRect.top;
-                    dotY = dotRect.left;
-                    //console.log(`Dot X: ${dotX} Dot Y: ${dotY}`);
-                    // 
-                    let dotDistanceX = Math.abs(iconX) - Math.abs(dotX);
-                    let dotDistanceY = Math.abs(iconY) - Math.abs(dotY);
-                    let dotDistance = Math.abs(dotDistanceX) + Math.abs(dotDistanceY);
-                    //console.log(dotDistance);
+                    dotX = dotRect.left;
+                    dotY = dotRect.top;
+                    // get distance from icon
+                    let dotDistanceX = Math.abs(iconX - dotX);
+                    let dotDistanceY = Math.abs(iconY - dotY);
+                    let dotDistance = dotDistanceX + dotDistanceY;
                     if(closestDot != null) {
-                        if(dotDistance < closestDot) {
+                        // if this dot is closer to icon than closest dot, this is closest dot.
+                        if(Math.abs(dotDistance) < Math.abs(closestDot)) {
                             closestDotX = dotX;
                             closestDotY = dotY;
                             closestDot = dotDistance;
@@ -139,88 +156,38 @@ function moveDesktopIcons() {
                         closestDotY = dotY;
                         closestDot = dotDistance;
                     }
-                    //console.log(dotDistanceX + ' ' + dotDistanceY);
                 })
-                console.log(`closest dot pos: ${closestDot} cloest dot X: ${closestDotX} closest dot Y: ${closestDotY}`);
-                desktopIcon.style.left = closestDotX + 'px';
-                desktopIcon.style.top = closestDotY + 'px';
+                let spaceTaken;
+                desktopIcons.forEach((desktopIcon2, index2) => {
+                    if(index2 != index) {
+                        if((parseFloat(getComputedStyle(desktopIcon2).left)) == closestDotX && Math.round((parseFloat(getComputedStyle(desktopIcon2).top))) ==  Math.round(closestDotY)) {
+                            spaceTaken = true;
+                        } else {
+                            spaceTaken = false;
+                        }
+                    }
+                })
 
-                // put icon position to the closest dot.
+                // put icon position to the closest dot if space not taken by another icon.
+                if(spaceTaken) {
+                    desktopIcon.style.left = savedIconX;
+                    desktopIcon.style.top = savedIconY;
+                } else {
+                    desktopIcon.style.left = closestDotX - parseFloat(getComputedStyle(screen).left) + 'px';
+                    desktopIcon.style.top = closestDotY - parseFloat(getComputedStyle(screen).top) + 'px';
+                }
             }
             holdingIcon = false; 
         })
 
         window.addEventListener('mousemove', () => {
             if(holdingIcon) {
-                desktopIcon.style.left = mouseX + 'px';
-                desktopIcon.style.top = mouseY + 'px';
-                //console.log('mouse x pos: ' + mouseX + ' icon left: ' + (parseFloat(getComputedStyle(desktopIcon).left)));
-                //console.log('mouse y pos: ' + mouseY + ' icon top: ' + (parseFloat(getComputedStyle(desktopIcon).top)));
+                desktopIcon.style.left = mouseX - parseFloat(getComputedStyle(screen).left) - (parseFloat(getComputedStyle(desktopIcon).width) / 2) + 'px';
+                desktopIcon.style.top = mouseY - parseFloat(getComputedStyle(screen).top) - (parseFloat(getComputedStyle(desktopIcon).height) / 2) + 'px';
             }
         })
     })
 }
 moveDesktopIcons();
 
-// have every grid slot have a desktopIcon, on drop, that innerHTML is dragged HTML.
-
 // add wallpaper customization 
-
-
-/* don't work
-
-/*desktopIcons.forEach((desktopIcon) => {
-    desktopIcon.addEventListener('contextmenu', () => {
-        //show app menu
-    })
-
-    if(desktopIcon.innerHTML != '') {
-        desktopIcon.addEventListener('dragstart', (event) => {
-            desktopIconHTML = desktopIcon.innerHTML;
-            desktopIcon.innerHTML = ''
-            document.body.style.cursor = 'pointer';
-        })
-
-        desktopIcon.addEventListener('dragend', (event) => {
-            event.preventDefault();
-            document.body.style.cursor = 'default';
-            //e.innerHTML = desktopIconHTML;
-        })
-    }
-
-    desktopIcon.addEventListener('dragover', (event) => {
-        event.preventDefault();
-    })
-
-    desktopIcon.addEventListener('drop', (event) => {
-        event.preventDefault();
-        if(desktopIcon.innerHTML == '') {
-            desktopIcon.innerHTML = desktopIconHTML;
-        }
-    })
-})*/
-
-/*let i = 0;
-
-desktopIcons.forEach((desktopIcon) => {
-    if(desktopIcon.innerHTML != '') {
-        desktopIcon.addEventListener('dragstart', (event) => {
-            desktopIconHTML = desktopIcon.innerHTML;
-        })
-    }
-
-    desktopIcon.addEventListener('dragover', (event) => {
-        event.preventDefault();
-    })
-
-    desktopIcon.addEventListener('drop', (event) => {
-        event.preventDefault();
-        if(desktopIcon.innerHTML == '') {
-            desktopIcon.innerHTML = desktopIconHTML;
-        }
-    })
-})*/
-
-// when desktopIcon is dragged, store that icon's HTML in a variable.
-// when that desktop icon gets dropped on another desktop icon, set the desktopIcon's innerHTML to var. 
-// delete the first icon's innerHTML
