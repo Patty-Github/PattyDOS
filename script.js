@@ -190,4 +190,67 @@ function moveDesktopIcons() {
 }
 moveDesktopIcons();
 
+function setDateAndTime() {
+    const date = new Date();
+    const timeText = document.getElementById('taskbarTimeText');
+    const dateText = document.getElementById('taskbarDateText');
+    let stringAmPm = '';
+
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
+
+    h > 12 ? stringAmPm = 'pm' : stringAmPm = 'am';
+    m < 10 ? m = '0' + m : m = m;
+    s < 10 ? s = '0' + s : s = s;
+
+    switch(h) {
+        case 13: 
+            h = 1;
+            break;
+        case 14: 
+            h = 2;
+            break;
+        case 15: 
+            h = 3;
+            break;
+        case 16:
+            h = 4;
+            break;
+        case 17: 
+            h = 5;
+            break;
+        case 18:
+            h = 6;
+            break;
+        case 19:
+            h = 7;
+            break;
+        case 20:
+            h = 8;
+            break;
+        case 21:
+            h = 9;
+            break;
+        case 22:
+            h = 10;
+            break;
+        case 23:
+            h = 11;
+            break;
+        case 24:
+            h = 12;
+            break;
+    }
+
+    timeText.innerText = `${h}:${m}:${s}${stringAmPm}`;
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    dateText.innerText = `${day}/${month}/${year}`
+}
+setDateAndTime();
+setInterval(setDateAndTime, 1000);
 // add wallpaper customization 

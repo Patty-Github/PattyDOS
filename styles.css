@@ -15,6 +15,11 @@ body {
     overflow: hidden;
 }
 
+img {
+    pointer-events: none;
+    user-select: none;
+}
+
 #screen {
     aspect-ratio: 16 / 9;
     position: absolute;
@@ -162,6 +167,10 @@ body {
     backdrop-filter: blur(64px);
     -webkit-backdrop-filter: blur(64px);
 }
+#taskbarApps {
+    display: flex;
+    justify-self: center;
+}
 .taskbarApp {
     display: flex;
     flex-direction: column;
@@ -205,6 +214,52 @@ body {
 }
 #pattyDOSTaskbarApp {
     filter: invert(42%) sepia(100%) saturate(479%) hue-rotate(181deg) brightness(98%) contrast(95%);
+}
+#taskbarIcons {
+    display: flex;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    align-items: center;
+}
+#taskbarTimeAndDate {
+    margin: 0 5px;
+    padding: 3px 5px;
+    align-items: center;
+    text-align: end;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+#taskbarTimeAndDate:hover {
+    background-color: rgb(255, 255, 255, 0.1);
+}
+#taskbarTimeText, #taskbarDateText {
+    font-size: 12px;
+    color: white;
+    font-weight: 400;
+    pointer-events: none;
+    user-select: none;
+}
+#taskbarAudio {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+#taskbarAudioOutput, #taskbarAudioInput {
+    display: flex;
+    height: 80%;
+    padding: 0 3px;
+    border-radius: 4px;
+    align-items: center;
+}
+#taskbarAudioOutput:hover, #taskbarAudioInput:hover {
+    background-color: rgb(255, 255, 255, 0.1);
+}
+.taskbarAudioImg {
+    height: 60%;
+}
+#taskbarAudioOutputImg {
+    transform: rotate(45deg);
 }
 
 #startMenu {
