@@ -105,6 +105,7 @@ window.addEventListener('resize', () => {setFontSize(); setScreenSize();});
         return(parseFloat(getComputedStyle(desktopIcons[i]).left));
     }
 })();
+
 function moveDesktopIcons() {
     let mouseX;
     let mouseY;
@@ -116,6 +117,7 @@ function moveDesktopIcons() {
         let holdingIcon;
         let savedIconX;
         let savedIconY;
+        const dots = document.querySelectorAll('.iconDot');
 
         desktopIcon.addEventListener('mousedown', () => {
             holdingIcon = true;
@@ -134,7 +136,6 @@ function moveDesktopIcons() {
             let iconY = iconRect.top;
             // go through each dot, add x and y pos up, compare to desktopIcon pos.
             if(holdingIcon) {
-                const dots = document.querySelectorAll('.iconDot');
                 dots.forEach((dot) => {
                     // get dot position
                     const dotRect = dot.getBoundingClientRect();
@@ -160,7 +161,7 @@ function moveDesktopIcons() {
                 let spaceTaken;
                 desktopIcons.forEach((desktopIcon2, index2) => {
                     if(index2 != index) {
-                        if((parseFloat(getComputedStyle(desktopIcon2).left)) == closestDotX && Math.round((parseFloat(getComputedStyle(desktopIcon2).top))) ==  Math.round(closestDotY)) {
+                        if(Math.round(((parseFloat(getComputedStyle(desktopIcon2).left)) + parseFloat(getComputedStyle(screen).left))) == Math.round(closestDotX) && Math.round((parseFloat(getComputedStyle(desktopIcon2).top))) ==  Math.round(closestDotY)) {
                             spaceTaken = true;
                         } else {
                             spaceTaken = false;
@@ -178,12 +179,18 @@ function moveDesktopIcons() {
                 }
             }
             holdingIcon = false; 
+            dots.forEach((dot) => {
+                dot.style.backgroundColor = 'transparent';
+            })
         })
-
+        
         window.addEventListener('mousemove', () => {
             if(holdingIcon) {
                 desktopIcon.style.left = mouseX - parseFloat(getComputedStyle(screen).left) - (parseFloat(getComputedStyle(desktopIcon).width) / 2) + 'px';
                 desktopIcon.style.top = mouseY - parseFloat(getComputedStyle(screen).top) - (parseFloat(getComputedStyle(desktopIcon).height) / 2) + 'px';
+                dots.forEach((dot) => {
+                    dot.style.backgroundColor = 'rgb(255, 255, 255, 0.1)';
+                })
             }
         })
     })
