@@ -125,7 +125,8 @@ function moveDesktopIcons() {
             savedIconY = getComputedStyle(desktopIcon).top;
         })
 
-        document.addEventListener('mouseup', () => {
+        document.addEventListener('mouseup', positionIcons)
+        function positionIcons() {
             let dotX;
             let dotY;
             let closestDotX;
@@ -182,18 +183,64 @@ function moveDesktopIcons() {
             dots.forEach((dot) => {
                 dot.style.backgroundColor = 'transparent';
             })
-        })
+        }
         
         window.addEventListener('mousemove', () => {
             if(holdingIcon) {
                 desktopIcon.style.left = mouseX - parseFloat(getComputedStyle(screen).left) - (parseFloat(getComputedStyle(desktopIcon).width) / 2) + 'px';
                 desktopIcon.style.top = mouseY - parseFloat(getComputedStyle(screen).top) - (parseFloat(getComputedStyle(desktopIcon).height) / 2) + 'px';
                 dots.forEach((dot) => {
-                    dot.style.backgroundColor = 'rgb(255, 255, 255, 0.1)';
+                    dot.style.backgroundColor = 'rgb(0, 0, 0, 0.1)';
                 })
             }
         })
+
+        window.addEventListener('resize', () => {
+            holdingIcon = true;
+            positionIcons();
+            holdingIcon = false;
+            // breaks if window is resized too fast.
+        })
     })
+
+    // window.addEventListener('resize', () => {
+    //     // when window is resized, put each desktopIcon's position to closest dot position 
+    //     const dots = document.querySelectorAll('.iconDot');
+    //     desktopIcons.forEach((desktopIcon, iconIndex) => {
+    //         const iconRect = desktopIcon.getBoundingClientRect();
+    //         const iconX =  Math.round(iconRect.left);
+    //         const iconY =  Math.round(iconRect.top);
+    //         dots.forEach((dot, dotIndex) => {
+    //             const dotRect = dot.getBoundingClientRect();
+    //             const dotX = Math.round(dotRect.left);
+    //             const dotY = Math.round(dotRect.top);
+    
+    //             let dotDistanceX = Math.abs(iconX - dotX);
+    //             let dotDistanceY = Math.abs(iconY - dotY);
+    //             let dotDistance = dotDistanceX + dotDistanceY;
+
+    //             let closestDotX;
+    //             let closestDotY;
+    //             let closestDot;
+    //             if(closestDot != null) {
+    //                 // if this dot is closer to icon than closest dot, this is closest dot.
+    //                 if(Math.abs(dotDistance) < Math.abs(closestDot)) {
+    //                     closestDotX = dotX;
+    //                     closestDotY = dotY;
+    //                     closestDot = dotDistance;
+    //                 }
+    //             } else {
+    //                 closestDotX = dotX;
+    //                 closestDotY = dotY;
+    //                 closestDot = dotDistance;
+    //             }
+    //             // iconX = closestDotX, etc
+    //             desktopIcon.style.left = closestDotX;
+    //             desktopIcon.style.top = closestDotY;
+    //             console.log('moved')
+    //         })
+    //       })
+    // })
 }
 moveDesktopIcons();
 
