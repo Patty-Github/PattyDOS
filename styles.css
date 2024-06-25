@@ -29,6 +29,7 @@ img {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position-x: center;
+    background-position-y: center;
     overflow: hidden;
 }
 
@@ -77,14 +78,13 @@ img {
 }
 .desktopIcon:focus {
     border: dashed;
-    border-top: none;
     border-width: 1px;
     border-color: rgb(212, 212, 212);
     background-color: rgba(219, 219, 219, 0.3);
     /*transition: all 0.2s ease;*/
 }
 .desktopIcon.full:hover {
-    border-radius: 8px;
+    border-radius:0px;
     background-color: rgba(219, 219, 219, 0.3);
     transition: background-color 0.2s ease;
 }
@@ -119,7 +119,7 @@ img {
     -ms-user-select: none;
     user-select: none;
 }
-.desktopIcon:focus > .desktopIconTitle {
+/* .desktopIcon:focus > .desktopIconTitle {
     border: dashed;
     border-top: none;
     border-width: 1px;
@@ -128,7 +128,7 @@ img {
     white-space: wrap;
     overflow: visible;
     text-overflow: initial;
-}
+} */
 
 .iconDotsContainer {
     top: 0;

@@ -54,20 +54,32 @@
                 <div class="settingsPage" id="settingsPersonalization">
                     <!--
                     change wallpaper: stretch, bars, fit.
-                    change system color.
                     change system font font.
                     -->
                     <h1 class="windowPageTitle">Personalization</h1>
                     <h2 style="margin: 10px;">Wallpaper</h2>
-                    <div id="changeWallpaper">
-                        <div id="currentWallpaper"></div>
-                        <div id="wallpaperOptions">
-                            <div class="wallpaperOption" id="wallpaperOptionOne"></div>
-                            <div class="wallpaperOption" id="wallpaperOptionTwo"></div>
-                            <div class="wallpaperOption" id="wallpaperOptionThree"></div>
-                            <div class="wallpaperOption" id="wallpaperOptionFour"></div>
-                            <div class="wallpaperOption" id="wallpaperOptionFive"></div>
-                            <div class="wallpaperOption" id="wallpaperOptionSix"></div>
+                    <div class="wallpaperCustomization">
+                        <div id="changeWallpaper">
+                            <div id="currentWallpaper"></div>
+                            <div id="wallpaperOptions">
+                                <div class="wallpaperOption" id="wallpaperOptionOne"></div>
+                                <div class="wallpaperOption" id="wallpaperOptionTwo"></div>
+                                <div class="wallpaperOption" id="wallpaperOptionThree"></div>
+                                <div class="wallpaperOption" id="wallpaperOptionFour"></div>
+                                <div class="wallpaperOption" id="wallpaperOptionFive"></div>
+                                <div class="wallpaperOption" id="wallpaperOptionSix"></div>
+                            </div>
+                        </div>
+                        <div class="chooseWallpaper">
+                            <p>Choose Wallpaper (jpeg/png only)</p><input type="file" accept=".jpg, .jpeg, .png" id="inputWallpaperBtn">
+                        </div>
+                        <div class="wallpaperScaleOptions">
+                            <!--
+                            
+                            -->
+                            <div class="squareRadio wallpaperScaleOption selected"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox selected"></div><div class="squareRadioText">Stretch</div></div>
+                            <div class="squareRadio wallpaperScaleOption"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox"></div><div class="squareRadioText">Fit</div></div>
+                            <div class="squareRadio wallpaperScaleOption"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox"></div><div class="squareRadioText">Zoom</div></div>
                         </div>
                     </div>
                     <h2 style="margin: 10px;">System Colors</h2>

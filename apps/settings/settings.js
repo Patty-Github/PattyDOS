@@ -79,6 +79,75 @@ function resetSettingsPage() {
     pages[0].style.display = 'flex';
 }
 
+(() => {
+    let wallpaperRes = 'stretch';
+    (function changeWallpaperScale() {
+        const options = document.querySelectorAll('.wallpaperScaleOption');
+        const checkboxes = document.querySelectorAll('.wallpaperScaleOptionCheckbox');
+        options.forEach((option, index) => {
+            option.addEventListener('click', () => {
+                checkboxes.forEach((checkbox) => {
+                    checkbox.classList.remove('selected');
+                })
+                options.forEach((op) => {
+                    op.classList.remove('selected');
+                })
+    
+                checkboxes[index].classList.add('selected');
+                option.classList.add('selected');
+    
+                switch(index) {
+                    case 0:
+                        // Stretch
+                        screen.style.backgroundSize = '100% 100%';
+                        wallpaperRes = 'stretch';
+                        break;
+                    case 1:
+                        // Fit
+                        screen.style.backgroundSize = 'contain';
+                        wallpaperRes = 'fit';
+                        break;
+                    case 2:
+                        // Zoom
+                        screen.style.backgroundSize = 'cover';
+                        wallpaperRes = 'zoom';
+                        break;
+                }
+            })
+        })
+    })();
+
+    (function changeWallpaperImage() {
+        const inputWallpaperBtn = document.getElementById('inputWallpaperBtn');
+        inputWallpaperBtn.addEventListener('change', () => {
+            if(inputWallpaperBtn.files.length == 1) {
+                const wallpaperUrl = URL.createObjectURL(inputWallpaperBtn.files[0]);
+                changeWallpaper(wallpaperUrl);
+            } else {
+                console.log('too many files selected. choose 1 image only.')
+            }
+        })
+        function changeWallpaper(wallpaperUrl) {
+            screen.style.background = `url(${wallpaperUrl})`;
+            screen.style.backgroundRepeat = 'no-repeat';
+            screen.style.backgroundPositionX = 'center';
+            screen.style.backgroundPositionY = 'center';
+
+            switch(wallpaperRes) {
+                case 'stretch':
+                    screen.style.backgroundSize = '100% 100%'
+                    break;
+                case 'fit':
+                    screen.style.backgroundSize = 'contain';
+                    break;
+                case 'zoom':
+                    screen.style.backgroundSize = 'cover';
+                    break;
+            }
+        }
+    })();
+})();
+
 function systemColor() {
     const inputSystemColor = document.getElementById('inputSystemColor');
     const systemColorOptions = document.querySelectorAll('.systemColorOption');
