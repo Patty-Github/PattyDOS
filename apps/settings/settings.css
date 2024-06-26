@@ -60,7 +60,7 @@
     margin: 0 10px 0 0;
     border-radius: 8px;
     background-color: rgb(255, 255, 255, 0.1);
-    background-image: url(/PattyDOS/pictures/wallpaper/IMG_6010.JPEG);
+    background: url(/PattyDOS/pictures/wallpaper/IMG_6010.JPEG);
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-position-x: center;
@@ -77,15 +77,22 @@
 
 .wallpaperOption {
     aspect-ratio: 16 / 9;
-    width: calc(33% - 6px);
+    width: calc(50% - 6px);
     margin: 0 3px 3px 3px;
     border-radius: 4px;
     background-color: rgb(255, 255, 255, 0.1);
-    background-image: url(/PattyDOS/pictures/wallpaper/wallpaper.jpg);
-    background-size: auto 100%;
+    background: url(/PattyDOS/pictures/wallpaper/wallpaper.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    overflow: hidden;
+}
+#wallpaperOptionOne {
+    background: url(/PattyDOS/pictures/wallpaper/IMG_6010.JPEG);
+    background-size: cover;
     background-repeat: no-repeat;
     background-position-x: center;
-    overflow: hidden;
+    background-position-y: center;
 }
 
 .chooseWallpaper {

@@ -79,7 +79,26 @@ function resetSettingsPage() {
     pages[0].style.display = 'flex';
 }
 
+// Wallpaper Customization
 (() => {
+    const currentWallpaper = document.getElementById('currentWallpaper');
+    // Get wallpaper from localStorage and set as Wallpaper
+    const setWallpaper = localStorage.getItem('setWallpaper');
+    if(setWallpaper != null) {
+        screen.style.background = setWallpaper;
+        screen.style.backgroundSize = '100% 100%';
+        screen.style.backgroundRepeat = 'no-repeat';
+        screen.style.backgroundPositionX = 'center';
+        screen.style.backgroundPositionY = 'center';
+
+        currentWallpaper.style.background = setWallpaper;
+        currentWallpaper.style.backgroundSize = 'cover'
+        currentWallpaper.style.backgroundRepeat = 'no-repeat';
+        currentWallpaper.style.backgroundPositionX = 'center';
+        currentWallpaper.style.backgroundPositionY = 'center';
+    } 
+
+    // Wallpaper Scaling Options
     let wallpaperRes = 'stretch';
     (function changeWallpaperScale() {
         const options = document.querySelectorAll('.wallpaperScaleOption');
@@ -117,21 +136,35 @@ function resetSettingsPage() {
         })
     })();
 
+    // Change Wallpaper
     (function changeWallpaperImage() {
         const inputWallpaperBtn = document.getElementById('inputWallpaperBtn');
-        inputWallpaperBtn.addEventListener('change', () => {
+
+        // listen for file upload
+        inputWallpaperBtn.addEventListener('change', async () => {
             if(inputWallpaperBtn.files.length == 1) {
-                const wallpaperUrl = URL.createObjectURL(inputWallpaperBtn.files[0]);
-                changeWallpaper(wallpaperUrl);
+                const file = inputWallpaperBtn.files[0];
+                const base64File = await fileToBase64(file);
+                changeWallpaper(base64File);
             } else {
                 console.log('too many files selected. choose 1 image only.')
             }
         })
-        function changeWallpaper(wallpaperUrl) {
-            screen.style.background = `url(${wallpaperUrl})`;
+
+        // set wallpaper to uploaded wallpaper
+        function changeWallpaper(wallpaper) {
+            screen.style.background = `url(${wallpaper})`;
             screen.style.backgroundRepeat = 'no-repeat';
             screen.style.backgroundPositionX = 'center';
             screen.style.backgroundPositionY = 'center';
+
+            currentWallpaper.style.background = `url(${wallpaper})`;
+            currentWallpaper.style.backgroundSize = 'cover'
+            currentWallpaper.style.backgroundRepeat = 'no-repeat';
+            currentWallpaper.style.backgroundPositionX = 'center';
+            currentWallpaper.style.backgroundPositionY = 'center';
+
+            localStorage.setItem('setWallpaper', `url(${wallpaper})`)
 
             switch(wallpaperRes) {
                 case 'stretch':
@@ -144,6 +177,15 @@ function resetSettingsPage() {
                     screen.style.backgroundSize = 'cover';
                     break;
             }
+        }
+
+        // convert wallpaper to Base64 for local storage
+        function fileToBase64(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(file)
+            })
         }
     })();
 })();
