@@ -28,7 +28,10 @@
 
 .settingsPage {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 10px);
+    margin: 5px;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.05);
 }
 
 #settingsHome {
@@ -121,7 +124,7 @@
     border-radius: 4px;
     background-color: white;
 }
-.wallpaperScaleOptionCheckbox.selected {
+.squareRadioCheckbox.selected {
    background: url(/PattyDOS/pictures/general/check.png);
    background-size: 100%;
 }
@@ -164,4 +167,29 @@
 }
 .systemColorOption:hover {
     border-color: rgb(26, 26, 26);
+}
+
+#settingsSystem {
+    display: none;
+}
+.userSystemDetails {
+    margin: 10px;
+}
+.settingsSystemBtn {
+    border: solid 1px white;
+    width: fit-content;
+    padding: 3px;
+    border-radius: 4px;
+    color: white;
+    background-color: transparent;
+}
+.systemOptions {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+.systemAspectRatios {
+    display: flex;
+    margin: 5px 0;
+    align-items: center;
 }

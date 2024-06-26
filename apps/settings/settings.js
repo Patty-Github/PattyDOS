@@ -309,3 +309,52 @@ systemColor();
         }
     }
 })();
+
+(function getUserSystemInfo() {
+    const clearLocalStorageBtn = document.getElementById('clearLocalStorageBtn');
+    clearLocalStorageBtn.addEventListener('click', () => {
+        localStorage.clear();
+        const localStorageClearedText = document.getElementById('localStorageClearedText');
+        localStorageClearedText.style.opacity = '1';
+        setTimeout(() => {
+            localStorageClearedText.style.transition = 'all 0.5s ease';
+            localStorageClearedText.style.opacity = 0; 
+            setTimeout(() => {localStorageClearedText.style.transition = 'all 0s ease'}, 1)
+        }, 3000)
+    });
+
+    const osText = document.getElementById('userOperatingSystem');
+    const browserText = document.getElementById('userBrowser');
+    const screenSizeText = document.getElementById('userScreenSize');
+
+    let userInfo = navigator.userAgentData;
+    if(userInfo != undefined) {
+        console.log(navigator.userAgentData);
+        console.log(`OS: ${userInfo.platform}, Browser: ${userInfo.brands[2].brand} v${userInfo.brands[2].version}`)
+        osText.textContent = `OS: ${userInfo.platform}`
+        let platform;
+        userInfo.mobile ? platform = 'Mobile' : platform = 'Desktop';
+        browserText.textContent = `Browser: ${userInfo.brands[2].brand} v${userInfo.brands[2].version} ${platform}`
+        screenSizeText.textContent = `Screen Resolution: ${window.screen.width}x${window.screen.height}`
+    } else {
+        //
+    }
+
+
+    // Aspect Ratio Selection 
+    const options = document.querySelectorAll('.aspectRatioOption');
+    const checkboxes = document.querySelectorAll('.aspectRatioCheckbox');
+    options.forEach((option, index) => {
+        option.addEventListener('click', () => {
+            checkboxes.forEach((checkbox) => {
+                checkbox.classList.remove('selected');
+            })
+            options.forEach((op) => {
+                op.classList.remove('selected');
+            })
+
+            checkboxes[index].classList.add('selected');
+            option.classList.add('selected');
+        })
+    })
+})();
