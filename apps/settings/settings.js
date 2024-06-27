@@ -328,17 +328,45 @@ systemColor();
     const screenSizeText = document.getElementById('userScreenSize');
 
     let userInfo = navigator.userAgentData;
-    if(userInfo != undefined) {
-        console.log(navigator.userAgentData);
-        console.log(`OS: ${userInfo.platform}, Browser: ${userInfo.brands[2].brand} v${userInfo.brands[2].version}`)
-        osText.textContent = `OS: ${userInfo.platform}`
-        let platform;
-        userInfo.mobile ? platform = 'Mobile' : platform = 'Desktop';
-        browserText.textContent = `Browser: ${userInfo.brands[2].brand} v${userInfo.brands[2].version} ${platform}`
-        screenSizeText.textContent = `Screen Resolution: ${window.screen.width}x${window.screen.height}`
+    // if(userInfo != undefined) {
+    //     console.log(navigator.userAgentData);
+    //     console.log(`OS: ${userInfo.platform}, Browser: ${userInfo.brands[2].brand} v${userInfo.brands[2].version}`)
+    //     osText.textContent = `OS: ${userInfo.platform}`
+    //     let platform;
+    //     userInfo.mobile ? platform = 'Mobile' : platform = 'Desktop';
+    //     browserText.textContent = `Browser: ${userInfo.brands[2].brand} v${userInfo.brands[2].version} ${platform}`
+    //     screenSizeText.textContent = `Screen Resolution: ${window.screen.width}x${window.screen.height}`
+    // } else {
+    const userAgentString = navigator.userAgent;
+    let slicedOSText;
+    if(userAgentString.includes('iPhone')) {
+        slicedOSText = userAgentString.slice(userAgentString.indexOf('iPhone OS'), userAgentString.indexOf('like'))
     } else {
-        //
+        slicedOSText = userAgentString.slice((userAgentString.indexOf('(') + 1), userAgentString.indexOf(';'));
     }
+
+    let browserName;
+    if(userAgentString.includes('Chrome') && userAgentString.includes('Safari')) {
+        browserName = userAgentString.slice(userAgentString.indexOf('Chrome'), userAgentString.indexOf('Safari'));
+    } else if(userAgentString.includes('CriOS') && userAgentString.includes('Safari')) {
+        browserName = userAgentString.slice(userAgentString.indexOf('CriOS'), userAgentString.indexOf('Mobile'));
+    } else {
+        browserName = userAgentString.slice(userAgentString.lastIndexOf(' ') + 1)
+    }
+    browserName = browserName.replaceAll('/', ' v');
+
+    let platformText;
+    userAgentString.includes('Mobile') ? platformText = 'Mobile' : platformText = 'Desktop';
+
+    osText.textContent = `OS: ${slicedOSText}`
+    browserText.textContent = `Browser: ${browserName} ${platformText}`;
+    
+    screenSizeText.textContent = `Screen Resolution: ${window.screen.width}x${window.screen.height}`;
+
+    // let temp = document.createElement('p')
+    // temp.textContent = navigator.userAgent;
+    // document.querySelector('.userSystemDetails').appendChild(temp)
+    //}
 
 
     // Aspect Ratio Selection 
