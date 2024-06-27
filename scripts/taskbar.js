@@ -8,6 +8,8 @@ const appStoreTaskbarApp = document.getElementById('appStoreTaskbarApp');
 
 pattyDOSBtn.addEventListener('click', showStartMenu);
 
+// Taskbar Context Menu
+
 function showStartMenu() {
     const startMenu = document.getElementById('startMenu');
     if(!startMenu.classList.contains('visible')) {

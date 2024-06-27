@@ -15,11 +15,11 @@ const settingsFullscreenBtnImg = document.getElementById('settingsFullscreenBtnI
 
 moveableWindow(settingsWindow, settingsFrame, settingsFullscreenBtn);
 fullscreenWindow(settingsWindow, settingsFrame, settingsFullscreenBtn, settingsFullscreenBtnImg);
-const topResizerSettings = document.getElementById('topResizerSettings');
-const leftResizerSettings = document.getElementById('leftResizerSettings');
-const rightResizerSettings = document.getElementById('rightResizerSettings');
-const bottomResizerSettings = document.getElementById('bottomResizerSettings');
-const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings];
+// const topResizerSettings = document.getElementById('topResizerSettings');
+// const leftResizerSettings = document.getElementById('leftResizerSettings');
+// const rightResizerSettings = document.getElementById('rightResizerSettings');
+// const bottomResizerSettings = document.getElementById('bottomResizerSettings');
+// const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings];
 resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings', 'settingsTopLeftResizeHandle', 'settingsTopRightResizeHandle', 'settingsBottomRightResizeHandle', 'settingsBottomLeftResizeHandle');
 
 let settingsResized = false;
@@ -341,6 +341,8 @@ systemColor();
     let slicedOSText;
     if(userAgentString.includes('iPhone')) {
         slicedOSText = userAgentString.slice(userAgentString.indexOf('iPhone OS'), userAgentString.indexOf('like'))
+    } else if(userAgentString.includes('Macintosh')) {
+        slicedOSText = 'iPadOS';
     } else {
         slicedOSText = userAgentString.slice((userAgentString.indexOf('(') + 1), userAgentString.indexOf(';'));
     }

@@ -64,7 +64,7 @@ export function moveableWindow(appWindow, frame, fullscreenBtn) {
 
     frame.addEventListener('mousemove', () => {
         if(grabbingWindow && appWindow.classList.contains('fullscreen')) {
-            savedWindowX = mouseX - (savedWindowWidth / 2);
+            savedWindowX = mouseX - (savedWindowWidth / 2) - parseFloat(getComputedStyle(screen).left);
             savedWindowY = mouseY - 16;
         }
     })

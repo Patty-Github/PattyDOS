@@ -56,9 +56,9 @@ function createNewContextMenu() {
         })
     }
 }
-    
 createNewContextMenu();
 
+// Set screen size to max while keeping 16/9 ratio
 function setScreenSize() {
     let browserWindowWidth = window.innerWidth;
     let browserWindowHeight = window.innerHeight;
@@ -76,7 +76,7 @@ function setScreenSize() {
 }
 setScreenSize();
 
-
+// Set desktopIcon font size
 function setFontSize() {
     let i = 0;
     desktopIcons.forEach((desktopIcon) => {
@@ -91,18 +91,23 @@ setFontSize();
 window.addEventListener('resize', () => {setFontSize(); setScreenSize();});
 
 // HomePage
-// when desktopIcon is being moved, when it is dropped, calculate it's position to the dots and make it's position the nearest one.
 (function setIconPosition() {
-    for(let i = 1; i < desktopIcons.length; i++){
-        // if desktop icon position is another desktopIcon's position, move it by desktopIcon's width + 0.5px.
-        if(parseFloat(getComputedStyle(desktopIcons[i]).left) == getIconPosition((i - 1))) {
-            desktopIcons[i].style.left = parseFloat(getComputedStyle(desktopIcons[i]).left) + parseFloat(getComputedStyle(desktopIcons[i]).width) + 'px';
+    // if desktop icon position is another desktopIcon's position, move it by desktopIcon's width + 0.5px.
+    desktopIcons.forEach((desktopIcon) => {
+        desktopIcon.style.left = parseFloat(getComputedStyle(desktopIcon).left) + 0.5 + 'px';
+        const desktopIconX = parseFloat(getComputedStyle(desktopIcon).left);
+        if(getIconPosition().indexOf(desktopIconX) != getIconPosition().lastIndexOf(desktopIconX)) {
+            desktopIcon.style.left = parseFloat(getComputedStyle(desktopIcon).left) + parseFloat(getComputedStyle(desktopIcon).width) + 0.5 + 'px';
             setIconPosition();
         }
-    }
+    })
 
-    function getIconPosition(i) {
-        return(parseFloat(getComputedStyle(desktopIcons[i]).left));
+    function getIconPosition() {
+        let xPositions = [];
+        desktopIcons.forEach((desktopIcon) => {
+            xPositions.push(parseFloat(getComputedStyle(desktopIcon).left))
+        })
+        return xPositions;
     }
 })();
 
@@ -201,6 +206,12 @@ function moveDesktopIcons() {
             holdingIcon = false;
             // breaks if window is resized too fast.
         })
+
+        document.addEventListener('DOMContentLoaded', () => {
+            holdingIcon = true;
+            positionIcons();
+            holdingIcon = false;
+        });
     })
 
     // window.addEventListener('resize', () => {
@@ -307,4 +318,5 @@ function setDateAndTime() {
 }
 setDateAndTime();
 setInterval(setDateAndTime, 1000);
-// add wallpaper customization 
+
+// create right-click menu on taskbarApps and desktopIcons
