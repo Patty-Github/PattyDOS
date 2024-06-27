@@ -20,6 +20,28 @@ img {
     user-select: none;
 }
 
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background: transparent;
+}
+::-webkit-scrollbar-track {
+    background: rgb(130, 130, 130);
+    border-radius: 8px;
+} 
+::-webkit-scrollbar-thumb {
+    background: rgb(26, 26, 26);
+    border-radius: 8px;
+    border: solid 1px rgb(130, 130, 130);
+}
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
 #screen {
     aspect-ratio: 16 / 9;
     position: absolute;
@@ -119,16 +141,6 @@ img {
     -ms-user-select: none;
     user-select: none;
 }
-/* .desktopIcon:focus > .desktopIconTitle {
-    border: dashed;
-    border-top: none;
-    border-width: 1px;
-    border-color: rgb(212, 212, 212);
-    background-color: rgba(219, 219, 219, 0.3);
-    white-space: wrap;
-    overflow: visible;
-    text-overflow: initial;
-} */
 
 .iconDotsContainer {
     top: 0;
@@ -168,6 +180,7 @@ img {
     -webkit-backdrop-filter: blur(64px);
 }
 #taskbarApps {
+    position: absolute;
     display: flex;
     justify-self: center;
 }
@@ -178,6 +191,7 @@ img {
     align-items: center;
     height: 48px;
     width: 48px;
+    transition: all 1s ease;
 }
 .taskbarApp:hover > .taskbarAppImage {
     background-color: rgb(255, 255, 255, 0.1);

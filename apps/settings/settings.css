@@ -188,8 +188,14 @@
     flex-direction: column;
     margin: 10px;
 }
-.systemAspectRatios {
+.systemAspectRatios, .taskbarPositionOptions {
     display: flex;
     margin: 5px 0;
     align-items: center;
+}
+.taskbarSettings {
+    margin: 10px;
+    padding: 5px;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255, 0.1);
 }

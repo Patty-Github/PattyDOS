@@ -369,8 +369,9 @@ systemColor();
     // temp.textContent = navigator.userAgent;
     // document.querySelector('.userSystemDetails').appendChild(temp)
     //}
+})();
 
-
+(() => {
     // Aspect Ratio Selection 
     const options = document.querySelectorAll('.aspectRatioOption');
     const checkboxes = document.querySelectorAll('.aspectRatioCheckbox');
@@ -386,5 +387,46 @@ systemColor();
             checkboxes[index].classList.add('selected');
             option.classList.add('selected');
         })
+    })
+})();
+
+(function taskbarAppsPosition() {
+    // takbarAppsOptionCheckbox
+    const options = document.querySelectorAll('.takbarAppsOption');
+    const checkboxes = document.querySelectorAll('.takbarAppsOptionCheckbox');
+    const taskbarApps = document.getElementById('taskbarApps');
+    options.forEach((option, index) => {
+        option.addEventListener('click', () => {
+            checkboxes.forEach((checkbox) => {
+                checkbox.classList.remove('selected');
+            })
+            options.forEach((op) => {
+                op.classList.remove('selected');
+            })
+
+            checkboxes[index].classList.add('selected');
+            option.classList.add('selected');
+
+            switch(index) {
+                case 0:
+                    taskbarApps.style.transition =  'all 0.75s ease';
+                    taskbarApps.style.left = `calc(50% - ${(parseFloat(getComputedStyle(taskbarApps).width) / 2) + 'px'})`
+                    break;
+                case 1:
+                    taskbarApps.style.transition =  'all 0.75s ease';
+                    taskbarApps.style.left = '0';
+                    break;
+            }
+        })
+    })
+    document.addEventListener('DOMContentLoaded', () => {
+        taskbarApps.style.left = `calc(50% - ${(parseFloat(getComputedStyle(taskbarApps).width) / 2) + 'px'})`
+    });
+
+    // Set taskbar position center
+    window.addEventListener('resize', () => {
+        if(checkboxes[0].classList.contains('selected')) {
+            taskbarApps.style.left = `calc(50% - ${(parseFloat(getComputedStyle(taskbarApps).width) / 2) + 'px'})`
+        }
     })
 })();
