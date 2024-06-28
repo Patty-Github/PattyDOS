@@ -7,24 +7,38 @@ import { fullscreenWindow } from "../../scripts/fullscreenWindow.js";
 import { closeWindow } from "../../scripts/closeWindow.js";
 import { resizeWindow } from "../../scripts/resizeWindow.js";
 
+import { windowInteractions } from "../../scripts/windowInteractions.js";
+
 const screen = document.getElementById('screen');
 const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
 const settingsFullscreenBtn = document.getElementById('settingsFullscreenBtn');
 const settingsFullscreenBtnImg = document.getElementById('settingsFullscreenBtnImg');
+const settingsIcon = document.getElementById('settingsIcon');
+const settingsApp = document.getElementById('settingsApp');
+const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
+const settingsAppState = document.getElementById('settingsAppState');
+const minimizeSettingsBtn = document.getElementById('minimizeSettings');
+const closeSettingsBtn = document.getElementById('closeSettingsBtn');
 
-moveableWindow(settingsWindow, settingsFrame, settingsFullscreenBtn);
-fullscreenWindow(settingsWindow, settingsFrame, settingsFullscreenBtn, settingsFullscreenBtnImg);
-// const topResizerSettings = document.getElementById('topResizerSettings');
-// const leftResizerSettings = document.getElementById('leftResizerSettings');
-// const rightResizerSettings = document.getElementById('rightResizerSettings');
-// const bottomResizerSettings = document.getElementById('bottomResizerSettings');
-// const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings];
-resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings', 'settingsTopLeftResizeHandle', 'settingsTopRightResizeHandle', 'settingsBottomRightResizeHandle', 'settingsBottomLeftResizeHandle');
+//moveableWindow(settingsWindow, settingsFrame, settingsFullscreenBtn);
+//fullscreenWindow(settingsWindow, settingsFrame, settingsFullscreenBtn, settingsFullscreenBtnImg);
+const topResizerSettings = document.getElementById('topResizerSettings');
+const leftResizerSettings = document.getElementById('leftResizerSettings');
+const rightResizerSettings = document.getElementById('rightResizerSettings');
+const bottomResizerSettings = document.getElementById('bottomResizerSettings');
+const topLeftResizerSettings = document.getElementById('settingsTopLeftResizeHandle');
+const topRightResizerSettings = document.getElementById('settingsTopRightResizeHandle');
+const bottomRightResizerSettings = document.getElementById('settingsBottomRightResizeHandle');
+const bottomLeftResizerSettings = document.getElementById('settingsBottomLeftResizeHandle');
+const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings, topLeftResizerSettings, topRightResizerSettings, bottomRightResizerSettings, bottomLeftResizerSettings];
+//resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings', 'settingsTopLeftResizeHandle', 'settingsTopRightResizeHandle', 'settingsBottomRightResizeHandle', 'settingsBottomLeftResizeHandle');
+windowInteractions(settingsWindow, settingsFrame, closeSettingsBtn, settingsFullscreenBtn, minimizeSettingsBtn, settingsIcon, settingsTaskbarApp, settingsAppState, settingsResizers);
 
 let settingsResized = false;
 let settingsWindowWidth;
 let settingsWindowHeight;
+// What is this for? Add comments next time aye
 const resizer = new ResizeObserver(() => {
     if(settingsResized == false) {
         settingsWindow.style.margin = 'auto'
@@ -245,17 +259,17 @@ systemColor();
     const settingsAppState = document.getElementById('settingsAppState');
     const minimizeSettingsBtn = document.getElementById('minimizeSettings');
     const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-    settingsIcon.addEventListener('dblclick', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState));
+    //settingsIcon.addEventListener('dblclick', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState));
 
     settingsTaskbarApp.addEventListener('click', () => {
-        openWindow(settingsApp, settingsTaskbarApp, settingsAppState);
+        //openWindow(settingsApp, settingsTaskbarApp, settingsAppState);
     });
     minimizeSettingsBtn.addEventListener('click', () => {
-        getElementPositionAndScale(settingsApp);
-        minimizeWindow(settingsApp);
+        //getElementPositionAndScale(settingsApp);
+        //minimizeWindow(settingsApp);
     })
     closeSettingsBtn.addEventListener('click', () => {
-        closeWindow(settingsWindow, settingsAppState);
+        //closeWindow(settingsWindow, settingsAppState);
         resetSettingsPage();
     })
 
@@ -290,7 +304,7 @@ systemColor();
             taskbarApp.classList.add('windowFocused');
         } else if(taskbarApp.classList.contains('windowFocused') && (new Date().getTime() - timeWaited) > timeToWait) {
             timeWaited = new Date().getTime();
-            minimizeWindow(window);
+            //minimizeWindow(window);
             getElementPositionAndScale(window);
             taskbarApp.classList.remove('windowFocused');
         } else {
@@ -298,16 +312,16 @@ systemColor();
             taskbarApp.classList.add('windowFocused')
             window.classList.remove('closed');
             window.style.display = 'flex';
-            positionWindow(window);
+            //positionWindow(window);
         }
     }
 
-    setInterval(() => taskbarAppState(settingsWindow, settingsTaskbarApp), 10)
-    function taskbarAppState(window, taskbarApp) {
-        if(window.classList.contains('closed') || window.classList.contains('minimized')) {
-            taskbarApp.classList.remove('windowFocused');
-        }
-    }
+    // setInterval(() => taskbarAppState(settingsWindow, settingsTaskbarApp), 10)
+    // function taskbarAppState(window, taskbarApp) {
+    //     if(window.classList.contains('closed') || window.classList.contains('minimized')) {
+    //         taskbarApp.classList.remove('windowFocused');
+    //     }
+    // }
 })();
 
 (function getUserSystemInfo() {
