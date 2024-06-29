@@ -1,13 +1,12 @@
 // Combining all Window Interactions into one script.
 // Need a window's window, frame, close btn, fullscreen btn, minimize btn, taskbarApp, taskbarAppState, windowResizers, 
 
-// Mousedown + dragging frameBtn make window go to top left.
+// transition unfullscrenonclick
 
 export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, minimizeBtn, appDesktopIcon, taskbarApp, taskbarAppState, resizers) {
     
     // Variables needed for multiple functions
     const screen = document.getElementById('screen')
-    let windowOpened = false;
     let mouseX;
     let mouseY;
     let windowX;
@@ -35,8 +34,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     function positionWindow() {
         //console.log('positionWindow()')
         appWindow.style.left = (parseFloat(getComputedStyle(screen).width) / 2) - (parseFloat(getComputedStyle(appWindow).width) / 2) + 'px';
-        appWindow.style.top = parseFloat(getComputedStyle(screen).top) + (parseFloat(getComputedStyle(appWindow).height) / 6) - 24 + 'px';
-        windowOpened = true;
+        appWindow.style.top = parseFloat(getComputedStyle(screen).top) + ((parseFloat(getComputedStyle(appWindow).height) / 2) - (parseFloat(getComputedStyle(appWindow).height) / 4)) - 26 + 'px';
     }
 
     // Open Window
@@ -44,26 +42,30 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         console.log('openWindow()')
         if(appWindow.classList.contains('minimized') && (new Date().getTime() - timeWaited) > timeToWait) {
             timeWaited = new Date().getTime();
-            appWindow.style.transition = 'all 0.2s ease';
+            // transitions don't work. commented them out.
+            //appWindow.style.transition = 'all 0.2s ease';
             appWindow.style.display = 'flex';
             appWindow.classList.remove('minimized');
-            //console.log(`window width: ${windowWidth}, windowHeight: ${windowHeight}, windowY: ${windowY}, windowX: ${windowX}`)
+
             appWindow.style.width = windowWidth + 'px';
             appWindow.style.height = windowHeight + 'px';
+
             appWindow.style.top = windowY + 'px';
             appWindow.style.left = windowX + 'px';
-            appWindow.style.transition = 'all 0s ease';
+
+            //appWindow.style.transition = 'all 0s ease';
             taskbarApp.classList.add('windowFocused');
         } else if(taskbarApp.classList.contains('windowFocused') && (new Date().getTime() - timeWaited) > timeToWait) {
             timeWaited = new Date().getTime();
             minimizeWindow(window);
             taskbarApp.classList.remove('windowFocused');
         } else if((new Date().getTime() - timeWaited) > timeToWait) {
-            console.log('wughdfuweghfui')
             taskbarAppState.style.display = 'block'
             taskbarApp.classList.add('windowFocused')
             appWindow.classList.remove('closed');
             appWindow.style.display = 'flex';
+            appWindow.style.width = (parseFloat(getComputedStyle(screen).width) / 2) + 'px';
+            appWindow.style.height = (parseFloat(getComputedStyle(screen).height) / 1.5) + 'px';
             positionWindow();
         }
     }
@@ -305,8 +307,8 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     
             appWindow.style.borderRadius = '8px'
     
-            appWindow.style.transition = 'all 0s'
             appWindow.classList.remove('fullscreen');
+            setTimeout(() => appWindow.style.transition = 'all 0s ease', 10);
             fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen.png";
         }
     
@@ -354,12 +356,11 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         windowX = parseFloat(getComputedStyle(appWindow).left);
         appWindow.style.transition = 'all 0.2s ease';
         appWindow.style.overflow = 'hidden';
-        //window.style.top = (windowY + (windowHeight / 2)) + 'px';
-        //window.style.left = (windowX + (windowWidth / 2)) + 'px';
         appWindow.style.top =  parseFloat(getComputedStyle(screen).height) - 48 + 'px';
         appWindow.style.left = (parseFloat(getComputedStyle(screen).width) / 2) + 'px';
         appWindow.style.width = '0';
         appWindow.style.height = '0';
+        setTimeout(() => appWindow.style.transition = 'all 0s', 20);
         appWindow.classList.add('minimized');
         setTimeout(() => {appWindow.style.display = 'none'; appWindow.style.overflow = 'auto';}, 200);
 

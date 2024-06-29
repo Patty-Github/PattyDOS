@@ -1,28 +1,16 @@
 console.log('settings.js working');
 
-import { moveableWindow } from "../../scripts/dragWindow.js";
-import { minimizeWindow } from "../../scripts/minimizeWindow.js";
-import { positionWindow } from "../../scripts/positionWindow.js";
-import { fullscreenWindow } from "../../scripts/fullscreenWindow.js";
-import { closeWindow } from "../../scripts/closeWindow.js";
-import { resizeWindow } from "../../scripts/resizeWindow.js";
-
 import { windowInteractions } from "../../scripts/windowInteractions.js";
 
 const screen = document.getElementById('screen');
 const settingsWindow = document.getElementById('settingsApp');
 const settingsFrame = document.getElementById('settingsFrame');
 const settingsFullscreenBtn = document.getElementById('settingsFullscreenBtn');
-const settingsFullscreenBtnImg = document.getElementById('settingsFullscreenBtnImg');
 const settingsIcon = document.getElementById('settingsIcon');
-const settingsApp = document.getElementById('settingsApp');
 const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
 const settingsAppState = document.getElementById('settingsAppState');
 const minimizeSettingsBtn = document.getElementById('minimizeSettings');
 const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-
-//moveableWindow(settingsWindow, settingsFrame, settingsFullscreenBtn);
-//fullscreenWindow(settingsWindow, settingsFrame, settingsFullscreenBtn, settingsFullscreenBtnImg);
 const topResizerSettings = document.getElementById('topResizerSettings');
 const leftResizerSettings = document.getElementById('leftResizerSettings');
 const rightResizerSettings = document.getElementById('rightResizerSettings');
@@ -32,30 +20,7 @@ const topRightResizerSettings = document.getElementById('settingsTopRightResizeH
 const bottomRightResizerSettings = document.getElementById('settingsBottomRightResizeHandle');
 const bottomLeftResizerSettings = document.getElementById('settingsBottomLeftResizeHandle');
 const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings, topLeftResizerSettings, topRightResizerSettings, bottomRightResizerSettings, bottomLeftResizerSettings];
-//resizeWindow(settingsWindow, 'topResizerSettings', 'rightResizerSettings', 'bottomResizerSettings', 'leftResizerSettings', 'settingsTopLeftResizeHandle', 'settingsTopRightResizeHandle', 'settingsBottomRightResizeHandle', 'settingsBottomLeftResizeHandle');
 windowInteractions(settingsWindow, settingsFrame, closeSettingsBtn, settingsFullscreenBtn, minimizeSettingsBtn, settingsIcon, settingsTaskbarApp, settingsAppState, settingsResizers);
-
-let settingsResized = false;
-let settingsWindowWidth;
-let settingsWindowHeight;
-// What is this for? Add comments next time aye
-const resizer = new ResizeObserver(() => {
-    if(settingsResized == false) {
-        settingsWindow.style.margin = 'auto'
-        settingsResized = true;
-        settingsWindowWidth = parseFloat(getComputedStyle(settingsWindow).width);
-        settingsWindowHeight = parseFloat(getComputedStyle(settingsWindow).height);
-    }
-    const marginLeft = getComputedStyle(settingsWindow).marginLeft;
-    const marginRight = getComputedStyle(settingsWindow).marginRight;
-    settingsWindow.style.marginLeft = marginLeft;
-    settingsWindow.style.marginRight = marginRight;
-
-    settingsWindowWidth = parseFloat(getComputedStyle(settingsWindow).width);
-    settingsWindowHeight = parseFloat(getComputedStyle(settingsWindow).height);
-}).observe(settingsWindow);
-
-settingsWindow.style.margin = 'auto'
 
 function setSettingsPage() {
     const menuItems = document.querySelectorAll('.sideMenuItem');
