@@ -1,18 +1,20 @@
 // Combining all Window Interactions into one script.
 // Need a window's window, frame, close btn, fullscreen btn, minimize btn, taskbarApp, taskbarAppState, windowResizers, 
-// for fullscreen btn image, use fullscreen btn.childNodes[0] 
-// resizers should be top[0] to left[3], top left[4] to bottom left[7].
+
+// Mousedown + dragging frameBtn make window go to top left.
 
 export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, minimizeBtn, appDesktopIcon, taskbarApp, taskbarAppState, resizers) {
     
     // Variables needed for multiple functions
     const screen = document.getElementById('screen')
+    let windowOpened = false;
     let mouseX;
     let mouseY;
     let windowX;
     let windowY;
     let windowWidth;
     let windowHeight;
+    let onFrameBtn = false;
 
     const timeToWait = 200;
     let timeWaited = 1000;
@@ -20,16 +22,26 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     document.addEventListener('mousemove', (event) => {
         mouseX = event.clientX;
         mouseY = event.clientY;
+
+        if(event.target.closest('.frameBtn')) {
+            onFrameBtn = true;
+        } else {
+            onFrameBtn = false;
+        }
     })
+    //
 
     // Position Window
     function positionWindow() {
+        //console.log('positionWindow()')
         appWindow.style.left = (parseFloat(getComputedStyle(screen).width) / 2) - (parseFloat(getComputedStyle(appWindow).width) / 2) + 'px';
         appWindow.style.top = parseFloat(getComputedStyle(screen).top) + (parseFloat(getComputedStyle(appWindow).height) / 6) - 24 + 'px';
+        windowOpened = true;
     }
 
     // Open Window
     function openWindow() {
+        console.log('openWindow()')
         if(appWindow.classList.contains('minimized') && (new Date().getTime() - timeWaited) > timeToWait) {
             timeWaited = new Date().getTime();
             appWindow.style.transition = 'all 0.2s ease';
@@ -46,18 +58,21 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             timeWaited = new Date().getTime();
             minimizeWindow(window);
             taskbarApp.classList.remove('windowFocused');
-        } else {
+        } else if((new Date().getTime() - timeWaited) > timeToWait) {
+            console.log('wughdfuweghfui')
             taskbarAppState.style.display = 'block'
             taskbarApp.classList.add('windowFocused')
             appWindow.classList.remove('closed');
             appWindow.style.display = 'flex';
+            positionWindow();
         }
     }
-    appDesktopIcon.addEventListener('dblclick', () => {positionWindow(); openWindow()})
-    taskbarApp.addEventListener('click', () => {positionWindow(); openWindow()})
+    appDesktopIcon.addEventListener('dblclick', () => {openWindow()})
+    taskbarApp.addEventListener('click', () => {openWindow()})
 
     // Drag Window
     function moveableWindow() {
+        //console.log('moveableWindow()')
 
         let savedMouseX;
         let savedMouseY;
@@ -66,18 +81,6 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         let savedWindowWidth;
         let savedWindowHeight;
         let grabbingWindow = false;
-        let onFrameBtn = false;
-    
-        const windowStyleChange = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                savedWindowX = parseFloat(getComputedStyle(appWindow).left);
-                savedWindowY = parseFloat(getComputedStyle(appWindow).top);
-                windowStyleChange.disconnect();
-            })
-        })
-        document.addEventListener('DOMContentLoaded', () => {
-            windowStyleChange.observe(appWindow, { attributes : true, attributeFilter : ['style'] })
-        })
     
         frame.addEventListener('mousedown', () => {
             if(onFrameBtn == false) {
@@ -93,11 +96,6 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         window.addEventListener('mouseup', () => {grabbingWindow = false;})
     
         screen.addEventListener('mousemove', (event) => {
-            if(event.target.closest('.frameBtn')) {
-                onFrameBtn = true;
-            } else {
-                onFrameBtn = false;
-            }
             if(grabbingWindow === true && onFrameBtn === false) {
                 dragWindow()
             }
@@ -127,6 +125,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
 
     // Resize Window 
     function resizeWindow() {
+        //console.log('resizeWindow()')
 
         const topResizer = resizers[0];
         const rightResizer = resizers[1];
@@ -247,6 +246,8 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     
     // Close Window
     function closeWindow() {
+        //console.log('closeWindow()')
+
         appWindow.style.transition = 'all 0.1s ease'
         appWindow.style.opacity = '0';
         setTimeout(() => {
@@ -261,6 +262,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
 
     // Fullscreen Window
     function fullscreenWindow() {
+        //console.log('fullscreenWindow()')
         const fullscreenBtnImg = fullscreenBtn.childNodes[0];
     
         let savedWindowWidth;
@@ -292,6 +294,8 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         })
     
         function unFullscreenOnClick() {
+            //console.log('unFullscreenOnClick()')
+
             appWindow.style.transition = 'all 0.1s ease';
     
             appWindow.style.width = savedWindowWidth;
@@ -307,6 +311,8 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         }
     
         function unFullscreenOnDrag() {
+            //console.log('unFullscreenOnDrag()')
+
             appWindow.style.width = savedWindowWidth;
             appWindow.style.height = savedWindowHeight;
     
@@ -315,7 +321,10 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen.png";
         }
     
-        frame.addEventListener('mousedown', () => grabbingWindow = true)
+        frame.addEventListener('mousedown', (event) => {
+            if(onFrameBtn) return;
+            grabbingWindow = true
+        })
         document.addEventListener('mouseup', () => grabbingWindow = false)
     
         document.addEventListener('mousemove', (event) => {
@@ -337,6 +346,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
 
     //MinimizeWindow
     function minimizeWindow() {
+        //console.log('minimizeWindow()')
     
         windowWidth = parseFloat(getComputedStyle(appWindow).width);
         windowHeight = parseFloat(getComputedStyle(appWindow).height);
