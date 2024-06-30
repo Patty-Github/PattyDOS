@@ -9,7 +9,6 @@
     width: 50%;
     height: 75%;
     margin: 0 auto 0 auto;
-    overflow: auto;
     border: solid;
     border-width: 1px;
     border-color: rgb(255, 255, 255, 0.3);
@@ -24,6 +23,8 @@
 #settingsAppUI {
     display: flex;
     flex-direction: row;
+    height: calc(100% - 32px);
+    margin: 32px 0 0 0;
 }
 
 .settingsPage {
@@ -32,6 +33,7 @@
     margin: 5px;
     border-radius: 8px;
     background-color: rgb(255, 255, 255, 0.05);
+    overflow: auto;
 }
 
 #settingsHome {
