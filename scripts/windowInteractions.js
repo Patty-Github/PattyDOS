@@ -288,7 +288,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
                 appWindow.style.left = '-1px';
                 appWindow.style.borderRadius = '0';
                 appWindow.style.width = getComputedStyle(screen).width;
-                appWindow.style.height = getComputedStyle(screen).height;
+                appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
                 appWindow.classList.add('fullscreen');
                 appWindow.style.transition = 'all 0s';
                 fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen-exit.png";
@@ -338,7 +338,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         window.addEventListener('resize', () => {
             if(appWindow.classList.contains('fullscreen')) {
                 appWindow.style.width = getComputedStyle(screen).width;
-                appWindow.style.height = getComputedStyle(screen).height;
+                appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
             }
         })
     
