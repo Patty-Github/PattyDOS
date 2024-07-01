@@ -62,6 +62,7 @@ function resetSettingsPage() {
 
 // Wallpaper Customization
 (() => {
+    const screen = document.getElementById('screen');
     const currentWallpaper = document.getElementById('currentWallpaper');
     // Get wallpaper from localStorage and set as Wallpaper
     const setWallpaper = localStorage.getItem('setWallpaper');
