@@ -2,25 +2,27 @@ console.log('settings.js working');
 
 import { windowInteractions } from "../../scripts/windowInteractions.js";
 
-const screen = document.getElementById('screen');
-const settingsWindow = document.getElementById('settingsApp');
-const settingsFrame = document.getElementById('settingsFrame');
-const settingsFullscreenBtn = document.getElementById('settingsFullscreenBtn');
-const settingsIcon = document.getElementById('settingsIcon');
-const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
-const settingsAppState = document.getElementById('settingsAppState');
-const minimizeSettingsBtn = document.getElementById('minimizeSettings');
-const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-const topResizerSettings = document.getElementById('topResizerSettings');
-const leftResizerSettings = document.getElementById('leftResizerSettings');
-const rightResizerSettings = document.getElementById('rightResizerSettings');
-const bottomResizerSettings = document.getElementById('bottomResizerSettings');
-const topLeftResizerSettings = document.getElementById('settingsTopLeftResizeHandle');
-const topRightResizerSettings = document.getElementById('settingsTopRightResizeHandle');
-const bottomRightResizerSettings = document.getElementById('settingsBottomRightResizeHandle');
-const bottomLeftResizerSettings = document.getElementById('settingsBottomLeftResizeHandle');
-const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings, topLeftResizerSettings, topRightResizerSettings, bottomRightResizerSettings, bottomLeftResizerSettings];
-windowInteractions(settingsWindow, settingsFrame, closeSettingsBtn, settingsFullscreenBtn, minimizeSettingsBtn, settingsIcon, settingsTaskbarApp, settingsAppState, settingsResizers);
+(() => {
+    const screen = document.getElementById('screen');
+    const settingsWindow = document.getElementById('settingsApp');
+    const settingsFrame = document.getElementById('settingsFrame');
+    const settingsFullscreenBtn = document.getElementById('settingsFullscreenBtn');
+    const settingsIcon = document.getElementById('settingsIcon');
+    const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
+    const settingsAppState = document.getElementById('settingsAppState');
+    const minimizeSettingsBtn = document.getElementById('minimizeSettings');
+    const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+    const topResizerSettings = document.getElementById('topResizerSettings');
+    const leftResizerSettings = document.getElementById('leftResizerSettings');
+    const rightResizerSettings = document.getElementById('rightResizerSettings');
+    const bottomResizerSettings = document.getElementById('bottomResizerSettings');
+    const topLeftResizerSettings = document.getElementById('settingsTopLeftResizeHandle');
+    const topRightResizerSettings = document.getElementById('settingsTopRightResizeHandle');
+    const bottomRightResizerSettings = document.getElementById('settingsBottomRightResizeHandle');
+    const bottomLeftResizerSettings = document.getElementById('settingsBottomLeftResizeHandle');
+    const settingsResizers = [topResizerSettings, rightResizerSettings, bottomResizerSettings, leftResizerSettings, topLeftResizerSettings, topRightResizerSettings, bottomRightResizerSettings, bottomLeftResizerSettings];
+    windowInteractions(settingsWindow, settingsFrame, closeSettingsBtn, settingsFullscreenBtn, minimizeSettingsBtn, settingsIcon, settingsTaskbarApp, settingsAppState, settingsResizers);
+})();
 
 function setSettingsPage() {
     const menuItems = document.querySelectorAll('.sideMenuItem');
@@ -218,87 +220,36 @@ function systemColor() {
 systemColor();
 
 (() => {
-    const settingsIcon = document.getElementById('settingsIcon');
-    const settingsApp = document.getElementById('settingsApp');
-    const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
-    const settingsAppState = document.getElementById('settingsAppState');
-    const minimizeSettingsBtn = document.getElementById('minimizeSettings');
     const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-    //settingsIcon.addEventListener('dblclick', () => openWindow(settingsApp, settingsTaskbarApp, settingsAppState));
 
-    settingsTaskbarApp.addEventListener('click', () => {
-        //openWindow(settingsApp, settingsTaskbarApp, settingsAppState);
-    });
-    minimizeSettingsBtn.addEventListener('click', () => {
-        //getElementPositionAndScale(settingsApp);
-        //minimizeWindow(settingsApp);
-    })
     closeSettingsBtn.addEventListener('click', () => {
-        //closeWindow(settingsWindow, settingsAppState);
         resetSettingsPage();
     })
-
-    let windowWidth;
-    let windowHeight;
-    let windowY;
-    let windowX;
-    function getElementPositionAndScale(element) {
-        windowWidth = parseFloat(getComputedStyle(element).width);
-        windowHeight = parseFloat(getComputedStyle(element).height);
-        windowY = parseFloat(getComputedStyle(element).top);
-        windowX = parseFloat(getComputedStyle(element).left);
-    }
-
-    // if minimized, position and scale are the ones set in above func. 
-    // if focused, minimize
-    // else, open.
-    const timeToWait = 200;
-    let timeWaited = 1000;
-    function openWindow(window, taskbarApp, taskbarAppState) {
-        if(window.classList.contains('minimized') && (new Date().getTime() - timeWaited) > timeToWait) {
-            timeWaited = new Date().getTime();
-            window.style.transition = 'all 0.2s ease';
-            window.style.display = 'flex';
-            window.classList.remove('minimized');
-            //console.log(`window width: ${windowWidth}, windowHeight: ${windowHeight}, windowY: ${windowY}, windowX: ${windowX}`)
-            window.style.width = windowWidth + 'px';
-            window.style.height = windowHeight + 'px';
-            window.style.top = windowY + 'px';
-            window.style.left = windowX + 'px';
-            window.style.transition = 'all 0s ease';
-            taskbarApp.classList.add('windowFocused');
-        } else if(taskbarApp.classList.contains('windowFocused') && (new Date().getTime() - timeWaited) > timeToWait) {
-            timeWaited = new Date().getTime();
-            //minimizeWindow(window);
-            getElementPositionAndScale(window);
-            taskbarApp.classList.remove('windowFocused');
-        } else {
-            taskbarAppState.style.display = 'block'
-            taskbarApp.classList.add('windowFocused')
-            window.classList.remove('closed');
-            window.style.display = 'flex';
-            //positionWindow(window);
-        }
-    }
-
-    // setInterval(() => taskbarAppState(settingsWindow, settingsTaskbarApp), 10)
-    // function taskbarAppState(window, taskbarApp) {
-    //     if(window.classList.contains('closed') || window.classList.contains('minimized')) {
-    //         taskbarApp.classList.remove('windowFocused');
-    //     }
-    // }
 })();
 
 (function getUserSystemInfo() {
     const clearLocalStorageBtn = document.getElementById('clearLocalStorageBtn');
+    const localStorageSettings = document.getElementById('localStorageSettings');
     clearLocalStorageBtn.addEventListener('click', () => {
         localStorage.clear();
-        const localStorageClearedText = document.getElementById('localStorageClearedText');
-        localStorageClearedText.style.opacity = '1';
+
+        if(localStorageSettings.childElementCount > 1) {
+            localStorageSettings.removeChild[1];
+        }
+        const clearedText = document.createElement('p');
+        const clearedTextId = new Date().getTime();
+        clearedText.setAttribute('id', clearedTextId);
+        clearedText.textContent = 'Cleared!';
+        clearedText.style.margin = '0 10px'
+        
+        localStorageSettings.appendChild(clearedText);
+
         setTimeout(() => {
-            localStorageClearedText.style.transition = 'all 0.5s ease';
-            localStorageClearedText.style.opacity = 0; 
-            setTimeout(() => {localStorageClearedText.style.transition = 'all 0s ease'}, 1)
+            const deleteText = document.getElementById(clearedTextId);
+            if(deleteText != null) {
+                deleteText.style.transition = 'all 0.5s ease';
+                deleteText.style.opacity = 0; 
+            }
         }, 3000)
     });
 
@@ -369,11 +320,13 @@ systemColor();
     })
 })();
 
+// Move taskbarApps and startMenu between the left and center
 (function taskbarAppsPosition() {
     // takbarAppsOptionCheckbox
     const options = document.querySelectorAll('.takbarAppsOption');
     const checkboxes = document.querySelectorAll('.takbarAppsOptionCheckbox');
     const taskbarApps = document.getElementById('taskbarApps');
+    const startMenu = document.getElementById('startMenu');
     options.forEach((option, index) => {
         option.addEventListener('click', () => {
             checkboxes.forEach((checkbox) => {
@@ -390,10 +343,16 @@ systemColor();
                 case 0:
                     taskbarApps.style.transition =  'all 0.75s ease';
                     taskbarApps.style.left = `calc(50% - ${(parseFloat(getComputedStyle(taskbarApps).width) / 2) + 'px'})`
+
+                    startMenu.style.left = 'calc(50% - calc(25% / 2))';
+                    startMenu.style.marginLeft = '0';
                     break;
                 case 1:
                     taskbarApps.style.transition =  'all 0.75s ease';
                     taskbarApps.style.left = '0';
+
+                    startMenu.style.left = 0;
+                    startMenu.style.marginLeft = '11px';
                     break;
             }
         })

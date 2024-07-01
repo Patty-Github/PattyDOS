@@ -15,6 +15,15 @@ body {
     overflow: hidden;
 }
 
+p, h1, h2, h3 {
+    pointer-events: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 img {
     pointer-events: none;
     user-select: none;
@@ -191,7 +200,7 @@ img {
     align-items: center;
     height: 48px;
     width: 48px;
-    transition: all 1s ease;
+    transition: all 0s ease;
 }
 .taskbarApp:hover > .taskbarAppImage {
     background-color: rgb(255, 255, 255, 0.1);
@@ -514,6 +523,7 @@ img {
     height: 100%;
     width: 300px;
     background-color: rgb(34, 34, 34);
+    overflow: hidden;
 }
 
 .sideMenuItem {

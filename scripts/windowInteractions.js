@@ -39,34 +39,36 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
 
     // Open Window
     function openWindow() {
-        console.log('openWindow()')
-        if(appWindow.classList.contains('minimized') && (new Date().getTime() - timeWaited) > timeToWait) {
-            timeWaited = new Date().getTime();
-            // transitions don't work. commented them out.
-            //appWindow.style.transition = 'all 0.2s ease';
-            appWindow.style.display = 'flex';
-            appWindow.classList.remove('minimized');
-
-            appWindow.style.width = windowWidth + 'px';
-            appWindow.style.height = windowHeight + 'px';
-
-            appWindow.style.top = windowY + 'px';
-            appWindow.style.left = windowX + 'px';
-
-            //appWindow.style.transition = 'all 0s ease';
-            taskbarApp.classList.add('windowFocused');
-        } else if(taskbarApp.classList.contains('windowFocused') && (new Date().getTime() - timeWaited) > timeToWait) {
-            timeWaited = new Date().getTime();
-            minimizeWindow(window);
-            taskbarApp.classList.remove('windowFocused');
-        } else if((new Date().getTime() - timeWaited) > timeToWait) {
-            taskbarAppState.style.display = 'block'
-            taskbarApp.classList.add('windowFocused')
-            appWindow.classList.remove('closed');
-            appWindow.style.display = 'flex';
-            appWindow.style.width = (parseFloat(getComputedStyle(screen).width) / 2) + 'px';
-            appWindow.style.height = (parseFloat(getComputedStyle(screen).height) / 1.5) + 'px';
-            positionWindow();
+        //onsole.log('openWindow()')
+        if((new Date().getTime() - timeWaited) > timeToWait) {
+            if(appWindow.classList.contains('minimized')) {
+                timeWaited = new Date().getTime();
+                // transitions don't work. commented them out.
+                //appWindow.style.transition = 'all 0.2s ease';
+                appWindow.style.display = 'flex';
+                appWindow.classList.remove('minimized');
+    
+                appWindow.style.width = windowWidth + 'px';
+                appWindow.style.height = windowHeight + 'px';
+    
+                appWindow.style.top = windowY + 'px';
+                appWindow.style.left = windowX + 'px';
+    
+                //appWindow.style.transition = 'all 0s ease';
+                taskbarApp.classList.add('windowFocused');
+            } else if(taskbarApp.classList.contains('windowFocused')) {
+                timeWaited = new Date().getTime();
+                minimizeWindow(window);
+                taskbarApp.classList.remove('windowFocused');
+            } else if(appWindow.classList.contains('closed')) {
+                taskbarAppState.style.display = 'block'
+                taskbarApp.classList.add('windowFocused')
+                appWindow.classList.remove('closed');
+                appWindow.style.display = 'flex';
+                appWindow.style.width = (parseFloat(getComputedStyle(screen).width) / 2) + 'px';
+                appWindow.style.height = (parseFloat(getComputedStyle(screen).height) / 1.5) + 'px';
+                positionWindow();
+            }
         }
     }
     appDesktopIcon.addEventListener('dblclick', () => {openWindow()})
