@@ -263,6 +263,10 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         }, 100)
     }
     closeBtn.addEventListener('click', () => closeWindow());
+    const taskbarAppCloseBtn = document.querySelector(`.${taskbarApp.getAttribute('id')}`)
+    if(taskbarAppCloseBtn != null) {
+        taskbarAppCloseBtn.addEventListener('click', () => closeWindow());
+    }
 
     // Fullscreen Window
     function fullscreenWindow() {

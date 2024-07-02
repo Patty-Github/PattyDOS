@@ -1,4 +1,5 @@
 console.log('script.js working')
+
 const screen = document.getElementById('screen');
 const homePage = document.getElementById('homePage');
 const desktopIcons = document.querySelectorAll('.desktopIcon');
@@ -7,17 +8,14 @@ let desktopIconHTML;
 
 // Context Menu
 function createNewContextMenu() {
-    let mouseX;
-    let mouseY;
-    screen.addEventListener('mousemove', (event) => {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-        //console.log(mouseX + ' ' + mouseY);
-    });
     const newContextMenu = document.createElement('div');
     newContextMenu.setAttribute('id', 'newContextMenu');
     homePage.addEventListener('contextmenu', (event) => {
         event.preventDefault();
+
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
         newContextMenu.innerHTML = '';
 
         const newContextMenuOption1 = document.createElement('p')
@@ -44,7 +42,6 @@ function createNewContextMenu() {
             newContextMenu.style.left = mouseX - screenX + 'px';
         } else {
             newContextMenu.style.left = mouseX - screenX - newContextMenuWidth + 'px';
-            console.log(screenWidth);
         }    
     });
     document.addEventListener('click', () => newContextMenu.innerHTML = '');
@@ -319,4 +316,5 @@ function setDateAndTime() {
 setDateAndTime();
 setInterval(setDateAndTime, 1000);
 
+// To Do
 // create right-click menu on taskbarApps and desktopIcons
