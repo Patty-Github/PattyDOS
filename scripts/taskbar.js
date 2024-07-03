@@ -25,7 +25,7 @@ function showStartMenu() {
     const contextMenu = document.createElement('div');
     contextMenu.setAttribute('class', 'taskbarAppContextMenu');
 
-        document.addEventListener('contextmenu', (event) => {
+        screen.addEventListener('contextmenu', (event) => {
             event.preventDefault();
             const taskbarApp = document.getElementById(event.target.getAttribute('id'))
 
@@ -35,6 +35,8 @@ function showStartMenu() {
                     // context menu for pdos logo
                 } else {
                     contextMenu.innerHTML = '';
+                    let appName = taskbarApp.getAttribute('id').slice(0, taskbarApp.getAttribute('id').indexOf('Taskbar'));
+                    appName = appName.charAt(0).toUpperCase() + appName.slice(1);
                     
                     const contextMenuUnpin = document.createElement('p')
                     contextMenuUnpin.setAttribute('class', 'taskbarAppContextMenuOption');
@@ -44,9 +46,13 @@ function showStartMenu() {
                     contextMenu.appendChild(contextMenuUnpin);
 
                     const contextMenuClose = document.createElement('p')
-                    contextMenuClose.setAttribute('class', `taskbarAppContextMenuOption ${taskbarApp.getAttribute('id')}`);
-                    contextMenuClose.textContent = 'Close App';
-                    contextMenuClose.addEventListener('click', () => {console.log('Close Win')})
+                    if(getComputedStyle(taskbarApp.childNodes[1]).display == 'block') {
+                        contextMenuClose.textContent = `Close ${appName}`;
+                        contextMenuClose.setAttribute('class', `taskbarAppContextMenuOption ${taskbarApp.getAttribute('id')}Closer`);
+                    } else {
+                        contextMenuClose.textContent = `Open ${appName}`;
+                        contextMenuClose.setAttribute('class', `taskbarAppContextMenuOption ${taskbarApp.getAttribute('id')}Opener`);
+                    }
 
                     contextMenu.appendChild(contextMenuClose);
         
@@ -54,7 +60,7 @@ function showStartMenu() {
                     const contextMenuHeight = parseFloat(getComputedStyle(contextMenu).height);
     
                     contextMenu.style.top = taskbarApp.getBoundingClientRect().top - contextMenuHeight - 10 + 'px';
-                    contextMenu.style.left = taskbarApp.getBoundingClientRect().left + (parseFloat(getComputedStyle(taskbarApp).width) / 2) - (parseFloat(getComputedStyle(contextMenu).width) / 2) + 'px';
+                    contextMenu.style.left = taskbarApp.getBoundingClientRect().left + (parseFloat(getComputedStyle(taskbarApp).width) / 2) - (parseFloat(getComputedStyle(contextMenu).width) / 2) - screen.getBoundingClientRect().left + 'px';
         
                     function unpinApp() {
                         getComputedStyle(taskbarApp).display != 'none' ? taskbarApp.style.display = 'none' : taskbarApp.style.display = 'flex';

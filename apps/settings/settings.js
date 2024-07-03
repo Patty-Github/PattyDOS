@@ -37,7 +37,7 @@ function setSettingsPage() {
 
             pages.forEach((page, pageIndex) => {
                 if (menuIndex == pageIndex) {
-                    page.style.display = 'block';
+                    page.style.display = 'flex';
                 } else {
                     page.style.display = 'none';
                 }

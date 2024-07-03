@@ -53,69 +53,72 @@
                 </div>
                 <div class="settingsPage" id="settingsHome"><h1 class="windowPageTitle">Home</h1></div>
                 <div class="settingsPage" id="settingsPersonalization">
-                    <!--
-                        change system font font.
-                        change taskbarApps location to left or center
-                    -->
-                    <h1 class="windowPageTitle">Personalization</h1>
-                    <h2 style="margin: 10px;">Wallpaper</h2>
-                    <div class="wallpaperCustomization">
-                        <div id="changeWallpaper">
-                            <div id="currentWallpaper"></div>
-                            <div id="wallpaperOptions">
-                                <div class="wallpaperOption" id="wallpaperOptionOne"></div>
-                                <div class="wallpaperOption" id="wallpaperOptionTwo"></div>
-                                <div class="wallpaperOption" id="wallpaperOptionThree"></div>
-                                <div class="wallpaperOption" id="wallpaperOptionFour"></div>
+                    <div class="settingsPageContent">
+                        <!--
+                            change system font font
+                        -->
+                        <h1 class="windowPageTitle">Personalization</h1>
+                        <h2 style="margin: 10px;">Wallpaper</h2>
+                        <div class="wallpaperCustomization">
+                            <div id="changeWallpaper">
+                                <div id="currentWallpaper"></div>
+                                <div id="wallpaperOptions">
+                                    <div class="wallpaperOption" id="wallpaperOptionOne"></div>
+                                    <div class="wallpaperOption" id="wallpaperOptionTwo"></div>
+                                    <div class="wallpaperOption" id="wallpaperOptionThree"></div>
+                                    <div class="wallpaperOption" id="wallpaperOptionFour"></div>
+                                </div>
+                            </div>
+                            <div class="chooseWallpaper">
+                                <p>Choose Wallpaper (jpeg/png only)</p><input type="file" accept=".jpg, .jpeg, .png" id="inputWallpaperBtn">
+                            </div>
+                            <div class="wallpaperScaleOptions">
+                                <div class="squareRadio wallpaperScaleOption selected"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox selected"></div><div class="squareRadioText">Stretch</div></div>
+                                <div class="squareRadio wallpaperScaleOption"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox"></div><div class="squareRadioText">Fit</div></div>
+                                <div class="squareRadio wallpaperScaleOption"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox"></div><div class="squareRadioText">Zoom</div></div>
                             </div>
                         </div>
-                        <div class="chooseWallpaper">
-                            <p>Choose Wallpaper (jpeg/png only)</p><input type="file" accept=".jpg, .jpeg, .png" id="inputWallpaperBtn">
-                        </div>
-                        <div class="wallpaperScaleOptions">
-                            <div class="squareRadio wallpaperScaleOption selected"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox selected"></div><div class="squareRadioText">Stretch</div></div>
-                            <div class="squareRadio wallpaperScaleOption"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox"></div><div class="squareRadioText">Fit</div></div>
-                            <div class="squareRadio wallpaperScaleOption"><div class="squareRadioCheckbox wallpaperScaleOptionCheckbox"></div><div class="squareRadioText">Zoom</div></div>
-                        </div>
-                    </div>
-                    <h2 style="margin: 10px;">System Colors</h2>
-                    <div id="systemColor">
-                        <div id="changeSystemColor">
-                            <input id="inputSystemColor" type="color" value="#2A3D53">
-                            <div id="systemColorOptions">
-                                <div class="systemColorOption" style="background-color: #2A3D53;"></div>
-                                <div class="systemColorOption" style="background-color: #ff0000;"></div>
-                                <div class="systemColorOption" style="background-color: #00ff00;"></div>
-                                <div class="systemColorOption" style="background-color: #0000ff;"></div>
-                                <div class="systemColorOption" style="background-color: #ffffff00; border: solid; border-width: 1px; border-color: black;"></div>
+                        <h2 style="margin: 10px;">System Colors</h2>
+                        <div id="systemColor">
+                            <div id="changeSystemColor">
+                                <input id="inputSystemColor" type="color" value="#2A3D53">
+                                <div id="systemColorOptions">
+                                    <div class="systemColorOption" style="background-color: #2A3D53;"></div>
+                                    <div class="systemColorOption" style="background-color: #ff0000;"></div>
+                                    <div class="systemColorOption" style="background-color: #00ff00;"></div>
+                                    <div class="systemColorOption" style="background-color: #0000ff;"></div>
+                                    <div class="systemColorOption" style="background-color: #ffffff00; border: solid; border-width: 1px; border-color: black;"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <h2 style="margin: 10px;">Taskbar</h2>
-                    <div class="taskbarSettings">
-                        <div class="taskbarPositionOptions">
-                            <div class="squareRadio takbarAppsOption selected"><div class="squareRadioCheckbox takbarAppsOptionCheckbox selected"></div><div class="squareRadioText">Center</div></div>
-                            <div class="squareRadio takbarAppsOption"><div class="squareRadioCheckbox takbarAppsOptionCheckbox"></div><div class="squareRadioText">Left</div></div>
+                        <h2 style="margin: 10px;">Taskbar</h2>
+                        <div class="taskbarSettings">
+                            <div class="taskbarPositionOptions">
+                                <div class="squareRadio takbarAppsOption selected"><div class="squareRadioCheckbox takbarAppsOptionCheckbox selected"></div><div class="squareRadioText">Center</div></div>
+                                <div class="squareRadio takbarAppsOption"><div class="squareRadioCheckbox takbarAppsOptionCheckbox"></div><div class="squareRadioText">Left</div></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="settingsPage" id="settingsSystem">
-                    <h1 class="windowPageTitle">System</h1>
-                    <div class="userSystemDetails">
-                        <p class="systemInfoText">Hardware Acceleration Recommended!</p>
-                        <p class="systemInfoText" id="userOperatingSystem">Operating System Not Detected.</p>
-                        <p class="systemInfoText" id="userBrowser">Browser Not Detected.</p>
-                        <p class="systemInfoText" id="userScreenSize">Screen Resolution Not Detected.</p>
-                    </div>
-                    <div class="systemOptions">
-                        <div id="localStorageSettings" style="display: flex; align-items: center;">
-                            <button class="settingsSystemBtn" id="clearLocalStorageBtn">Clear Local Storage</button>
+                    <div class="settingsPageContent">
+                        <h1 class="windowPageTitle">System</h1>
+                        <div class="userSystemDetails">
+                            <p class="systemInfoText">Hardware Acceleration Recommended!</p>
+                            <p class="systemInfoText" id="userOperatingSystem">Operating System Not Detected.</p>
+                            <p class="systemInfoText" id="userBrowser">Browser Not Detected.</p>
+                            <p class="systemInfoText" id="userScreenSize">Screen Resolution Not Detected.</p>
                         </div>
-                        <div class="systemAspectRatios">
-                            <p style="margin: 0 5px 0 0;">Aspect Ratio (does nothing)</p>
-                            <div class="squareRadio aspectRatioOption selected"><div class="squareRadioCheckbox aspectRatioCheckbox selected"></div><div class="squareRadioText">16:9</div></div>
-                            <div class="squareRadio aspectRatioOption"><div class="squareRadioCheckbox aspectRatioCheckbox"></div><div class="squareRadioText">4:3</div></div>
-                            <div class="squareRadio aspectRatioOption"><div class="squareRadioCheckbox aspectRatioCheckbox"></div><div class="squareRadioText">1:1</div></div>
+                        <div class="systemOptions">
+                            <div id="localStorageSettings" style="display: flex; align-items: center;">
+                                <button class="settingsSystemBtn" id="clearLocalStorageBtn">Clear Local Storage</button>
+                            </div>
+                            <div class="systemAspectRatios">
+                                <p style="margin: 0 5px 0 0;">Aspect Ratio (does nothing)</p>
+                                <div class="squareRadio aspectRatioOption selected"><div class="squareRadioCheckbox aspectRatioCheckbox selected"></div><div class="squareRadioText">16:9</div></div>
+                                <div class="squareRadio aspectRatioOption"><div class="squareRadioCheckbox aspectRatioCheckbox"></div><div class="squareRadioText">4:3</div></div>
+                                <div class="squareRadio aspectRatioOption"><div class="squareRadioCheckbox aspectRatioCheckbox"></div><div class="squareRadioText">1:1</div></div>
+                            </div>
                         </div>
                     </div>
                 </div>

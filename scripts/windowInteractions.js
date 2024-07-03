@@ -74,6 +74,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     appDesktopIcon.addEventListener('dblclick', () => {openWindow()})
     taskbarApp.addEventListener('click', () => {openWindow()})
 
+
     // Drag Window
     function moveableWindow() {
         //console.log('moveableWindow()')
@@ -263,10 +264,19 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         }, 100)
     }
     closeBtn.addEventListener('click', () => closeWindow());
-    const taskbarAppCloseBtn = document.querySelector(`.${taskbarApp.getAttribute('id')}`)
-    if(taskbarAppCloseBtn != null) {
-        taskbarAppCloseBtn.addEventListener('click', () => closeWindow());
-    }
+    // listen for element creation, look for element by name of `${taskbarApp.getAttribute('id')}Closer`, if it isn't null addEventListener for click, closeWin on click.
+    const observeBodyChildren = new MutationObserver(() => {
+        const taskbarAppCloser = document.querySelector(`.${taskbarApp.getAttribute('id')}Closer`)
+        if(taskbarAppCloser) {
+            taskbarAppCloser.addEventListener('click', () => closeWindow());
+        }
+
+        const taskbarAppOpener = document.querySelector(`.${taskbarApp.getAttribute('id')}Opener`)
+        if(taskbarAppOpener) {
+            taskbarAppOpener.addEventListener('click', () => openWindow());
+        }
+    })
+    observeBodyChildren.observe(screen, { childList: true });
 
     // Fullscreen Window
     function fullscreenWindow() {
@@ -284,22 +294,31 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             if(appWindow.classList.contains('fullscreen')) {
                 unFullscreenOnClick();
             } else {
-                savedWindowWidth = getComputedStyle(appWindow).width;
-                savedWindowHeight = getComputedStyle(appWindow).height;
-                savedWindowX = parseFloat(getComputedStyle(appWindow).left);
-                savedWindowY = parseFloat(getComputedStyle(appWindow).top);
-                // change fullscreenBtn img to un-fullscreen img.
-                appWindow.style.transition = 'all 0.1s ease';
-                appWindow.style.top = '-1px';
-                appWindow.style.left = '-1px';
-                appWindow.style.borderRadius = '0';
-                appWindow.style.width = getComputedStyle(screen).width;
-                appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
-                appWindow.classList.add('fullscreen');
-                appWindow.style.transition = 'all 0s';
-                fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen-exit.png";
+                fullScreen();
             }
         })
+
+        frame.addEventListener('dblclick', () => {
+            if(!appWindow.classList.contains('fullscreen')) {
+                fullScreen();
+            }
+        })
+
+        function fullScreen() {
+            savedWindowWidth = getComputedStyle(appWindow).width;
+            savedWindowHeight = getComputedStyle(appWindow).height;
+            savedWindowX = parseFloat(getComputedStyle(appWindow).left);
+            savedWindowY = parseFloat(getComputedStyle(appWindow).top);
+            appWindow.style.transition = 'all 0.1s ease';
+            appWindow.style.top = '-1px';
+            appWindow.style.left = '-1px';
+            appWindow.style.borderRadius = '0';
+            appWindow.style.width = getComputedStyle(screen).width;
+            appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
+            appWindow.classList.add('fullscreen');
+            appWindow.style.transition = 'all 0s';
+            fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen-exit.png";
+        }
     
         function unFullscreenOnClick() {
             //console.log('unFullscreenOnClick()')

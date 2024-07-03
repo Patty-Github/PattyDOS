@@ -204,11 +204,11 @@ img {
     transition: all 0s ease;
 }
 .taskbarApp:hover > .taskbarAppImage {
-    background-color: rgb(255, 255, 255, 0.1);
+    background: radial-gradient(circle, rgba(255,255,255,0) 20%, rgba(255,255,255,0.1) 100%);
     transition: all 0.2s ease;
 }
 .taskbarApp.windowFocused > .taskbarAppImage {
-    background-color: rgb(255, 255, 255, 0.1);
+    background: radial-gradient(circle, rgba(255,255,255,0) 20%, rgba(255,255,255,0.1) 100%);
     transition: all 0.2s ease;
 }
 .taskbarAppImage {
@@ -413,7 +413,7 @@ img {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    
+    pointer-events: all;
 }
 .popUpMenu p:hover {
     background-color: rgb(255, 255, 255, 0.1);

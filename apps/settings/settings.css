@@ -25,9 +25,15 @@
 }
 
 .settingsPage {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    height: calc(100% - 10px);
     margin: 5px;
+}
+.settingsPageContent {
+    width: 100%;
+    max-width: 1000px;
+    height: 100%;
     border-radius: 8px;
     background-color: rgb(255, 255, 255, 0.05);
     overflow: auto;
