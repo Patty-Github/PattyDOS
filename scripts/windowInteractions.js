@@ -37,6 +37,40 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         appWindow.style.top = parseFloat(getComputedStyle(screen).top) + ((parseFloat(getComputedStyle(appWindow).height) / 2) - (parseFloat(getComputedStyle(appWindow).height) / 4)) - 26 + 'px';
     }
 
+    // Keep window position when resized
+    function keepWindowPosition() {
+        let windowX;
+        let windowY;
+        let windowWidth;
+        let windowHeight;
+        let screenWidth;
+        let screenHeight;
+        
+        window.addEventListener('mouseup', () => {
+            windowX = parseFloat(getComputedStyle(appWindow).left);
+            windowY = parseFloat(getComputedStyle(appWindow).top);
+            windowWidth = parseFloat(getComputedStyle(appWindow).width);
+            windowHeight = parseFloat(getComputedStyle(appWindow).height);
+            screenWidth = parseFloat(getComputedStyle(screen).width);
+            screenHeight = parseFloat(getComputedStyle(screen).height);
+        })
+
+        window.addEventListener('resize', () => {
+            const windowPercentageX = windowX / screenWidth * 100;
+            appWindow.style.left = `${windowPercentageX}%`
+
+            const windowPercentageY = windowY / screenHeight * 100;
+            appWindow.style.top = `${windowPercentageY}%`
+
+            const windowPercentageWidth = windowWidth / screenWidth * 100;
+            appWindow.style.width = `${windowPercentageWidth}%`;
+
+            const windowPercentageHeight = windowHeight / screenHeight * 100;
+            appWindow.style.height = `${windowPercentageHeight}%`;
+        });
+    }
+    keepWindowPosition()
+
     // Open Window
     function openWindow() {
         //onsole.log('openWindow()')
