@@ -10,39 +10,43 @@ let desktopIconHTML;
 function createNewContextMenu() {
     const newContextMenu = document.createElement('div');
     newContextMenu.setAttribute('id', 'newContextMenu');
-    homePage.addEventListener('contextmenu', (event) => {
+
+    window.addEventListener('contextmenu', (event) => {
         event.preventDefault();
+        newContextMenu.innerHTML = ''
 
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
+        if(!event.target.classList.contains('desktopIcon') && event.target.getAttribute('id').includes('homePage')) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
 
-        newContextMenu.innerHTML = '';
+            newContextMenu.innerHTML = '';
 
-        const newContextMenuOption1 = document.createElement('p')
-        newContextMenuOption1.setAttribute('class', 'newContextMenuOption');
-        newContextMenuOption1.textContent = 'Show Desktop Icons';
-        newContextMenuOption1.addEventListener('click', showHideDesktopIcons);
+            const newContextMenuOption1 = document.createElement('p')
+            newContextMenuOption1.setAttribute('class', 'newContextMenuOption');
+            newContextMenuOption1.textContent = 'Show Desktop Icons';
+            newContextMenuOption1.addEventListener('click', showHideDesktopIcons);
 
-        const newContextMenuOption2 = document.createElement('p')
-        newContextMenuOption2.setAttribute('class', 'newContextMenuOption');
-        newContextMenuOption2.textContent = 'Personalize';
+            const newContextMenuOption2 = document.createElement('p')
+            newContextMenuOption2.setAttribute('class', 'newContextMenuOption');
+            newContextMenuOption2.textContent = 'Personalize';
 
-        newContextMenu.append(newContextMenuOption1, newContextMenuOption2);
-        screen.appendChild(newContextMenu);
-        const screenWidth = parseFloat(getComputedStyle(screen).width);
-        const screenX = parseFloat(getComputedStyle(screen).left);
-        const newContextMenuWidth = parseFloat(getComputedStyle(newContextMenu).width);
-        const newContextMenuHeight = parseFloat(getComputedStyle(newContextMenu).height);
-        if(mouseY <= newContextMenuHeight) {
-            newContextMenu.style.top = mouseY + 'px';
-        } else {
-            newContextMenu.style.top = mouseY - newContextMenuHeight + 'px';
+            newContextMenu.append(newContextMenuOption1, newContextMenuOption2);
+            screen.appendChild(newContextMenu);
+            const screenWidth = parseFloat(getComputedStyle(screen).width);
+            const screenX = parseFloat(getComputedStyle(screen).left);
+            const newContextMenuWidth = parseFloat(getComputedStyle(newContextMenu).width);
+            const newContextMenuHeight = parseFloat(getComputedStyle(newContextMenu).height);
+            if(mouseY <= newContextMenuHeight) {
+                newContextMenu.style.top = mouseY + 'px';
+            } else {
+                newContextMenu.style.top = mouseY - newContextMenuHeight + 'px';
+            }
+            if((mouseX + newContextMenuWidth) <= screenWidth) {
+                newContextMenu.style.left = mouseX - screenX + 'px';
+            } else {
+                newContextMenu.style.left = mouseX - screenX - newContextMenuWidth + 'px';
+            }    
         }
-        if((mouseX + newContextMenuWidth) <= screenWidth) {
-            newContextMenu.style.left = mouseX - screenX + 'px';
-        } else {
-            newContextMenu.style.left = mouseX - screenX - newContextMenuWidth + 'px';
-        }    
     });
     document.addEventListener('click', () => newContextMenu.innerHTML = '');
 
@@ -72,6 +76,76 @@ function setScreenSize() {
     }
 }
 setScreenSize();
+
+// DesktopIcon context menu
+function desktopIconContextMenu() {
+    const screen = document.getElementById('screen');
+    const iconContextMenu = document.createElement('div');
+    iconContextMenu.setAttribute('id', 'newContextMenu');
+    homePage.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        iconContextMenu.innerHTML = '';
+
+        if(event.target.classList.contains('desktopIcon')) {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+    
+            const desktopIcon = event.target;
+            let appName = String(desktopIcon.getAttribute('id')).slice(0, -4);
+            //appName = appName.charAt(0).toUpperCase() + appName.slice(1)
+            const iconApp = document.getElementById(`${appName}App`);
+            const iconTaskbarApp = document.getElementById(`${appName}TaskbarApp`);
+
+            // Delete, rename
+    
+            let menuOptionOpen;
+            if(iconApp.classList.contains('closed')) {
+                menuOptionOpen = document.createElement('p')
+                menuOptionOpen.setAttribute('class', 'newContextMenuOption');
+                menuOptionOpen.textContent = 'Open';
+                menuOptionOpen.addEventListener('click', console.log('temp'));
+            }
+    
+            let menuOptionPin;
+            if(iconTaskbarApp.style.display == 'none') {
+                menuOptionPin = document.createElement('p')
+                menuOptionPin.setAttribute('class', 'newContextMenuOption');
+                menuOptionPin.textContent = 'Pin To taskbar';
+                menuOptionPin.addEventListener('click', () => {
+                    iconTaskbarApp.style.display = 'flex'
+                    const taskbarAppsDiv = document.getElementById('taskbarApps');
+                    taskbarAppsDiv.style.transition =  'all 0.75s ease';
+                    taskbarAppsDiv.style.left = `calc(50% - ${(parseFloat(getComputedStyle(taskbarAppsDiv).width) / 2) + 'px'})`
+                });
+            }
+
+            const menuOptionRename = document.createElement('p')
+            menuOptionRename.setAttribute('class', 'newContextMenuOption');
+            menuOptionRename.textContent = 'Rename';
+    
+            if(menuOptionOpen != undefined) iconContextMenu.append(menuOptionOpen);
+            if(menuOptionPin != undefined) iconContextMenu.append(menuOptionPin);
+            iconContextMenu.append(menuOptionRename);
+            screen.appendChild(iconContextMenu);
+            const screenWidth = parseFloat(getComputedStyle(screen).width);
+            const screenX = parseFloat(getComputedStyle(screen).left);
+            const newContextMenuWidth = parseFloat(getComputedStyle(iconContextMenu).width);
+            const newContextMenuHeight = parseFloat(getComputedStyle(iconContextMenu).height);
+            if(mouseY <= newContextMenuHeight) {
+                iconContextMenu.style.top = mouseY + 'px';
+            } else {
+                iconContextMenu.style.top = mouseY - newContextMenuHeight + 'px';
+            }
+            if((mouseX + newContextMenuWidth) <= screenWidth) {
+                iconContextMenu.style.left = mouseX - screenX + 'px';
+            } else {
+                iconContextMenu.style.left = mouseX - screenX - newContextMenuWidth + 'px';
+            } 
+        }  
+    })
+    document.addEventListener('click', () => iconContextMenu.innerHTML = '');
+}
+desktopIconContextMenu();
 
 // Set desktopIcon font size
 function setFontSize() {
@@ -210,45 +284,6 @@ function moveDesktopIcons() {
             holdingIcon = false;
         });
     })
-
-    // window.addEventListener('resize', () => {
-    //     // when window is resized, put each desktopIcon's position to closest dot position 
-    //     const dots = document.querySelectorAll('.iconDot');
-    //     desktopIcons.forEach((desktopIcon, iconIndex) => {
-    //         const iconRect = desktopIcon.getBoundingClientRect();
-    //         const iconX =  Math.round(iconRect.left);
-    //         const iconY =  Math.round(iconRect.top);
-    //         dots.forEach((dot, dotIndex) => {
-    //             const dotRect = dot.getBoundingClientRect();
-    //             const dotX = Math.round(dotRect.left);
-    //             const dotY = Math.round(dotRect.top);
-    
-    //             let dotDistanceX = Math.abs(iconX - dotX);
-    //             let dotDistanceY = Math.abs(iconY - dotY);
-    //             let dotDistance = dotDistanceX + dotDistanceY;
-
-    //             let closestDotX;
-    //             let closestDotY;
-    //             let closestDot;
-    //             if(closestDot != null) {
-    //                 // if this dot is closer to icon than closest dot, this is closest dot.
-    //                 if(Math.abs(dotDistance) < Math.abs(closestDot)) {
-    //                     closestDotX = dotX;
-    //                     closestDotY = dotY;
-    //                     closestDot = dotDistance;
-    //                 }
-    //             } else {
-    //                 closestDotX = dotX;
-    //                 closestDotY = dotY;
-    //                 closestDot = dotDistance;
-    //             }
-    //             // iconX = closestDotX, etc
-    //             desktopIcon.style.left = closestDotX;
-    //             desktopIcon.style.top = closestDotY;
-    //             console.log('moved')
-    //         })
-    //       })
-    // })
 }
 moveDesktopIcons();
 

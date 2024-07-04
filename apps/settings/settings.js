@@ -3,7 +3,6 @@ console.log('settings.js working');
 import { windowInteractions } from "../../scripts/windowInteractions.js";
 
 (() => {
-    const screen = document.getElementById('screen');
     const settingsWindow = document.getElementById('settingsApp');
     const settingsFrame = document.getElementById('settingsFrame');
     const settingsFullscreenBtn = document.getElementById('settingsFullscreenBtn');
