@@ -4,7 +4,6 @@ const screen = document.getElementById('screen');
 const homePage = document.getElementById('homePage');
 const desktopIcons = document.querySelectorAll('.desktopIcon');
 const desktopIconTitles = document.querySelectorAll('.desktopIconTitle');
-let desktopIconHTML;
 
 // Context Menu
 function createNewContextMenu() {
@@ -95,15 +94,12 @@ function desktopIconContextMenu() {
             //appName = appName.charAt(0).toUpperCase() + appName.slice(1)
             const iconApp = document.getElementById(`${appName}App`);
             const iconTaskbarApp = document.getElementById(`${appName}TaskbarApp`);
-
-            // Delete, rename
     
             let menuOptionOpen;
             if(iconApp.classList.contains('closed')) {
                 menuOptionOpen = document.createElement('p')
-                menuOptionOpen.setAttribute('class', 'newContextMenuOption');
+                menuOptionOpen.setAttribute('class', `${desktopIcon.getAttribute('id')}Opener newContextMenuOption`);
                 menuOptionOpen.textContent = 'Open';
-                menuOptionOpen.addEventListener('click', console.log('temp'));
             }
     
             let menuOptionPin;
@@ -122,10 +118,15 @@ function desktopIconContextMenu() {
             const menuOptionRename = document.createElement('p')
             menuOptionRename.setAttribute('class', 'newContextMenuOption');
             menuOptionRename.textContent = 'Rename';
+
+            const menuOptionDelete = document.createElement('p')
+            menuOptionDelete.setAttribute('class', 'newContextMenuOption');
+            menuOptionDelete.textContent = 'Delete';
     
             if(menuOptionOpen != undefined) iconContextMenu.append(menuOptionOpen);
             if(menuOptionPin != undefined) iconContextMenu.append(menuOptionPin);
             iconContextMenu.append(menuOptionRename);
+            iconContextMenu.append(menuOptionDelete);
             screen.appendChild(iconContextMenu);
             const screenWidth = parseFloat(getComputedStyle(screen).width);
             const screenX = parseFloat(getComputedStyle(screen).left);
@@ -195,10 +196,12 @@ function moveDesktopIcons() {
         let savedIconY;
         const dots = document.querySelectorAll('.iconDot');
 
-        desktopIcon.addEventListener('mousedown', () => {
-            holdingIcon = true;
-            savedIconX = getComputedStyle(desktopIcon).left;
-            savedIconY = getComputedStyle(desktopIcon).top;
+        desktopIcon.addEventListener('mousedown', (event) => {
+            if(event.button == 0) {
+                holdingIcon = true;
+                savedIconX = getComputedStyle(desktopIcon).left;
+                savedIconY = getComputedStyle(desktopIcon).top;
+            }
         })
 
         document.addEventListener('mouseup', positionIcons)

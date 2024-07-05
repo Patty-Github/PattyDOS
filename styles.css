@@ -437,6 +437,7 @@ img {
 }
 
 .topResizeHandle, .rightResizeHandle, .bottomResizeHandle, .leftResizeHandle {
+    z-index: 1;
     position: absolute;
     background-color: transparent;
     user-select: none;

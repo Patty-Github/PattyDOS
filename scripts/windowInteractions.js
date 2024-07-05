@@ -224,7 +224,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         })
         document.addEventListener('mouseup', () => {resizingWindow = false; resizing = ''; screen.style.cursor = 'default';})
     
-        document.addEventListener('mousemove', () => {
+        screen.addEventListener('mousemove', () => {
             const yOffset = savedMouseY - mouseY;
             const xOffset = savedMouseX - mouseX;
             if(!appWindow.classList.contains('fullscreen')) {
@@ -308,6 +308,11 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         const taskbarAppOpener = document.querySelector(`.${taskbarApp.getAttribute('id')}Opener`)
         if(taskbarAppOpener) {
             taskbarAppOpener.addEventListener('click', () => openWindow());
+        }
+
+        const desktopIconOpener = document.querySelector(`.${appDesktopIcon.getAttribute('id')}Opener`)
+        if(desktopIconOpener) {
+            desktopIconOpener.addEventListener('click', () => openWindow());
         }
     })
     observeBodyChildren.observe(screen, { childList: true });
