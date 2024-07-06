@@ -1,12 +1,8 @@
 console.log('script.js working')
 
-const screen = document.getElementById('screen');
-const homePage = document.getElementById('homePage');
-const desktopIcons = document.querySelectorAll('.desktopIcon');
-const desktopIconTitles = document.querySelectorAll('.desktopIconTitle');
-
 // Context Menu
 function createNewContextMenu() {
+    const screen = document.getElementById('screen');
     const newContextMenu = document.createElement('div');
     newContextMenu.setAttribute('id', 'newContextMenu');
 
@@ -60,6 +56,7 @@ createNewContextMenu();
 
 // Set screen size to max while keeping 16/9 ratio
 function setScreenSize() {
+    const screen = document.getElementById('screen');
     let browserWindowWidth = window.innerWidth;
     let browserWindowHeight = window.innerHeight;
     let screenWidth = parseFloat(getComputedStyle(screen).width);
@@ -79,6 +76,7 @@ setScreenSize();
 // DesktopIcon context menu
 function desktopIconContextMenu() {
     const screen = document.getElementById('screen');
+    const homePage = document.getElementById('homePage');
     const iconContextMenu = document.createElement('div');
     iconContextMenu.setAttribute('id', 'newContextMenu');
     homePage.addEventListener('contextmenu', (event) => {
@@ -150,6 +148,8 @@ desktopIconContextMenu();
 
 // Set desktopIcon font size
 function setFontSize() {
+    const desktopIcons = document.querySelectorAll('.desktopIcon');
+    const desktopIconTitles = document.querySelectorAll('.desktopIconTitle');
     let i = 0;
     desktopIcons.forEach((desktopIcon) => {
         let desktopIconWidth = parseFloat(getComputedStyle(desktopIcon).width)
@@ -165,6 +165,7 @@ window.addEventListener('resize', () => {setFontSize(); setScreenSize();});
 // HomePage
 (function setIconPosition() {
     // if desktop icon position is another desktopIcon's position, move it by desktopIcon's width + 0.5px.
+    const desktopIcons = document.querySelectorAll('.desktopIcon');
     desktopIcons.forEach((desktopIcon) => {
         desktopIcon.style.left = parseFloat(getComputedStyle(desktopIcon).left) + 0.5 + 'px';
         const desktopIconX = parseFloat(getComputedStyle(desktopIcon).left);
@@ -184,6 +185,8 @@ window.addEventListener('resize', () => {setFontSize(); setScreenSize();});
 })();
 
 function moveDesktopIcons() {
+    const screen = document.getElementById('screen');
+    const desktopIcons = document.querySelectorAll('.desktopIcon');
     let mouseX;
     let mouseY;
     document.addEventListener('mousemove', (event) => {
