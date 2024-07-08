@@ -293,6 +293,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             appWindow.classList.add('closed');
             appWindow.style.display = 'none';
             taskbarAppState.style.display = 'none';
+            taskbarApp.classList.remove('windowFocused');
             appWindow.style.transition = 'all 0s'
             appWindow.style.opacity = '1';
         }, 100)
@@ -426,18 +427,11 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         appWindow.style.left = taskbarAppRect.left -  parseFloat(getComputedStyle(screen).left) + (parseFloat(getComputedStyle(taskbarApp).width) / 2) + 'px';
         appWindow.style.width = '0';
         appWindow.style.height = '0';
-        setTimeout(() => appWindow.style.transition = 'all 0s', 20);
+        setTimeout(() => {appWindow.style.transition = 'all 0s'; taskbarApp.classList.remove('windowFocused');}, 20);
         appWindow.classList.add('minimized');
         setTimeout(() => {appWindow.style.display = 'none'; appWindow.style.overflow = 'auto';}, 200);
 
     }
     minimizeBtn.addEventListener('click', () => minimizeWindow());
-
-    setInterval(() => {setTaskbarAppState()}, 10)
-    function setTaskbarAppState() {
-        if(appWindow.classList.contains('closed') || appWindow.classList.contains('minimized')) {
-            taskbarApp.classList.remove('windowFocused');
-        }
-    }
 
 }
