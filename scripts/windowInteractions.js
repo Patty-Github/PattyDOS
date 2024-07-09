@@ -130,6 +130,8 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             if(!appWindow.classList.contains('fullscreen')) {
                 savedWindowX = parseFloat(getComputedStyle(appWindow).left);
                 savedWindowY = parseFloat(getComputedStyle(appWindow).top);
+                savedWindowWidth = parseFloat(getComputedStyle(appWindow).width);
+                savedWindowHeight = parseFloat(getComputedStyle(appWindow).height);
             }
         })
         window.addEventListener('mouseup', () => {grabbingWindow = false;})
@@ -137,6 +139,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         screen.addEventListener('mousemove', (event) => {
             if(grabbingWindow === true && onFrameBtn === false) {
                 dragWindow()
+                appWindow.classList.add('dragging');
             }
         })
     
@@ -148,13 +151,10 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         }
     
         // fullscreen code 
-        fullscreenBtn.addEventListener('click', () => {
-            savedWindowWidth = parseFloat(getComputedStyle(appWindow).width);
-            savedWindowHeight = parseFloat(getComputedStyle(appWindow).height);
-        })
     
         frame.addEventListener('mousemove', () => {
             if(grabbingWindow && appWindow.classList.contains('fullscreen')) {
+                console.log(savedWindowWidth)
                 savedWindowX = mouseX - (savedWindowWidth / 2) - parseFloat(getComputedStyle(screen).left);
                 savedWindowY = mouseY - 16;
             }
@@ -378,10 +378,12 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         }
     
         function unFullscreenOnDrag() {
-            //console.log('unFullscreenOnDrag()')
+            console.log('unFullscreenOnDrag()')
 
             appWindow.style.width = savedWindowWidth;
             appWindow.style.height = savedWindowHeight;
+
+            //appWindow.style.left = mouseX - (parseFloat(getComputedStyle(appWindow).width) / 2) + 'px';
     
             appWindow.style.borderRadius = '8px'
             appWindow.classList.remove('fullscreen');
@@ -404,6 +406,51 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             if(appWindow.classList.contains('fullscreen')) {
                 appWindow.style.width = getComputedStyle(screen).width;
                 appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
+            }
+        })
+
+        document.addEventListener('mouseup', () => {
+            if(appWindow.classList.contains('dragging') && mouseY <= '0') fullScreen();
+            appWindow.classList.remove('dragging')
+            if(document.getElementById('fullscreenPlaceholder')) screen.removeChild(document.getElementById('fullscreenPlaceholder'));
+        })
+
+        document.addEventListener('mousemove', () => {
+            if(appWindow.classList.contains('dragging') && mouseY <= '0') {
+                if(!document.getElementById('fullscreenPlaceholder')) {
+                    const homePage = document.getElementById('homePage');
+                    const fullscreenPlaceolder = document.createElement('div')
+                    fullscreenPlaceolder.setAttribute('id', 'fullscreenPlaceholder');
+
+                    fullscreenPlaceolder.style.zIndex = '2';
+                    fullscreenPlaceolder.style.pointerEvents = 'none';
+                    fullscreenPlaceolder.style.position = 'absolute';
+                    fullscreenPlaceolder.style.margin = '15px';
+                    fullscreenPlaceolder.style.width = '0';
+                    fullscreenPlaceolder.style.height = '0';
+                    fullscreenPlaceolder.style.left = `${(parseFloat(getComputedStyle(homePage).width) / 2) + 'px'}`;
+                    fullscreenPlaceolder.style.top = '0';
+
+                    fullscreenPlaceolder.style.border = 'solid 7px rgba(255, 255, 255, 0.7)';
+                    fullscreenPlaceolder.style.borderRadius = '8px';
+
+
+                    fullscreenPlaceolder.style.transition =  'all 0.2s ease';
+                    
+                    setTimeout(() => {
+
+                        fullscreenPlaceolder.style.width = `${parseFloat(getComputedStyle(homePage).width) - 44 + 'px'}`;
+                        fullscreenPlaceolder.style.height = `${parseFloat(getComputedStyle(homePage).height) - 44 + 'px'}`;
+                        fullscreenPlaceolder.style.left = '0';
+                        fullscreenPlaceolder.style.top = '0';
+
+                    }, 1)
+
+    
+                    screen.appendChild(fullscreenPlaceolder);
+                }
+            } else {
+                if(document.getElementById('fullscreenPlaceholder')) screen.removeChild(document.getElementById('fullscreenPlaceholder'));
             }
         })
     
