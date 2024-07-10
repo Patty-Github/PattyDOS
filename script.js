@@ -36,7 +36,7 @@ function createNewContextMenu() {
             } else {
                 newContextMenu.style.top = mouseY - newContextMenuHeight + 'px';
             }
-            if((mouseX + newContextMenuWidth) <= screenWidth) {
+            if((mouseX + newContextMenuWidth) <= (screenWidth + parseFloat(getComputedStyle(screen).left))) {
                 newContextMenu.style.left = mouseX - screenX + 'px';
             } else {
                 newContextMenu.style.left = mouseX - screenX - newContextMenuWidth + 'px';

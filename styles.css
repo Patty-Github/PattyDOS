@@ -582,3 +582,14 @@ img {
 .windowPageTitle {
     margin: 3px 10px;
 }
+
+#fullscreenPlaceholder {
+    z-index: 2;
+    pointer-events: none;
+    position: absolute;
+    margin: 15px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.3);
+}

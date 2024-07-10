@@ -154,7 +154,6 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     
         frame.addEventListener('mousemove', () => {
             if(grabbingWindow && appWindow.classList.contains('fullscreen')) {
-                console.log(savedWindowWidth)
                 savedWindowX = mouseX - (savedWindowWidth / 2) - parseFloat(getComputedStyle(screen).left);
                 savedWindowY = mouseY - 16;
             }
@@ -378,7 +377,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         }
     
         function unFullscreenOnDrag() {
-            console.log('unFullscreenOnDrag()')
+            //console.log('unFullscreenOnDrag()')
 
             appWindow.style.width = savedWindowWidth;
             appWindow.style.height = savedWindowHeight;
@@ -422,25 +421,15 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
                     const fullscreenPlaceolder = document.createElement('div')
                     fullscreenPlaceolder.setAttribute('id', 'fullscreenPlaceholder');
 
-                    fullscreenPlaceolder.style.zIndex = '2';
-                    fullscreenPlaceolder.style.pointerEvents = 'none';
-                    fullscreenPlaceolder.style.position = 'absolute';
-                    fullscreenPlaceolder.style.margin = '15px';
                     fullscreenPlaceolder.style.width = '0';
                     fullscreenPlaceolder.style.height = '0';
                     fullscreenPlaceolder.style.left = `${(parseFloat(getComputedStyle(homePage).width) / 2) + 'px'}`;
                     fullscreenPlaceolder.style.top = '0';
-
-                    fullscreenPlaceolder.style.border = 'solid 7px rgba(255, 255, 255, 0.7)';
-                    fullscreenPlaceolder.style.borderRadius = '8px';
-
-
-                    fullscreenPlaceolder.style.transition =  'all 0.2s ease';
                     
                     setTimeout(() => {
 
-                        fullscreenPlaceolder.style.width = `${parseFloat(getComputedStyle(homePage).width) - 44 + 'px'}`;
-                        fullscreenPlaceolder.style.height = `${parseFloat(getComputedStyle(homePage).height) - 44 + 'px'}`;
+                        fullscreenPlaceolder.style.width = `${parseFloat(getComputedStyle(homePage).width) - 30 + 'px'}`;
+                        fullscreenPlaceolder.style.height = `${parseFloat(getComputedStyle(homePage).height) - 30 + 'px'}`;
                         fullscreenPlaceolder.style.left = '0';
                         fullscreenPlaceolder.style.top = '0';
 
