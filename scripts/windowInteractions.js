@@ -388,8 +388,26 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             appWindow.classList.remove('fullscreen');
             fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen.png";
         }
+
+        function halfScreen(dir) {
+            savedWindowWidth = getComputedStyle(appWindow).width;
+            savedWindowHeight = getComputedStyle(appWindow).height;
+            savedWindowX = parseFloat(getComputedStyle(appWindow).left);
+            savedWindowY = parseFloat(getComputedStyle(appWindow).top);
+            appWindow.style.transition = 'all 0.1s ease';
+            appWindow.style.top = '-1px';
+            if(dir == 'right') {
+                appWindow.style.left = `${parseFloat(getComputedStyle(appWindow).width)}px`;
+            } else if(dir == 'left') {appWindow.style.left = '-1px'}
+            appWindow.style.borderRadius = '0';
+            appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2;
+            appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
+            appWindow.classList.add('fullscreen');
+            appWindow.style.transition = 'all 0s';
+            fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen-exit.png";
+        }
     
-        frame.addEventListener('mousedown', (event) => {
+        frame.addEventListener('mousedown', () => {
             if(onFrameBtn) return;
             grabbingWindow = true
         })
@@ -409,13 +427,16 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         })
 
         document.addEventListener('mouseup', () => {
-            if(appWindow.classList.contains('dragging') && mouseY <= '0') fullScreen();
+            if(appWindow.classList.contains('dragging') && mouseY <= '0') {fullScreen()}
+            else if(appWindow.classList.contains('dragging') && mouseY > 0 && mouseX >= screen.getBoundingClientRect().right) {
+                halfScreen('right')
+            } else if(appWindow.classList.contains('dragging') && mouseY > 0 && mouseX <= screen.getBoundingClientRect().left) {halfScreen('left')}
             appWindow.classList.remove('dragging')
             if(document.getElementById('fullscreenPlaceholder')) screen.removeChild(document.getElementById('fullscreenPlaceholder'));
         })
 
         document.addEventListener('mousemove', () => {
-            if(appWindow.classList.contains('dragging') && mouseY <= '0') {
+            if(appWindow.classList.contains('dragging') && (mouseY <= 0 || (mouseY > 0 && mouseX >= screen.getBoundingClientRect().right) || (mouseY > 0 && mouseX <= screen.getBoundingClientRect().left))) {
                 if(!document.getElementById('fullscreenPlaceholder')) {
                     const homePage = document.getElementById('homePage');
                     const fullscreenPlaceolder = document.createElement('div')
@@ -423,14 +444,32 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
 
                     fullscreenPlaceolder.style.width = '0';
                     fullscreenPlaceolder.style.height = '0';
-                    fullscreenPlaceolder.style.left = `${(parseFloat(getComputedStyle(homePage).width) / 2) + 'px'}`;
-                    fullscreenPlaceolder.style.top = '0';
+
+                    if(mouseY <= 0) {
+                        fullscreenPlaceolder.style.left = `${(parseFloat(getComputedStyle(homePage).width) / 2) + 'px'}`;
+                        fullscreenPlaceolder.style.top = '0';
+                    } else if(mouseY > 0 && mouseX >= screen.getBoundingClientRect().right) {
+                        fullscreenPlaceolder.style.right = `0`;
+                        fullscreenPlaceolder.style.top = `${(parseFloat(getComputedStyle(homePage).height) / 2) + 'px'}`;
+                    } else if(mouseY > 0 && mouseX <= screen.getBoundingClientRect().left) {
+                        fullscreenPlaceolder.style.left = `0`;
+                        fullscreenPlaceolder.style.top = `${(parseFloat(getComputedStyle(homePage).height) / 2) + 'px'}`;
+                    }
                     
                     setTimeout(() => {
 
-                        fullscreenPlaceolder.style.width = `${parseFloat(getComputedStyle(homePage).width) - 30 + 'px'}`;
+                        if(mouseY <= 0) {
+                            fullscreenPlaceolder.style.width = `${parseFloat(getComputedStyle(homePage).width) - 30 + 'px'}`;
+                            fullscreenPlaceolder.style.left = '0';
+                        } else if(mouseY > 0 && mouseX >= screen.getBoundingClientRect().right) {
+                            fullscreenPlaceolder.style.width = `${(parseFloat(getComputedStyle(homePage).width) / 2) - 15 + 'px'}`;
+                            fullscreenPlaceolder.style.right = '0';
+                        } else if(mouseY > 0 && mouseX <= screen.getBoundingClientRect().left) {
+                            fullscreenPlaceolder.style.width = `${(parseFloat(getComputedStyle(homePage).width) / 2) - 15 + 'px'}`;
+                            fullscreenPlaceolder.style.left = '0';
+                        }
+
                         fullscreenPlaceolder.style.height = `${parseFloat(getComputedStyle(homePage).height) - 30 + 'px'}`;
-                        fullscreenPlaceolder.style.left = '0';
                         fullscreenPlaceolder.style.top = '0';
 
                     }, 1)
@@ -442,8 +481,6 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
                 if(document.getElementById('fullscreenPlaceholder')) screen.removeChild(document.getElementById('fullscreenPlaceholder'));
             }
         })
-    
-        // when un-fullscreening when browser is unfocused it defaults to top left.
     }
     fullscreenWindow();
 
