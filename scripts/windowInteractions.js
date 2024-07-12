@@ -56,11 +56,13 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         })
 
         window.addEventListener('resize', () => {
-            const windowPercentageX = windowX / screenWidth * 100;
-            appWindow.style.left = `${windowPercentageX}%`
+            if(!appWindow.classList.contains('fullscreen')) {
+                const windowPercentageX = windowX / screenWidth * 100;
+                appWindow.style.left = `${windowPercentageX}%`
 
-            const windowPercentageY = windowY / screenHeight * 100;
-            appWindow.style.top = `${windowPercentageY}%`
+                const windowPercentageY = windowY / screenHeight * 100;
+                appWindow.style.top = `${windowPercentageY}%`
+            }
 
             const windowPercentageWidth = windowWidth / screenWidth * 100;
             appWindow.style.width = `${windowPercentageWidth}%`;
@@ -372,6 +374,8 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             appWindow.style.borderRadius = '8px'
     
             appWindow.classList.remove('fullscreen');
+            appWindow.classList.remove('halfscreenRight');
+            appWindow.classList.remove('halfscreenLeft');
             setTimeout(() => appWindow.style.transition = 'all 0s ease', 10);
             fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen.png";
         }
@@ -386,6 +390,8 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     
             appWindow.style.borderRadius = '8px'
             appWindow.classList.remove('fullscreen');
+            appWindow.classList.remove('halfscreenRight');
+            appWindow.classList.remove('halfscreenLeft');
             fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen.png";
         }
 
@@ -398,9 +404,14 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             appWindow.style.top = '-1px';
             if(dir == 'right') {
                 appWindow.style.left = `${parseFloat(getComputedStyle(appWindow).width)}px`;
-            } else if(dir == 'left') {appWindow.style.left = '-1px'}
+                appWindow.classList.add('halfscreenRight');
+            } else if(dir == 'left') {
+                appWindow.style.left = '-1px'; 
+                appWindow.classList.add('halfscreenLeft');
+            }
+            console.log(parseFloat(getComputedStyle(appWindow).width))
             appWindow.style.borderRadius = '0';
-            appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2;
+            appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2 + 'px';
             appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
             appWindow.classList.add('fullscreen');
             appWindow.style.transition = 'all 0s';
@@ -420,7 +431,15 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         })
     
         window.addEventListener('resize', () => {
-            if(appWindow.classList.contains('fullscreen')) {
+            if(appWindow.classList.contains('halfscreenRight')) {
+                appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2;
+                appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
+                appWindow.style.left = `${parseFloat(getComputedStyle(appWindow).width)}px`;
+            } else if(appWindow.classList.contains('halfscreenLeft')) {
+                appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2;
+                appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
+                appWindow.style.left = '0';
+            } else if(appWindow.classList.contains('fullscreen')) {
                 appWindow.style.width = getComputedStyle(screen).width;
                 appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
             }
