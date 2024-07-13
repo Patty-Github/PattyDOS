@@ -403,13 +403,12 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             appWindow.style.transition = 'all 0.1s ease';
             appWindow.style.top = '-1px';
             if(dir == 'right') {
-                appWindow.style.left = `${parseFloat(getComputedStyle(appWindow).width)}px`;
+                appWindow.style.left = `${parseFloat(getComputedStyle(screen).width) / 2}px`;
                 appWindow.classList.add('halfscreenRight');
             } else if(dir == 'left') {
                 appWindow.style.left = '-1px'; 
                 appWindow.classList.add('halfscreenLeft');
             }
-            console.log(parseFloat(getComputedStyle(appWindow).width))
             appWindow.style.borderRadius = '0';
             appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2 + 'px';
             appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
@@ -432,9 +431,9 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     
         window.addEventListener('resize', () => {
             if(appWindow.classList.contains('halfscreenRight')) {
-                appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2;
+                appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2 + 'px';
                 appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
-                appWindow.style.left = `${parseFloat(getComputedStyle(appWindow).width)}px`;
+                appWindow.style.left = `${parseFloat(getComputedStyle(screen).width) / 2}px`;
             } else if(appWindow.classList.contains('halfscreenLeft')) {
                 appWindow.style.width = parseFloat(getComputedStyle(screen).width) / 2;
                 appWindow.style.height = parseFloat(getComputedStyle(screen).height) - 48 + 'px';
