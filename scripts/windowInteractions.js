@@ -473,27 +473,26 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
                         fullscreenPlaceolder.style.left = `0`;
                         fullscreenPlaceolder.style.top = `${(parseFloat(getComputedStyle(homePage).height) / 2) + 'px'}`;
                     }
+
+                    screen.appendChild(fullscreenPlaceolder);
                     
-                    setTimeout(() => {
 
-                        if(mouseY <= 0) {
-                            fullscreenPlaceolder.style.width = `${parseFloat(getComputedStyle(homePage).width) - 30 + 'px'}`;
-                            fullscreenPlaceolder.style.left = '0';
-                        } else if(mouseY > 0 && mouseX >= screen.getBoundingClientRect().right - 1) {
-                            fullscreenPlaceolder.style.width = `${(parseFloat(getComputedStyle(homePage).width) / 2) - 15 + 'px'}`;
-                            fullscreenPlaceolder.style.right = '0';
-                        } else if(mouseY > 0 && mouseX <= screen.getBoundingClientRect().left) {
-                            fullscreenPlaceolder.style.width = `${(parseFloat(getComputedStyle(homePage).width) / 2) - 15 + 'px'}`;
-                            fullscreenPlaceolder.style.left = '0';
-                        }
+                    if(mouseY <= 0) {
+                        fullscreenPlaceolder.style.width = `${parseFloat(getComputedStyle(homePage).width) - 30 + 'px'}`;
+                        fullscreenPlaceolder.style.left = '0';
+                    } else if(mouseY > 0 && mouseX >= screen.getBoundingClientRect().right - 1) {
+                        fullscreenPlaceolder.style.width = `${(parseFloat(getComputedStyle(homePage).width) / 2) - 15 + 'px'}`;
+                        fullscreenPlaceolder.style.right = '0';
+                    } else if(mouseY > 0 && mouseX <= screen.getBoundingClientRect().left) {
+                        fullscreenPlaceolder.style.width = `${(parseFloat(getComputedStyle(homePage).width) / 2) - 15 + 'px'}`;
+                        fullscreenPlaceolder.style.left = '0';
+                    }
 
-                        fullscreenPlaceolder.style.height = `${parseFloat(getComputedStyle(homePage).height) - 30 + 'px'}`;
-                        fullscreenPlaceolder.style.top = '0';
+                    fullscreenPlaceolder.style.height = `${parseFloat(getComputedStyle(homePage).height) - 30 + 'px'}`;
+                    fullscreenPlaceolder.style.top = '0';
 
-                    }, 1)
 
     
-                    screen.appendChild(fullscreenPlaceolder);
                 }
             } else {
                 if(document.getElementById('fullscreenPlaceholder')) screen.removeChild(document.getElementById('fullscreenPlaceholder'));

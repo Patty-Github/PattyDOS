@@ -58,10 +58,17 @@ function showStartMenu() {
         
                     screen.appendChild(contextMenu);
                     const contextMenuHeight = parseFloat(getComputedStyle(contextMenu).height);
-    
+                    
                     contextMenu.style.top = taskbarApp.getBoundingClientRect().top - contextMenuHeight - 10 + 'px';
                     contextMenu.style.left = taskbarApp.getBoundingClientRect().left + (parseFloat(getComputedStyle(taskbarApp).width) / 2) - (parseFloat(getComputedStyle(contextMenu).width) / 2) - screen.getBoundingClientRect().left + 'px';
-        
+                    
+                    const contextMenuX = parseFloat(getComputedStyle(contextMenu).left);
+
+                    if(contextMenuX < 0) {
+                        contextMenu.style.left = '0'
+                    }
+
+
                     function unpinApp() {
                         getComputedStyle(taskbarApp).display != 'none' ? taskbarApp.style.display = 'none' : taskbarApp.style.display = 'flex';
                         taskbarAppsDiv.style.transition =  'all 0.75s ease';

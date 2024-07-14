@@ -294,6 +294,7 @@ img {
     min-width: 200px;
     height: max-content;
     width: max-content;
+    margin: 0 10px;
     border-radius: 4px;
     background-color: rgb(26, 26, 26);
 }
