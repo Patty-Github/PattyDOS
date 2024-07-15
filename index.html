@@ -6,6 +6,7 @@
     <title>PattyDOS</title>
     <link rel="stylesheet" href="/PattyDOS/styles.css">
     <link rel="stylesheet" href="/PattyDOS/apps/settings/settings.css">
+    <link rel="stylesheet" href="/PattyDOS/apps/notepad/notepad.css">
 </head>
 <body>
     <div id="screen">
@@ -125,6 +126,31 @@
             </div>
         </div>
 
+        <!-- Notepad App -->
+        <div class="appWindow closed" id="notepadApp" style="display: none;">
+            <div class="topLeftResizeHandle" id="notepadTopLeftResizeHandle"></div>
+            <div class="topRightResizeHandle" id="notepadTopRightResizeHandle"></div>
+            <div class="bottomRightResizeHandle" id="notepadBottomRightResizeHandle"></div>
+            <div class="bottomLeftResizeHandle" id="notepadBottomLeftResizeHandle"></div>
+            <div class="topResizeHandle" id="topResizerNotepad"></div>
+            <div class="rightResizeHandle" id="rightResizerNotepad"></div>
+            <div class="bottomResizeHandle" id="bottomResizerNotepad"></div>
+            <div class="leftResizeHandle" id="leftResizerNotepad"></div>
+            
+            <div class="frame" id="notepadFrame">
+                <p>Notepad</p>
+                <div class="frameBtns">
+                    <button class="frameBtn minimizeBtn" id="minimizeNotepad"><img class="frameBtnImage" src="/PattyDOS/apps/images/minimize.png" draggable="false"></button>
+                    <button class="frameBtn fullscreenBtn" id="notepadFullscreenBtn"><img class="frameBtnImage" id="notepadFullscreenBtnImg" src="/PattyDOS/apps/images/fullscreen.png" draggable="false"></button>
+                    <button class="frameBtn closeBtn" id="closeNotepadBtn"><img class="frameBtnImage" src="/PattyDOS/apps/images/close.png" draggable="false"></button>
+                </div>
+            </div>
+
+            <div class="appUI" id="notepadAppUI">
+                <textarea id="notepadText">erm</textarea>
+            </div>
+        </div>
+
         <!-- Home Page -->
         <div id="homePage" draggable="false">
             <div class="desktopIcon full" id="settingsIcon" tabindex="0" draggable="false">
@@ -135,6 +161,11 @@
             <div class="desktopIcon full" tabindex="0" draggable="false">
                 <img class="desktopIconImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png" draggable="false">
                 <p class="desktopIconTitle">App Store</p>
+            </div>
+
+            <div class="desktopIcon full" id="notepadIcon" tabindex="0" draggable="false">
+                <img class="desktopIconImage" src="/PattyDOS/apps/notepad/images/notepad-image.png" draggable="false">
+                <p class="desktopIconTitle">Notepad</p>
             </div>
 
             <div class="iconDotsContainer">
@@ -472,6 +503,7 @@
                 <div class="taskbarApp" id="pattyDOSTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/pictures/taskbar/posNew.png"></img></div>
                 <div class="taskbarApp" id="settingsTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/settings-image.png"><div id="settingsAppState" class="appState"><!--The bar below icon--></div></img></div>
                 <div class="taskbarApp" id="appStoreTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/settings/settings-icon-image/app-store-image.png"><div class="appState"></div></img></div>
+                <div class="taskbarApp" id="notepadTaskbarApp"><img class="taskbarAppImage" src="/PattyDOS/apps/notepad/images/notepad-image.png"><div id="notepadAppState" class="appState"></div></img></div>
             </div>
             <div id="taskbarIcons">
                 <div id="taskbarAudio">
@@ -494,6 +526,7 @@
     <script type="module" src="/PattyDOS/scripts/taskbar.js"></script>
     <script type="module" src="/PattyDOS/scripts/startMenu.js"></script>
     <script type="module" src="/PattyDOS/apps/settings/settings.js"></script>
+    <script type="module" src="/PattyDOS/apps/notepad/notepad.js"></script>
     <!--
     Notes
 

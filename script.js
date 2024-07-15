@@ -356,6 +356,3 @@ function setDateAndTime() {
 }
 setDateAndTime();
 setInterval(setDateAndTime, 1000);
-
-// To Do
-// create right-click menu on taskbarApps and desktopIcons
