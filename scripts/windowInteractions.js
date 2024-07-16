@@ -501,7 +501,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     }
     fullscreenWindow();
 
-    //MinimizeWindow
+    // Minimize Window
     function minimizeWindow() {
         //console.log('minimizeWindow()')
 
@@ -523,5 +523,14 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
 
     }
     minimizeBtn.addEventListener('click', () => minimizeWindow());
+
+    // Set Window Z-Index
+    document.addEventListener('mousedown', (event) => {
+        if(event.target.closest(`#${appWindow.getAttribute('id')}`) || event.target.closest(`#${taskbarApp.getAttribute('id')}`)) {
+            appWindow.style.zIndex = '2';
+        } else if(event.target.closest('*[id*="App"]')) {
+            appWindow.style.zIndex = '1';
+        }
+    })
 
 }

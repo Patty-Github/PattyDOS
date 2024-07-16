@@ -86,9 +86,11 @@ function showStartMenu() {
     const screen = document.getElementById('screen');
     const settingsTaskbarApp = document.getElementById('settingsTaskbarApp');
     const appStoreTaskbarApp = document.getElementById('appStoreTaskbarApp');
+    const notepadTaskbarApp = document.getElementById('notepadTaskbarApp');
 
     screen.addEventListener('click', (event) => { 
         setFocus(event, '#settingsApp', '#settingsTaskbarApp', settingsTaskbarApp, 'windowFocused');
         setFocus(event, 'temp', '#appStoreTaskbarApp', appStoreTaskbarApp, 'windowFocused');
+        setFocus(event, '#notepadApp', '#notepadTaskbarApp', notepadTaskbarApp, 'windowFocused');
     })
 })();

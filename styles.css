@@ -439,6 +439,9 @@ img {
 .appWindow::-webkit-scrollbar {
     width: 0;
 }
+.appWindow.fullscreen {
+    box-shadow: none;
+}
 
 .topResizeHandle, .rightResizeHandle, .bottomResizeHandle, .leftResizeHandle {
     z-index: 1;
