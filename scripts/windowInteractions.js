@@ -519,7 +519,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         appWindow.style.height = '0';
         setTimeout(() => {appWindow.style.transition = 'all 0s'; taskbarApp.classList.remove('windowFocused');}, 20);
         appWindow.classList.add('minimized');
-        setTimeout(() => {appWindow.style.display = 'none'; appWindow.style.overflow = 'auto';}, 200);
+        setTimeout(() => {appWindow.style.display = 'none';}, 200);
 
     }
     minimizeBtn.addEventListener('click', () => minimizeWindow());

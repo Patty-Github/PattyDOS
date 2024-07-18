@@ -10,7 +10,7 @@ function createNewContextMenu() {
         event.preventDefault();
         newContextMenu.innerHTML = ''
 
-        if(!event.target.classList.contains('desktopIcon') && event.target.getAttribute('id').includes('homePage')) {
+        if(!event.target.classList.contains('desktopIcon') && (event.target.getAttribute('id') != null && event.target.getAttribute('id').includes('homePage'))) {
             const mouseX = event.clientX;
             const mouseY = event.clientY;
 
