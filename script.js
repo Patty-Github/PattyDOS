@@ -246,8 +246,6 @@ function moveDesktopIcons() {
                     if(index2 != index) {
                         if(Math.round(((parseFloat(getComputedStyle(desktopIcon2).left)) + parseFloat(getComputedStyle(screen).left))) == Math.round(closestDotX) && Math.round((parseFloat(getComputedStyle(desktopIcon2).top))) ==  Math.round(closestDotY)) {
                             spaceTaken = true;
-                        } else {
-                            spaceTaken = false;
                         }
                     }
                 })
