@@ -1,5 +1,26 @@
 console.log('script.js working')
 
+// Lock Screen 
+function lockScreen() {
+    const lockScreen = document.getElementById('lockScreen');
+    const lockScreenPassword = document.getElementById('lockScreenPassword');
+
+    lockScreenPassword.addEventListener('input', (event) => {
+        const v = event.data;
+        let password = lockScreenPassword.value;
+        if(/[0-9]/i.test(event.data) == false) {
+            if((v == null || v == undefined) && event.inputType != 'deleteContentBackward') {
+                lockScreenPassword.value = '';
+            } else {
+                lockScreenPassword.value = password.replaceAll(`${v}`, '')
+            }
+        } else if(password.length >= 4) {
+            lockScreen.remove();
+        }
+    })
+}
+lockScreen();
+
 // Context Menu
 function createNewContextMenu() {
     const screen = document.getElementById('screen');

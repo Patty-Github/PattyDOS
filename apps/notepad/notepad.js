@@ -31,7 +31,7 @@ import { windowInteractions } from "../../scripts/windowInteractions.js";
     const menuBarFile = document.getElementById('notepadMenuBarFile')
     const menuBarEdit = document.getElementById('notepadMenuBarEdit')
 
-    window.addEventListener('click', (event) => {
+    window.addEventListener('mousedown', (event) => {
 
         if(event.target.getAttribute('id') == 'notepadMenuBarFile') {
             if(document.querySelector('.menuBarOptionOptions') != null) {
@@ -64,13 +64,12 @@ import { windowInteractions } from "../../scripts/windowInteractions.js";
             const fileOptionFontAdd = document.createElement('p');
             fileOptionFontAdd.textContent = 'Font +';
             fileOptionFontAdd.setAttribute('class', 'menuBarOptionOptionsOption') // Wicked class name
-            fileOptionFontAdd.style.zIndex = '10'
-            fileOptionFontAdd.addEventListener('click', () => notepadText.style.fontSize = parseFloat(getComputedStyle(notepadText).fontSize) + 1 + 'px')
+            fileOptionFontAdd.addEventListener('mousedown', () => notepadText.style.fontSize = parseFloat(getComputedStyle(notepadText).fontSize) + 1 + 'px')
     
             const fileOptionFontRem = document.createElement('p');
             fileOptionFontRem.textContent = 'Font -';
             fileOptionFontRem.setAttribute('class', 'menuBarOptionOptionsOption')
-            fileOptionFontRem.addEventListener('click', () => notepadText.style.fontSize = parseFloat(getComputedStyle(notepadText).fontSize) - 1 + 'px')
+            fileOptionFontRem.addEventListener('mousedown', () => notepadText.style.fontSize = parseFloat(getComputedStyle(notepadText).fontSize) - 1 + 'px')
     
             fileOptions.appendChild(fileOptionFontAdd);
             fileOptions.appendChild(fileOptionFontRem);
