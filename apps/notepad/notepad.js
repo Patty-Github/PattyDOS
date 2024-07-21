@@ -23,10 +23,24 @@ import { windowInteractions } from "../../scripts/windowInteractions.js";
     windowInteractions(notepadWindow, notepadFrame, closeNotepadBtn, notepadFullscreenBtn, minimizeNotepadBtn, notepadIcon, notepadTaskbarApp, notepadAppState, notepadResizers);
 })();
 
+// Load Notepad Text 
+(() => {
+    const notepad = document.getElementById('notepadText');
+    const notepadTextContent = localStorage.getItem('notepadTextContent');
+    if(notepadTextContent) {
+        notepad.value = notepadTextContent;
+    }
+})();
+
+function saveNotepadText(text) {
+    localStorage.setItem('notepadTextContent', text)
+}
+
 // Menu Bar
 (function notepadMenuBar() {
     const screen = document.getElementById('screen')
     const notepadWindow = document.getElementById('notepadApp');
+    const notepad = document.getElementById('notepadText');
     const menuBar = document.getElementById('notepadMenuBar')
     const menuBarFile = document.getElementById('notepadMenuBarFile')
     const menuBarEdit = document.getElementById('notepadMenuBarEdit')
@@ -48,6 +62,8 @@ import { windowInteractions } from "../../scripts/windowInteractions.js";
             fileOptions.appendChild(fileOptionSave);
     
             notepadWindow.appendChild(fileOptions);
+
+            fileOptionSave.addEventListener('mousedown', () => {saveNotepadText(notepad.value)})
         } else if(event.target.getAttribute('id') == 'notepadMenuBarEdit') {
             if(document.querySelector('.menuBarOptionOptions') != null) {
                 document.querySelector('.menuBarOptionOptions').remove();
