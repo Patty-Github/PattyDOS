@@ -4,6 +4,7 @@ console.log('script.js working')
 function lockScreen() {
     const lockScreen = document.getElementById('lockScreen');
     const lockScreenPassword = document.getElementById('lockScreenPassword');
+    const lockscreenTime = document.getElementById('lockScreenTime');
 
     lockScreenPassword.addEventListener('input', (event) => {
         const v = event.data;
@@ -15,9 +16,19 @@ function lockScreen() {
                 lockScreenPassword.value = password.replaceAll(`${v}`, '')
             }
         } else if(password.length >= 4) {
-            lockScreen.remove();
+            lockScreenPassword.readOnly = true;
+            setTimeout(() => {
+                lockScreen.style.transition = '500ms';
+                lockScreen.style.opacity = 0;
+                setTimeout(() => {
+                    lockScreen.remove();
+                }, 500)
+            }, 1000)
         }
     })
+
+    getTime(lockscreenTime, false, false, true, false)
+    setInterval(() => {getTime(lockscreenTime, false, false, true, false)}, 1000)
 }
 lockScreen();
 
@@ -312,66 +323,83 @@ function moveDesktopIcons() {
 }
 moveDesktopIcons();
 
-function setDateAndTime() {
+function getTime(timeText, includeS, includeMS, convert24, showAmPm) {
     const date = new Date();
-    const timeText = document.getElementById('taskbarTimeText');
-    const dateText = document.getElementById('taskbarDateText');
     let stringAmPm = '';
 
     let h = date.getHours();
     let m = date.getMinutes();
-    let s = date.getSeconds();
 
     h > 12 ? stringAmPm = 'pm' : stringAmPm = 'am';
     m < 10 ? m = '0' + m : m = m;
-    s < 10 ? s = '0' + s : s = s;
 
-    switch(h) {
-        case 13: 
-            h = 1;
-            break;
-        case 14: 
-            h = 2;
-            break;
-        case 15: 
-            h = 3;
-            break;
-        case 16:
-            h = 4;
-            break;
-        case 17: 
-            h = 5;
-            break;
-        case 18:
-            h = 6;
-            break;
-        case 19:
-            h = 7;
-            break;
-        case 20:
-            h = 8;
-            break;
-        case 21:
-            h = 9;
-            break;
-        case 22:
-            h = 10;
-            break;
-        case 23:
-            h = 11;
-            break;
-        case 24:
-            h = 12;
-            break;
+    if(convert24 == true) {
+        switch(h) {
+            case 13: 
+                h = 1;
+                break;
+            case 14: 
+                h = 2;
+                break;
+            case 15: 
+                h = 3;
+                break;
+            case 16:
+                h = 4;
+                break;
+            case 17: 
+                h = 5;
+                break;
+            case 18:
+                h = 6;
+                break;
+            case 19:
+                h = 7;
+                break;
+            case 20:
+                h = 8;
+                break;
+            case 21:
+                h = 9;
+                break;
+            case 22:
+                h = 10;
+                break;
+            case 23:
+                h = 11;
+                break;
+            case 24:
+                h = 12;
+                break;
+        }
     }
 
-    timeText.innerText = `${h}:${m}:${s}${stringAmPm}`;
+    timeText.innerText = `${h}:${m}`
+
+    if(includeS == true) {let s = date.getSeconds(); s < 10 ? s = '0' + s : s = s; timeText.innerText += `:${s}`}
+
+    if(includeMS == true) {let ms = date.getMilliseconds(); timeText.innerText += `:${ms}`}
+
+    if(showAmPm == true) {timeText.innerText += stringAmPm}
+}
+
+(() => {
+    const timeText = document.getElementById('taskbarTimeText');
+    getTime(timeText, true, false, true, true)
+    setInterval(() => getTime(timeText, true, false, true, true), 1000)
+})();
+
+function getDate() {
+    const date = new Date();
+    const dateText = document.getElementById('taskbarDateText');
 
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
+    month < 10 ? month = '0' + month : month = month;
+
     dateText.innerText = `${day}/${month}/${year}`
 }
-setDateAndTime();
-setInterval(setDateAndTime, 1000);
+getDate();
+setInterval(getDate, 1000);
