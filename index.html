@@ -35,6 +35,11 @@
                 <div class="lockScreenProfilePicture"><img src="./pictures/taskbar/profile.png"></div>
                 <input id="lockScreenPassword" type="password">
             </div>
+            <div class="fakeLoadingBarLockScreen">
+                <div id="lockScreenFakeLoadingTrack"></div>
+                <div id="lockScreenFakeLoadingProgress"></div>
+                <p style="position: absolute; color: white; font-size: 1.3vw;">Fake Load...</p>
+            </div>
         </div>
 
         <!-- Settings App -->
@@ -121,14 +126,21 @@
                             <p class="systemInfoText" id="userScreenSize">Screen Resolution Not Detected.</p>
                         </div>
                         <div class="systemOptions">
+
                             <div id="localStorageSettings" style="display: flex; align-items: center;">
                                 <button class="settingsSystemBtn" id="clearLocalStorageBtn">Clear Local Storage</button>
                             </div>
+
                             <div class="systemAspectRatios">
                                 <p style="margin: 0 5px 0 0;">Aspect Ratio (does nothing)</p>
                                 <div class="squareRadio aspectRatioOption selected"><div class="squareRadioCheckbox aspectRatioCheckbox selected"></div><div class="squareRadioText">16:9</div></div>
                                 <div class="squareRadio aspectRatioOption"><div class="squareRadioCheckbox aspectRatioCheckbox"></div><div class="squareRadioText">4:3</div></div>
                                 <div class="squareRadio aspectRatioOption"><div class="squareRadioCheckbox aspectRatioCheckbox"></div><div class="squareRadioText">1:1</div></div>
+                            </div>
+
+                            <div style="display: flex; align-items: center;">
+                                <p>Show Lock Screen On Page Load</p>
+                                <input type="checkbox" class="lockScreenCheckBox" id="showLockScreenCheckBox">
                             </div>
                         </div>
                     </div>

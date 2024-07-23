@@ -6,6 +6,9 @@ function lockScreen() {
     const lockScreenPassword = document.getElementById('lockScreenPassword');
     const lockscreenTime = document.getElementById('lockScreenTime');
 
+    const loadingBar = document.querySelector('.fakeLoadingBarLockScreen');
+    const loadingProgress = document.getElementById('lockScreenFakeLoadingProgress');
+
     lockScreenPassword.addEventListener('input', (event) => {
         const v = event.data;
         let password = lockScreenPassword.value;
@@ -17,9 +20,19 @@ function lockScreen() {
             }
         } else if(password.length >= 4) {
             lockScreenPassword.readOnly = true;
+
+            loadingBar.style.opacity = '1';
+            setTimeout(() => loadingProgress.style.width = '10%', 100);
+            setTimeout(() => loadingProgress.style.width = '25%', 250);
+            setTimeout(() => loadingProgress.style.width = '30%', 400);
+            setTimeout(() => loadingProgress.style.width = '45%', 600);
+            setTimeout(() => loadingProgress.style.width = '80%', 800);
+            setTimeout(() => loadingProgress.style.width = '100%', 950);
+
             setTimeout(() => {
                 lockScreen.style.transition = '500ms';
                 lockScreen.style.opacity = 0;
+
                 setTimeout(() => {
                     lockScreen.remove();
                 }, 500)

@@ -301,8 +301,8 @@ systemColor();
     //}
 })();
 
-(() => {
-    // Aspect Ratio Selection 
+// Aspect Ratio Selection
+(() => { 
     const options = document.querySelectorAll('.aspectRatioOption');
     const checkboxes = document.querySelectorAll('.aspectRatioCheckbox');
     options.forEach((option, index) => {
@@ -317,6 +317,30 @@ systemColor();
             checkboxes[index].classList.add('selected');
             option.classList.add('selected');
         })
+    })
+})();
+
+// Lock Screen
+(() => {
+    const lockScreenCheckBox = document.getElementById('showLockScreenCheckBox');
+
+    const savedBool = localStorage.getItem('showLockScreen');
+
+    function setLockScreenSetting() {
+        if(lockScreenCheckBox.checked) {
+            localStorage.setItem('showLockScreen', 'true')
+        } else {
+            localStorage.setItem('showLockScreen', 'false')
+        }
+    } 
+    if(savedBool == 'false') {
+        document.getElementById('lockScreen').remove();
+        lockScreenCheckBox.checked = false;
+    } else {
+        lockScreenCheckBox.checked = true;
+    }
+    lockScreenCheckBox.addEventListener('change', () => {
+        setLockScreenSetting();
     })
 })();
 
