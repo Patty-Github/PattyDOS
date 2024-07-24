@@ -396,6 +396,7 @@ function getTime(timeText, includeS, includeMS, convert24, showAmPm) {
     if(showAmPm == true) {timeText.innerText += stringAmPm}
 }
 
+// Set Taskbar Time
 (() => {
     const timeText = document.getElementById('taskbarTimeText');
     getTime(timeText, true, false, true, true)

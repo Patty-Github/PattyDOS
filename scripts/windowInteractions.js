@@ -511,15 +511,19 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         windowHeight = parseFloat(getComputedStyle(appWindow).height);
         windowY = parseFloat(getComputedStyle(appWindow).top);
         windowX = parseFloat(getComputedStyle(appWindow).left);
+
+        appWindow.style.minWidth = '0';
+        appWindow.style.minHeight = '0';
         appWindow.style.transition = 'all 0.2s ease';
         appWindow.style.overflow = 'hidden';
         appWindow.style.top =  parseFloat(getComputedStyle(screen).height) - 48 + 'px';
         appWindow.style.left = taskbarAppRect.left -  parseFloat(getComputedStyle(screen).left) + (parseFloat(getComputedStyle(taskbarApp).width) / 2) + 'px';
         appWindow.style.width = '0';
         appWindow.style.height = '0';
+
         setTimeout(() => {appWindow.style.transition = 'all 0s'; taskbarApp.classList.remove('windowFocused');}, 20);
         appWindow.classList.add('minimized');
-        setTimeout(() => {appWindow.style.display = 'none';}, 200);
+        setTimeout(() => {appWindow.style.display = 'none'; appWindow.style.minWidth = '200px'; appWindow.style.minHeight = '32px'}, 200);
 
     }
     minimizeBtn.addEventListener('click', () => minimizeWindow());

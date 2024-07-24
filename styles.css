@@ -75,7 +75,7 @@ img {
     align-items: center;
     backdrop-filter: blur(128px);
     -webkit-backdrop-filter: blur(128px);
-    /* background-color: rgb(255, 255, 255, 0.1); */
+    opacity: 0;
 }
 #lockScreenTime {
     position: absolute;

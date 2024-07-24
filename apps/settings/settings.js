@@ -326,6 +326,8 @@ systemColor();
 
     const savedBool = localStorage.getItem('showLockScreen');
 
+    const lockScreen = document.getElementById('lockScreen');
+
     function setLockScreenSetting() {
         if(lockScreenCheckBox.checked) {
             localStorage.setItem('showLockScreen', 'true')
@@ -334,9 +336,10 @@ systemColor();
         }
     } 
     if(savedBool == 'false') {
-        document.getElementById('lockScreen').remove();
+        lockScreen.remove();
         lockScreenCheckBox.checked = false;
     } else {
+        lockScreen.style.opacity = '1';
         lockScreenCheckBox.checked = true;
     }
     lockScreenCheckBox.addEventListener('change', () => {
