@@ -14,6 +14,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
     let windowWidth;
     let windowHeight;
     let onFrameBtn = false;
+    let grabbingWindow = false;
 
     const timeToWait = 200;
     let timeWaited = 1000;
@@ -121,7 +122,6 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         let savedWindowY;
         let savedWindowWidth;
         let savedWindowHeight;
-        let grabbingWindow = false;
     
         frame.addEventListener('mousedown', () => {
             if(onFrameBtn == false) {
@@ -136,7 +136,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
                 savedWindowHeight = parseFloat(getComputedStyle(appWindow).height);
             }
         })
-        window.addEventListener('mouseup', () => {grabbingWindow = false;})
+        document.addEventListener('mouseup', () => {grabbingWindow = false;})
     
         screen.addEventListener('mousemove', (event) => {
             if(grabbingWindow === true && onFrameBtn === false) {
@@ -328,9 +328,7 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         let savedWindowHeight;
         let savedWindowX;
         let savedWindowY;
-    
-        let grabbingWindow;
-    
+        
         fullscreenBtn.addEventListener('click', () => {
             if(appWindow.classList.contains('fullscreen')) {
                 unFullscreenOnClick();
@@ -339,11 +337,26 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             }
         })
 
-        frame.addEventListener('dblclick', () => {
-            if(!appWindow.classList.contains('fullscreen')) {
-                fullScreen();
-            }
-        })
+        function fullScreenDblClick() {
+            // on mouse down, set click1's time to time.
+            // listen for another mousedown, if click2's time - click1's time < clickTime then fullscreen
+            const clickTime = 500;
+            let click1 = null;
+            let mouseUp = new MouseEvent('mouseup')
+            frame.addEventListener('mousedown', (event) => {
+                if(event.target.closest('.appWindow').classList.contains('fullscreen') == false) {
+                    if(new Date().getTime() - click1 < clickTime) {
+                        dispatchEvent(mouseUp);
+                        grabbingWindow = false;
+                        setTimeout(() => {fullScreen()}, 1);
+                    } else {
+                        click1 = new Date().getTime();
+                    }
+                }
+            })
+        }
+        fullScreenDblClick()
+        window.addEventListener('mouseup', () => {console.log('mouseup')})
 
         function fullScreen() {
             savedWindowWidth = getComputedStyle(appWindow).width;
@@ -416,12 +429,6 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
             appWindow.style.transition = 'all 0s';
             fullscreenBtnImg.src = "/PattyDOS/apps/images/fullscreen-exit.png";
         }
-    
-        frame.addEventListener('mousedown', () => {
-            if(onFrameBtn) return;
-            grabbingWindow = true
-        })
-        document.addEventListener('mouseup', () => grabbingWindow = false)
     
         document.addEventListener('mousemove', (event) => {
             if(grabbingWindow && appWindow.classList.contains('fullscreen')) {
