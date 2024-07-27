@@ -126,14 +126,14 @@ export function windowInteractions(appWindow, frame, closeBtn, fullscreenBtn, mi
         frame.addEventListener('mousedown', () => {
             if(onFrameBtn == false) {
                 grabbingWindow = true; 
-            }
-            savedMouseY = mouseY; 
-            savedMouseX = mouseX;
-            if(!appWindow.classList.contains('fullscreen')) {
-                savedWindowX = parseFloat(getComputedStyle(appWindow).left);
-                savedWindowY = parseFloat(getComputedStyle(appWindow).top);
-                savedWindowWidth = parseFloat(getComputedStyle(appWindow).width);
-                savedWindowHeight = parseFloat(getComputedStyle(appWindow).height);
+                savedMouseY = mouseY; 
+                savedMouseX = mouseX;
+                if(!appWindow.classList.contains('fullscreen')) {
+                    savedWindowX = parseFloat(getComputedStyle(appWindow).left);
+                    savedWindowY = parseFloat(getComputedStyle(appWindow).top);
+                    savedWindowWidth = parseFloat(getComputedStyle(appWindow).width);
+                    savedWindowHeight = parseFloat(getComputedStyle(appWindow).height);
+                }
             }
         })
         document.addEventListener('mouseup', () => {grabbingWindow = false;})

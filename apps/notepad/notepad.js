@@ -73,7 +73,7 @@ function saveNotepadText(text) {
 
             const fileOptions = document.createElement('div');
             fileOptions.setAttribute('class', 'menuBarOptionOptions')
-            fileOptions.style.left = menuBarEdit.getBoundingClientRect().left + 'px';
+            fileOptions.style.left = menuBarEdit.getBoundingClientRect().left - parseFloat(getComputedStyle(screen).left) + 'px';
             fileOptions.style.top = menuBarEdit.getBoundingClientRect().top + parseFloat(getComputedStyle(menuBar).height) + 'px';
             fileOptions.style.zIndex = getComputedStyle(notepadWindow).zIndex;
     
